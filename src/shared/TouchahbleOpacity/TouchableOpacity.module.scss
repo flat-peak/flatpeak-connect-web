@@ -1,0 +1,17 @@
+.host {
+  position: relative;
+  cursor: pointer;
+  border: none;
+  background: none;
+  user-select: none;
+
+  transition-duration: 0.25s;
+  transition-property: opacity;
+  transition-timing-function: ease-in;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  &:active {
+    opacity: 0.2;
+    transition-duration: 0.2s;
+  }
+}

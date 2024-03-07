@@ -1,0 +1,30 @@
+.host {
+  width: 100%;
+  min-height: 17.5%;
+  row-gap: 8px;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  position: absolute;
+  //bottom: var(--viewport-inset-bottom, 0);
+  left: 0;
+  padding: 0 24px;
+  bottom: 0;
+}
+
+
+.variant-secondary {
+    display: flex;
+    align-items: center;
+  flex-direction: row;
+  &> * {
+    flex: 1;
+  }
+  min-height: 100px;
+  padding: 16px 24px 36px;
+  border-top: 1px solid var(--color-border-black_a08);
+}
+
+.filled {
+  background: var(--color-fill-white);
+}

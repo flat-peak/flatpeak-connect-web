@@ -1,0 +1,46 @@
+.host {
+  background-color: var(--color-fill-white);
+  --viewport-height:  100dvh;
+  height: var(--viewport-height, 100%);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  --extra-top-offset: 0;
+
+  transition: background-color 0.2s ease-in;
+
+  @media screen and (min-height: 668px){
+    //padding-top: 44px - 10px;
+  }
+
+  @media screen and (min-height: 934px) {
+    --viewport-height: min(934px, 100dvh);
+  }
+
+  @media screen and (min-width: 442px) {
+    margin: 0 auto;
+    max-width: 440px;
+  }
+
+  @media screen and (min-width: 500px) and (min-height: 820px) {
+    --extra-top-offset: 24px;
+  }
+  @media screen and (min-width: 442px) and (min-height: 934px) {
+    border: 1px solid var(--color-border-black_a13);
+    border-radius: 16px;
+  }
+}
+.theme-light {
+  background-color: var(--color-fill-white);
+}
+.theme-failure {
+  background-color: #FC7B83;
+  --color-typography-black: #ffffff;
+  --color-icon-primary100: #FA4D56;
+}
+.wrapper {
+  height: var(--viewport-height, 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}

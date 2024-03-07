@@ -1,0 +1,183 @@
+@font-face {
+  font-family: RegolaPro-Book;
+  font-weight: 300;
+  src: url("assets/fonts/RegolaProBook.otf") format("opentype");
+}
+@font-face {
+  font-family: RegolaPro-Regular;
+  font-weight: 400;
+  src: url("assets/fonts/RegolaProRegular.otf") format("opentype");
+}
+
+:root {
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
+
+    --color-typography-white: #ffffff;
+    --color-typography-black: #000000;
+    --color-typography-white_a20: #ffffff33;
+    --color-typography-blue_2: #0096f7;
+    --color-typography-yellow: #ffac45;
+    --color-typography-carnation: #fb646c;
+    --color-typography-mine-shaft_a50: #33333380;
+    --color-typography-primary100: #2b2b2b;
+    --color-typography-carnation-1: #fa4d56;
+    --color-typography-red: #ff5551;
+    --color-typography-black_a23: #0000003b;
+    --color-typography-black_a40: #00000066;
+    --color-typography-black_a53: #00000087;
+    --color-typography-black_a60: #00000099;
+    --color-fill-white: #ffffff;
+    --color-fill-background_light_gray: #f5f5f5;
+    --color-fill-concrete: #f3f3f3;
+    --color-fill-gallery: #ebebeb;
+    --color-fill-zumthor: #ecf4fe;
+    --color-fill-light_blue: #e4ebf6;
+    --color-fill-light_red: #fee8e9;
+    --color-fill-light_yellow: #ffeeda;
+    --color-fill-link-water: #dde1f6;
+    --color-fill-low_peak: #6fcf97;
+    /*--color-fill-azure-radiance_a10: #0096f71a;*/
+    --color-fill-azure-radiance_a10: #e6f5fe;
+    --color-fill-blue_2: #0096f7;
+    --color-fill-high_peak: #fa4d56;
+    --color-fill-red: #ff5551;
+    --color-fill-green: #91c208;
+    --color-fill-100: #000000;
+    --color-fill-black: #000000;
+    --color-fill-medium_peak: #7857ff;
+    --color-border-mercury: #e1e1e1;
+    --color-border-alto: #d0d0d0;
+    --color-border-azure-radiance: #0096f7;
+    --color-border-yellow-orange: #ffac45;
+    --color-border-black: #000000;
+    --color-border-black_a03: #00000008;
+    --color-border-black_a05: #0000000d;
+    --color-border-black_a08: #00000014;
+    --color-border-black_a13: #00000021;
+    --color-border-black_a23: #0000003b;
+    --color-border-black_a40: #00000066;
+    --color-border-black_a53: #00000087;
+    --color-border-black_a60: #00000099;
+
+    --color-icon-primary100: #2B2B2B;
+
+    --font-regolapro-book: RegolaPro-Book;
+    --font-regolapro-regular: RegolaPro-Regular;
+    /*--font-ftregolaneuetrial-regular: FTRegolaNeueTrial-Regular;*/
+    --font-ftregolaneuetrial-regular: RegolaPro-Regular;
+
+    --font-fontawesome6free-solid: FontAwesome6Free-Solid;
+    --font-inter: Inter;
+    --font-sfprodisplay-light: SFProDisplay-Light;
+    --font-sfprodisplay-medium: SFProDisplay-Medium;
+    --font-sfprodisplay-regular: SFProDisplay-Regular;
+    --font-sfprodisplay-semibold: SFProDisplay-Semibold;
+    --font-sfprotext-regular: SFProText-Regular;
+    --font-sfprotext-semibold: SFProText-Semibold;
+
+
+    --viewport-inset-top: 10px;
+    --viewport-inset-bottom: 32px;
+
+  @media screen and (min-height: 800px){
+    --viewport-inset-bottom: 48px;
+  }
+
+  @media screen and (min-height: 840px){
+    --viewport-inset-bottom: 64px;
+  }
+}
+
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background: whitesmoke;
+}
+
+
+body {
+  min-width: 320px;
+}
+
+#root {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*flex: 1;*/
+  height: 100dvh;
+  @media screen and (min-width: 442px) and (min-height: 938px) {
+    padding-top: 40px;
+  }
+}
+
+
+a {
+  font-weight: 500;
+  color: var(--color-typography-blue_2);
+  text-decoration: inherit;
+}
+/*a:hover {*/
+/*  color: #535bf2;*/
+/*}*/
+
+/*body {*/
+/*  margin: 0;*/
+/*  display: flex;*/
+/*  place-items: center;*/
+/*  min-width: 320px;*/
+/*  min-height: 100vh;*/
+/*}*/
+
+/*h1 {*/
+/*  font-size: 3.2em;*/
+/*  line-height: 1.1;*/
+/*}*/
+
+/*button {*/
+/*  border-radius: 8px;*/
+/*  border: 1px solid transparent;*/
+/*  padding: 0.6em 1.2em;*/
+/*  font-size: 1em;*/
+/*  font-weight: 500;*/
+/*  font-family: inherit;*/
+/*  background-color: #1a1a1a;*/
+/*  cursor: pointer;*/
+/*  transition: border-color 0.25s;*/
+/*}*/
+/*button:hover {*/
+/*  border-color: #646cff;*/
+/*}*/
+/*button:focus,*/
+/*button:focus-visible {*/
+/*  outline: 4px auto -webkit-focus-ring-color;*/
+/*}*/
+
+/*@media (prefers-color-scheme: light) {*/
+/*  :root {*/
+/*    color: #213547;*/
+/*    background-color: #ffffff;*/
+/*  }*/
+/*  a:hover {*/
+/*    color: #747bff;*/
+/*  }*/
+/*  button {*/
+/*    background-color: #f9f9f9;*/
+/*  }*/
+/*}*/

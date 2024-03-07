@@ -1,0 +1,20 @@
+.host {
+  background-color: var(--color-fill-background_light_gray);
+  border-radius: 12px;
+  padding: 16px 16px 16px 16px;
+}
+
+.label {
+  line-height: 16px;
+}
+
+.value {
+  width: 238px;
+  line-height: 24px;
+}
+
+.control {
+  flex: 0 0 auto;
+  height: 36px;
+  width: 36px;
+}

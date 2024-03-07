@@ -1,0 +1,303 @@
+.host {
+  display: inline-block;
+  text-align: left;
+}
+.align_center {
+  text-align: center;
+}
+.transform_uppercase {
+  text-transform: uppercase;
+}
+.decoration_underline {
+  text-decoration: underline;
+}
+.color_dynamic {
+  color: var(--color-typography-dynamic);
+}
+.variant_basic_string {
+  font-family: var(--font-regolapro-book);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 24px;
+
+}
+.variant_basic_text {
+  font-family: var(--font-regolapro-book);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 20px;
+
+}
+.variant_body {
+  font-family: var(--font-regolapro-book);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 16px;
+
+}
+.variant_button__forms12_book {
+  font-family: var(--font-regolapro-book);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 24px;
+
+}
+.variant_button__forms12_sup_regular {
+  font-family: var(--font-regolapro-regular);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.8px
+}
+.variant_button__forms14_book {
+  font-family: var(--font-regolapro-book);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 24px;
+
+}
+.variant_button__forms16_book {
+  font-family: var(--font-regolapro-book);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 16px;
+
+}
+.variant_button__forms16_book_kwh {
+  font-family: var(--font-regolapro-book);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 21px;
+
+}
+.variant_button__forms16_regular {
+  font-family: var(--font-regolapro-regular);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+
+}
+.variant_button__forms18_book {
+  font-family: var(--font-regolapro-book);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 20px;
+
+}
+.variant_button__forms20_regular {
+  font-family: var(--font-regolapro-regular);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+
+}
+.variant_button__forms24_book {
+  font-family: var(--font-regolapro-book);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 24px;
+
+}
+.variant_button__forms32_book {
+  font-family: var(--font-regolapro-book);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 48px;
+
+}
+.variant_fa6f_bold_20 {
+  font-family: var(--font-fontawesome6free-solid);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 32px;
+
+}
+.variant_frnt_regular_14 {
+  font-family: var(--font-ftregolaneuetrial-regular);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+
+}
+.variant_heading_h1_string {
+  font-family: var(--font-regolapro-book);
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 48px;
+  letter-spacing: -0.8px
+}
+.variant_heading_h2_text {
+  font-family: var(--font-regolapro-book);
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 24px;
+
+}
+.variant_i_regular_15 {
+  font-family: var(--font-inter);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+
+}
+.variant_leading_string {
+  font-family: var(--font-regolapro-book);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 24px;
+
+}
+.variant_rp_300_11 {
+  font-family: var(--font-regolapro-book);
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 12px;
+
+}
+.variant_rp_300_72 {
+  font-family: var(--font-regolapro-book);
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 72px;
+
+}
+.variant_rp_regular_10 {
+  font-family: var(--font-regolapro-regular);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.8px
+}
+.variant_rp_regular_14 {
+  font-family: var(--font-regolapro-regular);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+
+}
+.variant_rp_regular_16 {
+  font-family: var(--font-regolapro-regular);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 40px;
+
+}
+.variant_spd_300_12 {
+  font-family: var(--font-sfprodisplay-light);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 14.3203125px;
+
+}
+.variant_spd_300_32 {
+  font-family: var(--font-sfprodisplay-light);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 40px;
+
+}
+.variant_spd_medium_12 {
+  font-family: var(--font-sfprodisplay-medium);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+
+}
+.variant_spd_regular_12 {
+  font-family: var(--font-sfprodisplay-regular);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.3203125px;
+
+}
+.variant_spd_regular_18 {
+  font-family: var(--font-sfprodisplay-regular);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+
+}
+.variant_spd_regular_20 {
+  font-family: var(--font-sfprodisplay-regular);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+
+}
+.variant_spd_regular_80 {
+  font-family: var(--font-sfprodisplay-regular);
+  font-size: 80px;
+  font-weight: 400;
+  line-height: 95.46875px;
+
+}
+.variant_spd_semibold_9 {
+  font-family: var(--font-sfprodisplay-semibold);
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 16px;
+
+}
+.variant_spt_regular_16 {
+  font-family: var(--font-sfprotext-regular);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+
+}
+.variant_spt_regular_17 {
+  font-family: var(--font-sfprotext-regular);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 16px;
+
+}
+.variant_spt_semibold_14_75 {
+  font-family: var(--font-sfprotext-semibold);
+  font-size: 14.75px;
+  font-weight: 600;
+  line-height: 17.60205078125px;
+
+}
+.color_white {
+  color: var(--color-typography-white);
+}
+.color_white_a20 {
+  color: var(--color-typography-white_a20);
+}
+.color_blue_2 {
+  color: var(--color-typography-blue_2);
+}
+.color_yellow {
+  color: var(--color-typography-yellow);
+}
+.color_carnation {
+  color: var(--color-typography-carnation);
+}
+.color_mine-shaft_a50 {
+  color: var(--color-typography-mine-shaft_a50);
+}
+.color_primary {
+  color: var(--color-typography-primary);
+}
+.color_carnation-1 {
+  color: var(--color-typography-carnation-1);
+}
+.color_red {
+  color: var(--color-typography-red);
+}
+.color_black_a23 {
+  color: var(--color-typography-black_a23);
+}
+.color_black_a40 {
+  color: var(--color-typography-black_a40);
+}
+.color_black_a53 {
+  color: var(--color-typography-black_a53);
+}
+.color_black_a60 {
+  color: var(--color-typography-black_a60);
+}
+.color_black {
+  color: var(--color-typography-black);
+}

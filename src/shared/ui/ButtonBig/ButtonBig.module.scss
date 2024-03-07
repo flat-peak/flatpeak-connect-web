@@ -1,0 +1,55 @@
+.host {
+  background-color: var(--color-fill-blue_2);
+  border-radius: 12px;
+  padding-top: 26px;
+  padding-bottom: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  user-select: none;
+  width: 100%;
+  --color-typography-dynamic: var(--color-typography-white);
+  * {
+    position: relative;
+  }
+}
+
+.variant-outlined {
+  background-color: var(--color-fill-white);
+  border: 1.5px solid var(--color-fill-blue_2);
+  --color-typography-dynamic: var(--color-typography-blue_2);
+}
+
+.variant-critical {
+  --color-typography-dynamic: var(--color-typography-white);
+  background-color: var(--color-fill-red);
+}
+.variant-critical-invert {
+  --color-typography-dynamic: var(--color-typography-red);
+  background-color: var(--color-fill-white);
+  .label {
+    font-weight: 300;
+    font-size: 18px;
+  }
+}
+
+.variant-secondary {
+  --color-typography-dynamic: var(--color-typography-blue_2);
+  background-color: var(--color-fill-azure-radiance_a10);
+}
+
+.variant-link {
+  background-color: transparent;
+  --color-typography-dynamic: var(--color-typography-black);
+  text-align: left;
+  justify-content: flex-start;
+  text-decoration: underline;
+}
+
+.size-small {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

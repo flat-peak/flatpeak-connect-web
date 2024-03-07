@@ -1,0 +1,17 @@
+.host {
+  background-color: var(--color-fill-gallery);
+  border-radius: 12px;
+  padding: 4px;
+
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+}
+
+.caption {
+  z-index: 2;
+  flex: 1;
+  text-align: center;
+}
