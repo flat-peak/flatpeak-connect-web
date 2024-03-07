@@ -47,7 +47,7 @@ export const Try = () => {
                     primaryText="Connect Token"
                     id="token"
                     name="token"
-                    defaultValue={"cse_65e792a10ffbdcdc61e095a7"}
+                    defaultValue={""}
                     autoFocus
                 />
             </Layout>
