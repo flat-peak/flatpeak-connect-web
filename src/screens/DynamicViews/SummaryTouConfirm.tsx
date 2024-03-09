@@ -22,7 +22,7 @@ export const SummaryTouConfirm = () => {
         proceed(submitAction({
             route: action.route,
             type: "submit",
-            session_id: action.session_id,
+            connect_token: action.connect_token,
             action: "SAVE"
         }));
     }
@@ -31,7 +31,7 @@ export const SummaryTouConfirm = () => {
         proceed(submitAction({
             route: action.route,
             type: "submit",
-            session_id: action.session_id,
+            connect_token: action.connect_token,
             action: "EDIT"
         }));
     }
@@ -39,7 +39,7 @@ export const SummaryTouConfirm = () => {
         proceed(submitAction({
             route: action.route,
             type: "submit",
-            session_id: action.session_id,
+            connect_token: action.connect_token,
             action: "EDIT"
         }));
     }

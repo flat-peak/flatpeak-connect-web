@@ -21,7 +21,7 @@ export const TariffNameCapture = () => {
         proceed(submitAction({
             route: action.route,
             type: "submit",
-            session_id: action.session_id,
+            connect_token: action.connect_token,
             data: {
                 tariff: {
                     name: value

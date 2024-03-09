@@ -5,7 +5,7 @@ export type ActionException = {
     live_mode:  boolean;
     message:    string;
     object:     string;
-    session_id: string;
+    connect_token: string;
     type:       string;
 }
 
@@ -37,7 +37,7 @@ export type RatePeriodType = "today" | "yesterday" | "tomorrow";
 
 export interface CommonRenderRoute<T extends RenderRouteKey = RenderRouteKey> {
     route: T;
-    session_id: string;
+    connect_token: string;
     type: "render",
     live_mode: boolean,
     direction: ContractDirection,
@@ -47,7 +47,7 @@ export interface CommonRenderRoute<T extends RenderRouteKey = RenderRouteKey> {
 
 export type CommonSubmitRoute<T extends SubmitRouteKey = SubmitRouteKey> = {
     route: T;
-    session_id?: string;
+    connect_token?: string;
     type: "submit",
     action?: T extends keyof RouteActionsMapping ? RouteActionsMapping[T] : undefined,
     data?: T extends keyof SubmitRouteMapping ? SubmitRouteMapping[T] : undefined
@@ -111,7 +111,7 @@ interface SubmitRouteMapping {
 
 type SubmitStartTariff = {
     route: "start-tariff";
-    session_id: string;
+    connect_token: string;
 }
 
 export type HasProviderSummaryTrait = {
@@ -225,7 +225,7 @@ export type SubmitSummaryTouConfirm = never;
 export type RenderComplete = never;
 
 export type RenderError = {
-    session_id: string;
+    connect_token: string;
     route: string;
     live_mode: boolean;
     error_code: string;

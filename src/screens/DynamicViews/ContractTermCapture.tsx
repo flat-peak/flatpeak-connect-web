@@ -24,7 +24,7 @@ export const ContractTermCapture = () => {
         proceed(submitAction({
             route: action.route,
             type: "submit",
-            session_id: action.session_id,
+            connect_token: action.connect_token,
             data: {
                 contract_end_date: contractEndDate
             }
@@ -35,7 +35,7 @@ export const ContractTermCapture = () => {
         proceed(submitAction({
             route: "contract_term_capture",
             type: "submit",
-            session_id: action.session_id
+            connect_token: action.connect_token
         }));
     }
 

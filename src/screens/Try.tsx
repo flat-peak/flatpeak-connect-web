@@ -25,7 +25,7 @@ export const Try = () => {
             token: {value: token},
         } = event.target as unknown as {[key: string]: {value: string}};
 
-        navigate(`/?token=${token}&start=true`);
+        navigate(`/?fp_cot=${token}&start=true`);
     }
 
     return (

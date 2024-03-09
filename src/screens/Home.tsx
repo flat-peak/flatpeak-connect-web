@@ -27,7 +27,7 @@ export const Home = () => {
         proceed(
             submitAction({
                 route: isStart ? 'start_tariff' : "session_restore",
-                session_id: token,
+                connect_token: token,
                 type: "submit",
             })
         )

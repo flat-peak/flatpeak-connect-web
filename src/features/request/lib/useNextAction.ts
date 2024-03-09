@@ -10,7 +10,7 @@ export function useNextAction() {
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
-        const inputToken = queryParams.get('token');
+        const inputToken = queryParams.get('fp_cot');
         setIsStart(queryParams.get('start') === "true");
         if (inputToken) {
             setToken(inputToken)
@@ -21,7 +21,7 @@ export function useNextAction() {
 
     const proceed = useCallback(async <T>(action: Promise<T>): Promise<T> => {
         const response = await action;
-        navigate(`/connect?token=${token}`, {
+        navigate(`/connect?fp_cot=${token}`, {
             state: {response}
         });
         return response;

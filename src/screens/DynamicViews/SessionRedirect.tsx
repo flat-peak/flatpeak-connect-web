@@ -14,8 +14,8 @@ export const SessionRedirect = () => {
     const {redirect_url} = action.data;
 
     const redirect = useCallback(() => {
-        location.href = `${redirect_url}?token=${action.session_id}`;
-    }, [action.session_id, redirect_url]);
+        location.href = `${redirect_url}?token=${action.connect_token}`;
+    }, [action.connect_token, redirect_url]);
 
     useEffect(() => {
         const timer = setTimeout(() => {

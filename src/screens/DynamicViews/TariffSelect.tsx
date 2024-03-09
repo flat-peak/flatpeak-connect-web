@@ -29,7 +29,7 @@ export const TariffSelect = () => {
         proceed(submitAction({
             route: action.route,
             type: "submit",
-            session_id: action.session_id,
+            connect_token: action.connect_token,
             data: {
                 tariff: {
                     id: tariff.id as string
@@ -42,7 +42,7 @@ export const TariffSelect = () => {
         proceed(submitAction({
             route: action.route,
             type: "submit",
-            session_id: action.session_id,
+            connect_token: action.connect_token,
             action: "TARIFF_MISSING"
         }));
     }
