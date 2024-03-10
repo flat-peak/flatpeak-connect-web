@@ -5,7 +5,7 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  --extra-top-offset: 0;
+  //--extra-top-offset: 0;
 
   transition: background-color 0.2s ease-in;
 
@@ -22,9 +22,9 @@
     max-width: 440px;
   }
 
-  @media screen and (min-width: 500px) and (min-height: 820px) {
-    --extra-top-offset: 24px;
-  }
+  //@media screen and (min-width: 500px) and (min-height: 820px) {
+  //  --extra-top-offset: 24px;
+  //}
   @media screen and (min-width: 442px) and (min-height: 934px) {
     border: 1px solid var(--color-border-black_a13);
     border-radius: 16px;

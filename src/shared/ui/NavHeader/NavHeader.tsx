@@ -18,10 +18,10 @@ export default function NavHeader(props: TitleBlockProps) {
     } = props;
 
     const classList = [styles.host];
-    const hasNoExtraUi  = screen.height === window.innerHeight;
-    if (hasNoExtraUi) {
-        classList.push(styles['host_no-extra-ui'])
-    }
+    // const hasNoExtraUi  = screen.height === window.innerHeight;
+    // if (hasNoExtraUi) {
+    //     classList.push(styles['host_no-extra-ui'])
+    // }
     const {action} = useConnect();
     const {theme} = useTheme();
     const { provider} = (action?.data || {}) as HasProviderSummaryTrait;

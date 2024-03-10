@@ -5,19 +5,8 @@
   justify-content: space-between;
   padding: var(--extra-top-offset, 0) 24px 0;
   flex: 0 1 auto;
-  //&::before {
-  //  content: '';
-  //  display: block;
-  //  position: absolute;
-  //  background-color: #ff5551;
-  //  width: 100px;
-  //  height: max(var(--offset-dd), 2px);
-  //  top: 80px
-  //}
   position: relative;
-}
-.host_no-extra-ui {
-  --extra-top-offset: 24px
+  --extra-top-offset: 24px;
 }
 
 .withNotch {
