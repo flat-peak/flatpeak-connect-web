@@ -12,9 +12,8 @@ import WarningIcon from "../../shared/ui/icons/WarningIcon.tsx";
 export const SessionRedirect = () => {
     const {action} = useConnect<"session_redirect">();
     const {redirect_url} = action.data;
-
     const redirect = useCallback(() => {
-        location.href = `${redirect_url}?token=${action.connect_token}`;
+        location.href = `${redirect_url}?fp_cot=${action.connect_token}`;
     }, [action.connect_token, redirect_url]);
 
     useEffect(() => {
