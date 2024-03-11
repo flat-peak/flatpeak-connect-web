@@ -7,7 +7,7 @@ import {useNextAction} from "../features/request/lib/useNextAction.ts";
 export const Home = () => {
     const navigate = useNavigate();
 
-    const {token, isStart, ready, proceed} = useNextAction();
+    const {token, isStart, ready, proceed} = useNextAction({replace: true});
     const {setTheme} = useTheme();
     useEffect(() => {
         setTheme("light")
@@ -20,7 +20,7 @@ export const Home = () => {
         }
 
         if (!token) {
-            navigate('/try');
+            navigate('/try', {replace: true});
             return;
         }
 

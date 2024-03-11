@@ -1,8 +1,12 @@
 import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-export function useNextAction() {
+type NextActionProps = {
+    replace?: boolean
+}
+export function useNextAction(props: NextActionProps = {}) {
     const navigate = useNavigate();
+    const {replace = false} = props;
 
     const [ready, setReady] = useState(false);
     const [token, setToken] = useState<string | undefined>();
@@ -22,10 +26,11 @@ export function useNextAction() {
     const proceed = useCallback(async <T>(action: Promise<T>): Promise<T> => {
         const response = await action;
         navigate(`/connect?fp_cot=${token}`, {
-            state: {response}
+            state: {response},
+            replace
         });
         return response;
-    }, [navigate, token])
+    }, [navigate, token, replace])
 
 
     return {
