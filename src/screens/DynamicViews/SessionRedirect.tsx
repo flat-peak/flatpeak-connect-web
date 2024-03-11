@@ -13,13 +13,13 @@ export const SessionRedirect = () => {
     const {action} = useConnect<"session_redirect">();
     const {redirect_url} = action.data;
     const redirect = useCallback(() => {
-        location.href = `${redirect_url}?fp_cot=${action.connect_token}`;
-    }, [action.connect_token, redirect_url]);
+        location.replace(`${redirect_url}`);
+    }, [redirect_url]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             redirect()
-        }, 3000);
+        }, 2000);
         return () => {
             clearTimeout(timer);
         }
