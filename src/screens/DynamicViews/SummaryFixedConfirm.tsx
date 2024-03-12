@@ -14,7 +14,7 @@ import {getCurrencySymbol} from "../../shared/util.ts";
 export const SummaryFixedConfirm = () => {
     const { action, proceed} = useConnect<'summary_fixed_confirm'>();
 
-    const {tariff, rates: {cost}} = action.data;
+    const {tariff, cost} = action.data;
     const handleSubmit: FormEventHandler = (event) => {
         event.preventDefault();
         proceed(submitAction({

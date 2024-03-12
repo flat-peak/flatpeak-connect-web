@@ -1,4 +1,29 @@
-import type {PostalAddress, Provider} from "@flat-peak/javascript-sdk";
+export interface PostalAddress {
+    /**
+     * Address line 1 (e.g., street, PO Box, or company name).
+     */
+    address_line1?: string;
+    /**
+     * Address line 2 (e.g., apartment, suite, unit, or building).
+     */
+    address_line2?: string;
+    /**
+     * City, district, suburb, town, or village.
+     */
+    city?: string;
+    /**
+     * Two-letter country code (ISO 3166-1 alpha-2).
+     */
+    country_code?: string;
+    /**
+     * ZIP or postal code.
+     */
+    post_code?: string;
+    /**
+     * State, county, province, or region.
+     */
+    state?: string;
+}
 
 export type ActionException = {
     code:       string;
@@ -27,7 +52,11 @@ export type RateEntryDecorated = RateEntry & {
     peak: PeakType
 }
 
-export type ProviderSummary = Pick<Provider, "code_name" | "id"> & {display_name: string, logo_url: string}
+export type ProviderSummary = {
+    id: string;
+    display_name: string;
+    logo_url: string;
+}
 export type ContractDirection = "IMPORT" | "EXPORT";
 export type TariffStructureOption = "FIXED" | "TIME_OF_DAY" | "MARKET";
 
@@ -200,13 +229,11 @@ export type SubmitMarketSurchargeCapture = {
 
 export type RenderSummaryFixedConfirm = {
     currency_code: string;
+    cost: number;
     tariff: {
         name: string,
         contract_end_date?: string
     },
-    rates: {
-        cost: 0
-    }
 } & HasProviderSummaryTrait;
 export type SubmitSummaryFixedConfirm = never;
 
