@@ -34,12 +34,11 @@ export const Try = () => {
                 <Logotypes src={LogoPng} title={'FlatPeak'} size={"big"} />
             </Box>
             <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
-                <MainHeading text="Try connect experience" />
+                <MainHeading text="Try Connect experience" />
                 <LeadingText>
                     <Typography color="black_a40" variant="leading_string">
-                        To evaluate the connect experience, please insert your publishable key.<br/>
-                        You can obtain it from<br/>
-                        <a href={"https://dashboard.flatpeak.energy"}>FlatPeak dashboard</a>.
+                        Please input a connect_token. If you don't have one,
+                        <a href={"https://docs.flatpeak.energy/docs/getting-started/integration-test"} target="blank"> follow this guide</a>.
                     </Typography>
                 </LeadingText>
                 <InputText
