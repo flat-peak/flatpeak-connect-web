@@ -19,7 +19,7 @@ export const SessionRedirect = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             redirect()
-        }, 2000);
+        }, 0);
         return () => {
             clearTimeout(timer);
         }
