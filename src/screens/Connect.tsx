@@ -10,7 +10,6 @@ import {TariffNameCapture} from "./DynamicViews/TariffNameCapture.tsx";
 import {ContractTermCapture} from "./DynamicViews/ContractTermCapture.tsx";
 import {SummaryTouConfirm} from "./DynamicViews/SummaryTouConfirm.tsx";
 import {TariffSelect} from "./DynamicViews/TariffSelect.tsx";
-import {SessionRedirect} from "./DynamicViews/SessionRedirect.tsx";
 import NavHeader from "../shared/ui/NavHeader/NavHeader.tsx";
 import {SummaryFixedConfirm} from "./DynamicViews/SummaryFixedConfirm.tsx";
 import {useTheme} from "../features/theme/ThemeProvider.tsx";
@@ -55,6 +54,15 @@ export const Connect = () => {
         return null;
     }
 
+    if (response.route === "session_redirect") {
+        location.replace(response.data.redirect_url)
+        return null;
+    }
+
+    if (response.route === "session_complete") {
+        location.replace(response.data.callback_uri)
+        return null;
+    }
 
     return (
         <ConnectProvider response={response}>
@@ -77,8 +85,7 @@ export const Connect = () => {
                     market_surcharge_capture={MarketSurchargeCapture}
                     summary_fixed_confirm={SummaryFixedConfirm}
                     summary_tou_confirm={SummaryTouConfirm}
-                    complete_tariff={CompleteView}
-                    session_redirect={SessionRedirect} />
+                    complete_tariff={CompleteView} />
                 )}
         </ConnectProvider>
     )

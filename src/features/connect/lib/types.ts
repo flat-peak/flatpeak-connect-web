@@ -112,7 +112,8 @@ interface RenderRouteDataMapping {
     market_surcharge_capture: RenderMarketSurchargeCapture;
     summary_fixed_confirm: RenderSummaryFixedConfirm;
     summary_tou_confirm: RenderSummaryTouConfirm;
-    session_redirect: RenderSessionRedirect;
+    // session_redirect: RenderSessionRedirect;
+    // session_complete: RenderSessionComplete;
     complete_tariff: RenderComplete;
     error: RenderError;
 }
@@ -260,3 +261,4 @@ export type RenderError = {
 };
 
 export type RenderSessionRedirect = { redirect_url: string };
+export type RenderSessionComplete = { callback_uri: string };

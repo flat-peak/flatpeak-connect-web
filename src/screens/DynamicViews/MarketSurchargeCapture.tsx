@@ -45,7 +45,7 @@ export const MarketSurchargeCapture = () => {
                 </Typography>
             </LeadingText>
             <Box rg={16}>
-                <BlockHeading text="Rate" icon={<CoinsIcon width={24} height={32}/>}/>
+                <BlockHeading text="Surcharge fee" icon={<CoinsIcon width={24} height={32}/>}/>
                 <InputRate name="cost" autoFocus={true} currency={getCurrencySymbol(action.data.currency_code)}/>
                 <Typography color="black_a40" variant="basic_string">
                     * Leave unchanged if you don’t know
