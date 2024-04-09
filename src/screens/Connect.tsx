@@ -55,7 +55,7 @@ export const Connect = () => {
     }
 
     if (response.route === "session_redirect") {
-        location.replace(response.data.redirect_url)
+        location.replace(response.data.redirect_uri)
         return null;
     }
 
