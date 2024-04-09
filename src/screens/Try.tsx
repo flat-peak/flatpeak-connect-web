@@ -38,7 +38,7 @@ export const Try = () => {
                 <LeadingText>
                     <Typography color="black_a40" variant="leading_string">
                         Please input a connect_token. If you don't have one,
-                        <a href={"https://docs.flatpeak.energy/docs/getting-started/integration-test"} target="blank"> follow this guide</a>.
+                        <a href={"https://docs.flatpeak.com/guides/connect-web-tariff"} target="blank"> follow this guide</a>.
                     </Typography>
                 </LeadingText>
                 <InputText
