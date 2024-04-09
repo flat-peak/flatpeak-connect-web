@@ -1,30 +1,20 @@
-# React + TypeScript + Vite
+# FlatPeak Connect-Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the open-source FlatPeak Connect-Web app.
 
-Currently, two official plugins are available:
+## Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Sign up](https://flatpeak.com) for a free FlatPeak account.
+Follow the (https://docs.flatpeak.com/guides/connect-web-tariff) quickstart guide.
 
-## Expanding the ESLint configuration
+## License
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The FlatPeak Connect-Web is licensed under [MIT License](https://opensource.org/licenses/MIT). Copyright (c) 2022, FlatPeak.
 
-- Configure the top-level `parserOptions` property like this:
+## About
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+FlatPeak Connect-Web is maintained and funded by FlatPeak, a trading name of MBRS Technology Ltd. The names and logos are trademarks of FlatPeak.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
+
+![FlatPeak](https://flatpeak-static.s3.amazonaws.com/misc/flatpeak-logo-regola.png)
