@@ -10,12 +10,10 @@ export function useNextAction(props: NextActionProps = {}) {
 
     const [ready, setReady] = useState(false);
     const [token, setToken] = useState<string | undefined>();
-    const [isStart, setIsStart] = useState<boolean>(false);
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const inputToken = queryParams.get('fp_cot');
-        setIsStart(queryParams.get('start') === "true");
         if (inputToken) {
             setToken(inputToken)
         }
@@ -34,6 +32,6 @@ export function useNextAction(props: NextActionProps = {}) {
 
 
     return {
-        ready, isStart, token, proceed
+        ready, token, proceed
     }
 }

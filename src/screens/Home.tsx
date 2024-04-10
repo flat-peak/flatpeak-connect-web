@@ -7,7 +7,7 @@ import {useNextAction} from "../features/request/lib/useNextAction.ts";
 export const Home = () => {
     const navigate = useNavigate();
 
-    const {token, isStart, ready, proceed} = useNextAction({replace: true});
+    const {token, ready, proceed} = useNextAction({replace: true});
     const {setTheme} = useTheme();
     useEffect(() => {
         setTheme("light")
@@ -20,13 +20,12 @@ export const Home = () => {
         }
 
         if (!token) {
-            navigate('/try', {replace: true});
             return;
         }
 
         proceed(
             submitAction({
-                route: isStart ? 'start_tariff' : "session_restore",
+                route: "session_restore",
                 connect_token: token,
                 type: "submit",
             })
