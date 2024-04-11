@@ -22,13 +22,14 @@ import {CompleteView} from "./DynamicViews/Complete.tsx";
 import {ActionException} from "../features/connect/lib/types.ts";
 import {useNextAction} from "../features/request/lib/useNextAction.ts";
 import {ErrorRoute} from "./DynamicViews/ErrorRoute.tsx";
+import {submitAction} from "../features/connect/lib/service.ts";
 
 export const Connect = () => {
     const {state} = useLocation();
     const {response} =  state || {};
     const {setTheme} = useTheme();
     const navigate = useNavigate();
-    const {token, ready: tokenParsed} = useNextAction();
+    const {token, ready: tokenParsed, proceed} = useNextAction();
     const maybeException =  (response as ActionException);
     let error = '';
     let isFailed = false;
@@ -41,7 +42,13 @@ export const Connect = () => {
 
     useEffect(() => {
         if (!response && tokenParsed) {
-            navigate(token ? `/?token=${token}` : `/try`);
+            proceed(
+                submitAction({
+                    route: "session_restore",
+                    connect_token: token,
+                    type: "submit",
+                })
+            )
         }
     }, [navigate, response, token, tokenParsed])
 

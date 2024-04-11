@@ -23,7 +23,7 @@ export function useNextAction(props: NextActionProps = {}) {
 
     const proceed = useCallback(async <T>(action: Promise<T>): Promise<T> => {
         const response = await action;
-        navigate(`/connect?fp_cot=${token}`, {
+        navigate(`/?fp_cot=${token || ''}`, {
             state: {response},
             replace
         });

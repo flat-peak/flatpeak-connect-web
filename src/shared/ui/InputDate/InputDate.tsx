@@ -9,9 +9,9 @@ type InputDateProps = {
 } &  InputHTMLAttributes<HTMLInputElement>
 
 export default function InputDate(props: InputDateProps) {
-    const { ...inputAttributes } = props
+    const { value: defaultValue, ...inputAttributes } = props
 
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(defaultValue as string);
     const classList =  [styles.control];
 
     if (value) {

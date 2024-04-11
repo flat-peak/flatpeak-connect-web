@@ -27,8 +27,6 @@ export const CaptureTariffStructure = () => {
         }));
     }
 
-    console.log(options)
-
     return (
         <Layout component={"main"}>
             <MainHeading text="Configure your tariff plan" />

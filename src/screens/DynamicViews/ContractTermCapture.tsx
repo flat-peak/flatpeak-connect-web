@@ -39,7 +39,6 @@ export const ContractTermCapture = () => {
         }));
     }
 
-    console.log('TODO: connect', contract_end_date)
     return (
         <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Contract expiry date" />
@@ -49,7 +48,7 @@ export const ContractTermCapture = () => {
                     update this connection when it happens.
                 </Typography>
             </LeadingText>
-            <InputDate placeholder="Choose expiry date"
+            <InputDate placeholder="Choose expiry date" value={contract_end_date}
                        name="contractEndDate" />
             <Box mt={24}>
                 <ButtonBig label={"Skip / Until terminated"} variant={"outlined"} type={"button"} onClick={skipUntilTerminated}/>
