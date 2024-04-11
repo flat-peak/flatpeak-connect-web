@@ -17,4 +17,4 @@ FlatPeak Connect-Web is maintained and funded by FlatPeak, a trading name of MBR
 
 If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
 
-![FlatPeak](https://flatpeak-static.s3.amazonaws.com/misc/flatpeak-logo-regola.png)
+![FlatPeak](https://static.flatpeak.com/misc/flatpeak-logo-regola.png)
