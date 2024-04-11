@@ -38,7 +38,7 @@ export const SummaryFixedConfirm = () => {
             route: action.route,
             type: "submit",
             connect_token: action.connect_token,
-            action: "EDIT"
+            action: "DISCONNECT"
         }));
     }
 
