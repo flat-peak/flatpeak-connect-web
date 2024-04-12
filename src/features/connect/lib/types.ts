@@ -182,7 +182,7 @@ export type SubmitTariffNameCapture = { tariff: {name: string } };
 export type RenderContractTermCapture = {
     contract_end_date: string
 } & HasProviderSummaryTrait;
-export type SubmitContractTermCapture = { contract_end_date: string };
+export type SubmitContractTermCapture = { contract_end_date: Date };
 
 
 export type RenderTariffStructureSelect = {

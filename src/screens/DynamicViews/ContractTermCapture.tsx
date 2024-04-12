@@ -26,7 +26,7 @@ export const ContractTermCapture = () => {
             type: "submit",
             connect_token: action.connect_token,
             data: {
-                contract_end_date: contractEndDate
+                contract_end_date: new Date(contractEndDate)
             }
         }));
     }
