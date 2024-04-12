@@ -48,7 +48,7 @@ export const ContractTermCapture = () => {
                     update this connection when it happens.
                 </Typography>
             </LeadingText>
-            <InputDate placeholder="Choose expiry date" value={contract_end_date}
+            <InputDate placeholder="Choose expiry date" value={contract_end_date || ''}
                        name="contractEndDate" />
             <Box mt={24}>
                 <ButtonBig label={"Skip / Until terminated"} variant={"outlined"} type={"button"} onClick={skipUntilTerminated}/>

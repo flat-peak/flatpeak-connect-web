@@ -220,6 +220,7 @@ export type RenderMarketSurchargeCapture = {
         fixed: number;
     },
     regions?: Array<string>
+    region?: string
 } & HasProviderSummaryTrait;
 export type SubmitMarketSurchargeCapture = {
     surcharge: {

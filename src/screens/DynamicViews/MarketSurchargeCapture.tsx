@@ -12,6 +12,7 @@ import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import CoinsIcon from "../../shared/ui/icons/CoinsIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/util.ts";
+import RegionPicker from "../../shared/ui/RegionPicker/RegionPicker.tsx";
 
 export const MarketSurchargeCapture = () => {
     const {action, proceed} = useConnect<"market_surcharge_capture">();
@@ -20,6 +21,7 @@ export const MarketSurchargeCapture = () => {
         event.preventDefault();
         const {
             cost: {value: cost},
+            region: regionControl,
         } = event.target as unknown as {[PostalAddressKey: string]: {value: string}};
 
         proceed(submitAction({
@@ -30,7 +32,7 @@ export const MarketSurchargeCapture = () => {
                 surcharge: {
                     fixed: Number(cost)
                 },
-                //region: "Kristiansand (NO2)"
+                region: regionControl?.value
             }
         }));
     }
@@ -46,11 +48,19 @@ export const MarketSurchargeCapture = () => {
             </LeadingText>
             <Box rg={16}>
                 <BlockHeading text="Surcharge fee" icon={<CoinsIcon width={24} height={32}/>}/>
-                <InputRate name="cost" autoFocus={true} currency={getCurrencySymbol(action.data.currency_code)}/>
+                <InputRate name="cost" defaultValue={action.data.surcharge.fixed} autoFocus={true} currency={getCurrencySymbol(action.data.currency_code)}/>
                 <Typography color="black_a40" variant="basic_string">
                     * Leave unchanged if you don’t know
                 </Typography>
             </Box>
+            {
+                Boolean(action.data.regions?.length) && (
+                    <Box mt={48}>
+                        <RegionPicker name={"region"} defaultValue={action.data.region || ''} options={action.data.regions || []} />
+                    </Box>
+                )
+            }
+
         </Layout>
     )
 }
