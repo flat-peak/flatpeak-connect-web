@@ -14,8 +14,6 @@ import DayIcon from "../../shared/ui/icons/DayIcon.tsx";
 import Separator from "../../shared/ui/Separator/Separator.tsx";
 import InputTime from "../../shared/ui/InputTime/InputTime.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
-import FormSlide from "../../shared/ui/FormSlide/FormSlide.tsx";
-import Slider from "../../shared/ui/Slider/Slider.tsx";
 import {getCurrencySymbol} from "../../shared/util.ts";
 
 export const RateTodCapture = () => {
