@@ -58,7 +58,7 @@ export const SummaryFixedConfirm = () => {
             <Box mt={16} rg={24} d={"column"} f={1}>
                 <TariffDetails name={tariff.name} endDate={tariff.contract_end_date}/>
                 <FixedRatesummary currency={getCurrencySymbol(action.data.currency_code)} cost={cost} />
-                <ButtonBig label={"Cancel & Delete tariff"} variant="critical" type={"button"} onClick={handleDisconnect} />
+                <ButtonBig label={"Change Provider or Disconnect tariff"} variant="critical" type={"button"} onClick={handleDisconnect} />
             </Box>
         </Layout>
     )
