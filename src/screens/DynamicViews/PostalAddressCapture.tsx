@@ -59,7 +59,7 @@ export const PostalAddressCapture = () => {
                     id="address_line1"
                     name="address_line1"
                     autoComplete="address_line1"
-                    defaultValue={"1-3 Strand"}
+                    defaultValue={action.data.postal_address.address_line1}
                     autoFocus
                 />
                 <InputText
@@ -67,35 +67,36 @@ export const PostalAddressCapture = () => {
                     id="address_line2"
                     name="address_line2"
                     autoComplete="address_line2"
-                    defaultValue={"WC2N 5EH"}
+                    defaultValue={action.data.postal_address.address_line2}
                 />
                 <InputText
                     secondaryText="City"
                     id="city"
                     name="city"
                     autoComplete="city"
-                    defaultValue="London"
+                    defaultValue={action.data.postal_address.city}
                 />
                 <InputText
                     secondaryText="State"
                     id="state"
                     name="state"
                     primaryText=""
+                    defaultValue={action.data.postal_address.state}
                 />
                 <InputText
                     secondaryText="Country"
-                    defaultValue="GB"
                     id="country_code"
                     name="country_code"
                     autoComplete="country_code"
+                    defaultValue={action.data.postal_address.country_code}
                 />
 
                 <InputText
                     secondaryText="Postcode / Zip"
-                    defaultValue="0123456"
                     id="post_code"
                     name="post_code"
                     autoComplete="post_code"
+                    defaultValue={action.data.postal_address.post_code}
                 />
 
             </Box>
