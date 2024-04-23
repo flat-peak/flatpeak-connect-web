@@ -1,5 +1,5 @@
 import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler} from "react";
+import {FormEventHandler, useState} from "react";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
 import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
@@ -42,6 +42,11 @@ export const RateTodCapture = () => {
         }));
     }
 
+    const [dayStart, setDayStart] = useState("00:00")
+    const [dayEnd, setDayEnd] = useState("00:00")
+    const [nightStart, setNightStart] = useState("00:00")
+    const [nightEnd, setNightEnd] = useState("00:00")
+
     return (
         <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Day & night tariff plan" />
@@ -79,8 +84,10 @@ export const RateTodCapture = () => {
             <Box rg={16}>
                 <BlockHeading text="Day Time Period" icon={<DayIcon width={24} height={32}/>}/>
                 <Box cg={8} d={"row"}>
-                    <InputTime name="day_startTime" label={"Start"} variant={"primary"}/>
-                    <InputTime name="day_endTime" label={"End"} variant={"primary"}/>
+                    <InputTime name="day_startTime" value={dayStart} label={"Start"} variant={"primary"}
+                               onChange={(e) => { setDayStart(e.target.value); setNightEnd(e.target.value) }} />
+                    <InputTime name="day_endTime" value={dayEnd} label={"End"} variant={"primary"}
+                               onChange={(e) => { setDayEnd(e.target.value); setNightStart(e.target.value) }} />
                     <InputRate name="day_cost" currency={getCurrencySymbol(action.data.currency_code)}/>
                 </Box>
 
@@ -88,8 +95,10 @@ export const RateTodCapture = () => {
 
                 <BlockHeading text="Night Time Period" icon={<NightIcon width={24} height={32}/>}/>
                 <Box cg={8} d={"row"}>
-                    <InputTime name="night_startTime" label={"Start"} variant={"primary"}/>
-                    <InputTime name="night_endTime" label={"End"} variant={"primary"}/>
+                    <InputTime name="night_startTime" value={nightStart} label={"Start"} variant={"primary"}
+                               onChange={(e) => { setNightStart(e.target.value); setDayEnd(e.target.value) }} />
+                    <InputTime name="night_endTime" value={nightEnd} label={"End"} variant={"primary"}
+                               onChange={(e) => { setNightEnd(e.target.value); setDayStart(e.target.value) }} />
                     <InputRate name="night_cost" currency={getCurrencySymbol(action.data.currency_code)}/>
                 </Box>
             </Box>
