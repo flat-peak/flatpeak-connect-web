@@ -11,7 +11,7 @@
   padding: 0 24px;
   bottom: 0;
 
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: var(--color-blurred-fade);
   backdrop-filter: saturate(180%) blur(10px);
 }
 
