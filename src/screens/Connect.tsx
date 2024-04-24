@@ -23,6 +23,7 @@ import {ActionException} from "../features/connect/lib/types.ts";
 import {useNextAction} from "../features/request/lib/useNextAction.ts";
 import {ErrorRoute} from "./DynamicViews/ErrorRoute.tsx";
 import {submitAction} from "../features/connect/lib/service.ts";
+import {SummaryTaiffInProgress} from "./DynamicViews/SummaryTaiffInProgress.tsx";
 
 export const Connect = () => {
     const {state} = useLocation();
@@ -90,6 +91,7 @@ export const Connect = () => {
                     rate_fixed_capture={RateFixedCapture}
                     rate_tod_capture={RateTodCapture}
                     market_surcharge_capture={MarketSurchargeCapture}
+                    summary_tariff_inprogress={SummaryTaiffInProgress}
                     summary_fixed_confirm={SummaryFixedConfirm}
                     summary_tou_confirm={SummaryTouConfirm}
                     complete_tariff={CompleteView} />

@@ -88,6 +88,7 @@ export type RenderRouteKey = keyof RenderRouteDataMapping;
 export type SubmitRouteKey = keyof SubmitRouteMapping;
 
 interface RouteActionsMapping {
+    summary_tariff_inprogress: "SAVE" | "DISCONNECT";
     summary_tou_confirm: "SAVE" | "EDIT" | "DISCONNECT";
     summary_fixed_confirm: "SAVE" | "EDIT" | "DISCONNECT";
     tariff_select: "TARIFF_MISSING" | "ADDRESS_CHANGE";
@@ -100,6 +101,7 @@ interface ExtrasSubmitRouteMapping {
     }
 }
 interface RenderRouteDataMapping {
+    summary_tariff_inprogress: RenderTariffInProgress;
     postal_address_capture: RenderPostalAddressCapture;
     provider_select: RenderProviderSelect;
     provider_name_capture: RenderProviderNameCapture;
@@ -134,6 +136,7 @@ interface SubmitRouteMapping {
     market_surcharge_capture: SubmitMarketSurchargeCapture;
     summary_fixed_confirm: SubmitSummaryFixedConfirm;
     summary_tou_confirm: SubmitSummaryTouConfirm;
+    summary_tariff_inprogress: SubmitTariffInProgress;
     complete_tariff: undefined;
     error: undefined;
 }
@@ -156,6 +159,9 @@ export type HasPostalAddressTrait = {
 
 export type RenderPostalAddressCapture = HasPostalAddressTrait;
 export type SubmitPostalAddressCapture = HasPostalAddressTrait;
+
+export type RenderTariffInProgress = HasProviderSummaryTrait;
+export type SubmitTariffInProgress = HasProviderSummaryTrait;
 
 export type RenderProviderSelect = {
     providers: Array<ProviderSummary>
