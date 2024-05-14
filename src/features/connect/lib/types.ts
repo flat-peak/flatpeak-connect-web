@@ -88,7 +88,7 @@ export type RenderRouteKey = keyof RenderRouteDataMapping;
 export type SubmitRouteKey = keyof SubmitRouteMapping;
 
 interface RouteActionsMapping {
-    summary_tariff_inprogress: "SAVE" | "DISCONNECT";
+    summary_tariff_inprogress: "SAVE" | "DISCONNECT" | "DISMISS_DIRECT";
     summary_tou_confirm: "SAVE" | "EDIT" | "DISCONNECT";
     summary_fixed_confirm: "SAVE" | "EDIT" | "DISCONNECT";
     tariff_select: "TARIFF_MISSING" | "ADDRESS_CHANGE";
