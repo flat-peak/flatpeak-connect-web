@@ -1,6 +1,7 @@
 import styles from "./FixedRatesummary.module.scss";
 import View from "../View/View.tsx";
 import Typography from "../Typography/Typography.tsx";
+import {roundRateValue} from "../../util.ts";
 
 type FixedRatesummaryProps = {
   currency: string;
@@ -13,7 +14,7 @@ export default function FixedRatesummary(props: FixedRatesummaryProps) {
     <View className={styles.host}>
       <View className={styles.frame_313294}>
         <Typography color="black" variant="rp_300_72">
-          {currency}{cost || '0.00'}
+          {currency}{roundRateValue(cost) || '0.00'}
         </Typography>
         <Typography color="black" variant="button__forms32_book">
           /kWh
