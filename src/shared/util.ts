@@ -9,3 +9,8 @@ export function getCurrencySymbol(currencyCode: string, locale: string = 'en-US'
     const currencyPart = parts.find(part => part.type === 'currency');
     return currencyPart ? currencyPart.value : '';
 }
+
+export function roundRateValue(value: number | string, precision = 2):number {
+    const valueWithEps = Math.round(Number(value + "e" + precision));
+    return Number(valueWithEps + "e" + -precision);
+}

@@ -1,6 +1,7 @@
 import Box from "../../Box/Box.tsx";
 import Typography from "../../Typography/Typography.tsx";
 import styles from "./Rate.module.scss";
+import {roundRateValue} from "../../../util.ts";
 
 type RateProps = {
     currency: string;
@@ -9,7 +10,7 @@ type RateProps = {
 
 export default function Rate(props:RateProps) {
   const {cost, currency} = props;
-  const [base, decimals = "00"] = String(cost).split('.')
+  const [base, decimals = "00"] = String(roundRateValue(cost)).split('.')
   return (
     <Box cg={2} d="row">
       <Typography color="black" variant="basic_string">

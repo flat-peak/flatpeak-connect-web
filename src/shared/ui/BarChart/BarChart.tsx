@@ -8,6 +8,7 @@ import {RateEntryDecorated} from "../../../features/connect/lib/types.ts";
 import Legend from "../Legend/Legend.tsx";
 import {useEffect, useMemo, useState} from "react";
 import {expandRates} from "./util.ts";
+import {roundRateValue} from "../../util.ts";
 
 type BarChartProps = {
     currency: string;
@@ -74,10 +75,10 @@ export const BarChart = (props: BarChartProps) => {
                 </View>
                 <View className={styles.yAxis}>
                     <Typography color="black" variant="rp_300_11">
-                        {currency}{data.max}
+                        {currency}{roundRateValue(data.max)}
                     </Typography>
                         <Typography color="black" variant="rp_300_11">
-                            {currency}{(data.max / 2).toFixed(2)}
+                            {currency}{roundRateValue(data.max / 2)}
                         </Typography>
 
                         <Typography color="black" variant="rp_300_11">
