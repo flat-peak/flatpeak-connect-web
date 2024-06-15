@@ -1,0 +1,11 @@
+.host {
+  background-color: var(--color-fill-light_red);
+  border-radius: 12px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}

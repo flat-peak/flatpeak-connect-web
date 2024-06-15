@@ -89,8 +89,8 @@ export type SubmitRouteKey = keyof SubmitRouteMapping;
 
 interface RouteActionsMapping {
     summary_tariff_inprogress: "SAVE" | "DISCONNECT" | "DISMISS_DIRECT";
-    summary_tou_confirm: "SAVE" | "EDIT" | "DISCONNECT";
-    summary_fixed_confirm: "SAVE" | "EDIT" | "DISCONNECT";
+    summary_tou_confirm: "SAVE" | "EDIT" | "DISCONNECT" | "RECONNECT";
+    summary_fixed_confirm: "SAVE" | "EDIT" | "DISCONNECT" | "RECONNECT";
     tariff_select: "TARIFF_MISSING" | "ADDRESS_CHANGE";
     provider_select: "PROVIDER_MISSING" | "ADDRESS_CHANGE";
 }
@@ -240,7 +240,8 @@ export type RenderSummaryFixedConfirm = {
     cost: number;
     tariff: {
         name: string,
-        contract_end_date?: string
+        contract_end_date?: string,
+        reconnect_required?: boolean
     },
 } & HasProviderSummaryTrait;
 export type SubmitSummaryFixedConfirm = never;
@@ -251,6 +252,7 @@ export type RenderSummaryTouConfirm = {
     tariff: {
         name: string,
         contract_end_date?: string
+        reconnect_required?: boolean
     },
     "rates": Record<"today"|"yesterday"|"tomorrow", Array<RateEntry>>;
 } & HasProviderSummaryTrait;
