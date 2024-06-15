@@ -76,7 +76,7 @@ export const Connect = () => {
         <ConnectProvider response={response}>
             <NavHeader />
             {error ? (
-                <Exception message={error}/>)
+                <Exception token={response.connect_token} message={error}/>)
             : (
                 <DynamicViewRouter
                     unknown={UnknownView}

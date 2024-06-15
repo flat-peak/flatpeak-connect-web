@@ -13,6 +13,6 @@ export const ErrorRoute = () => {
         setTheme("failure")
     }, []);
     return (
-        <Exception message={(action as unknown as RenderError).error_message}/>
+        <Exception token={action.connect_token} message={(action as unknown as RenderError).error_message}/>
     )
 }
