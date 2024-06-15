@@ -10,15 +10,17 @@ import {ReactElement} from "react";
 
 type ExceptionProps = {
     message?: string | ReactElement;
+    token?: string;
 }
 
 export const Exception = (props: ExceptionProps) => {
-    const {message} = props
+    const {message, token} = props
     return (
         <Layout component={"main"} footer={<FooterActions><ButtonBig label={"Back"} variant={'critical-invert'}/></FooterActions>}>
             <MainHeading text="Error" />
             <LeadingText>
                 <Typography color="white" variant="leading_string">
+                    {token && (<>{token}<br/><br/></>)}
                     {message || 'Something went wrong or your internet connection is slow.'}<br/>
                     Please try again later.
                 </Typography>
