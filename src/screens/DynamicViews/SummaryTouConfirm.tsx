@@ -1,5 +1,5 @@
 import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler} from "react";
+import {FormEventHandler, MouseEventHandler} from "react";
 import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
@@ -10,6 +10,8 @@ import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import DynamicRateSummary from "../../shared/ui/DynamicRateSummary/DynamicRateSummary.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/util.ts";
+import Typography from "../../shared/ui/Typography/Typography.tsx";
+import WarningMessage from "../../shared/ui/WarningMessage/WarningMessage.tsx";
 
 export const SummaryTouConfirm = () => {
     const { action, proceed} = useConnect<'summary_tou_confirm'>();
@@ -44,6 +46,16 @@ export const SummaryTouConfirm = () => {
         }));
     }
 
+    const handleReconnect:MouseEventHandler = (event) => {
+        event.preventDefault();
+        proceed(submitAction({
+            route: action.route,
+            type: "submit",
+            connect_token: action.connect_token,
+            action: "RECONNECT"
+        }));
+    }
+
     return (
         <Layout component={"form"} onSubmit={handleSubmit} noValidate
                 footer={(
@@ -53,6 +65,16 @@ export const SummaryTouConfirm = () => {
                     </FooterActions>
                 )}>
             <MainHeading text="Tariff summary" />
+            {tariff.reconnect_required && (
+                <WarningMessage>
+                    <Typography variant={"rp_300_14"} color={"red"}>
+                        Unable to connect to your online account. Tariff is outdated.{" "}
+                        <a href={"#"} onClick={handleReconnect}>
+                            <Typography variant={"rp_300_14"} color={"red"} decoration={"underline"} component={"span"}>Reconnect</Typography>
+                        </a>.
+                    </Typography>
+                </WarningMessage>
+            )}
             <TariffBadges
                 contract_type={action.direction}
                 structure_type={action.data.market_rates_source ? 'MARKET' : 'TIMEOFUSE'}
