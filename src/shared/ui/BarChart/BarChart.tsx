@@ -15,7 +15,7 @@ type BarChartProps = {
     rates: Array<RateEntryDecorated>;
 }
 
-
+const placeholderBars = new Array(24).fill(0);
 export const BarChart = (props: BarChartProps) => {
     const {currency, rates} = props;
     const [animated, setAnimated] = useState(false);
@@ -30,6 +30,12 @@ export const BarChart = (props: BarChartProps) => {
     }, []);
 
     const data = useMemo(() => {
+        if (!rates?.length) {
+            return {
+                max: 0,
+                rates: []
+            }
+        }
         return {
             max: Math.max(...rates.map((r) => Number(r.tariff.cost))),
             rates: expandRates(rates)
@@ -41,7 +47,7 @@ export const BarChart = (props: BarChartProps) => {
         <View className={styles.host}>
             <View className={styles.chartWrapper}>
                 <View className={styles.chartContent}>
-                    <View className={classNames.join(" ")}>
+                    {data.rates.length ? <View className={classNames.join(" ")}>
                         {data.rates.map((col, index) => {
                             const cssProps: Record<string, string | number | undefined> = { };
 
@@ -51,7 +57,21 @@ export const BarChart = (props: BarChartProps) => {
                              <View key={index.toString()} className={styles.bar} style={cssProps}></View>
                             )
                         })}
-                    </View>
+                    </View> : (
+                        <View className={styles.bars}>
+                            {placeholderBars.map((_, index) => {
+                                const cssProps: Record<string, string | number | undefined> = { };
+                                cssProps['--bar-progress'] = `100%`;
+                                return (
+                                    <View key={index.toString()} className={styles.bar} style={cssProps}/>
+                                )
+                            })}
+                            <View className={styles.noDataWarning}>
+                                <Typography variant={"heading_h2_text"}  align={"center"}>No data</Typography>
+                                <Typography variant={"button__forms16_book"} align={"center"}>Tariff information is not available yet. Please check back later</Typography>
+                            </View>
+                        </View>
+                    )}
                     <View className={styles.xAxis}>
                         <Typography color="black" variant="rp_300_11">
                             00<sup>:00</sup>
@@ -75,10 +95,10 @@ export const BarChart = (props: BarChartProps) => {
                 </View>
                 <View className={styles.yAxis}>
                     <Typography color="black" variant="rp_300_11">
-                        {currency}{roundRateValue(data.max)}
+                        {currency}{data.max ? roundRateValue(data.max) : "0.00"}
                     </Typography>
                         <Typography color="black" variant="rp_300_11">
-                            {currency}{roundRateValue(data.max / 2)}
+                            {currency}{data.max ? roundRateValue(data.max / 2) : "0.00"}
                         </Typography>
 
                         <Typography color="black" variant="rp_300_11">

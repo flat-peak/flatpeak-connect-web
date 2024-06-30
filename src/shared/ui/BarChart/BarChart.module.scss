@@ -34,13 +34,15 @@
   flex: 1;
   display: flex;
   column-gap: 1px;
+  position: relative;
   --bar-progress: 50%;
 
+  --bar-color-undefinded: var(--color-fill-background_light_gray);
   --bar-color-low: #6FCF97;
   --bar-color-medium: #7857FF;
   --bar-color-high: #FA4D56;
 
-  --bar-color: var(--bar-color-high);
+  --bar-color: var(--bar-color-undefinded);
 
   &.animated .bar:before {
     transform: scaleY(var(--bar-progress));
@@ -60,6 +62,20 @@
     background-color: var(--bar-color);
     transition: transform 0.25s ease-in;
   }
+}
+.noDataWarning {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  row-gap: 8px;
 }
 .xAxis {
   display: flex;
