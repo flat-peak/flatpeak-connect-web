@@ -21,7 +21,7 @@ export const Exception = (props: ExceptionProps) => {
             <LeadingText>
                 <Typography color="white" variant="leading_string">
                     {token && (<>{token}<br/><br/></>)}
-                    {message || 'Something went wrong or your internet connection is slow.'}<br/>
+                    {message || 'Something went wrong or your internet connection is down.'}<br/>
                     Please try again later.
                 </Typography>
             </LeadingText>
