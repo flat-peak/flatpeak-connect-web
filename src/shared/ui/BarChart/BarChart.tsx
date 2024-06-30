@@ -1,6 +1,3 @@
-
-
-
 import styles from "./BarChart.module.scss";
 import View from "../View/View.tsx";
 import Typography from "../Typography/Typography.tsx";
@@ -8,7 +5,7 @@ import {RateEntryDecorated} from "../../../features/connect/lib/types.ts";
 import Legend from "../Legend/Legend.tsx";
 import {useEffect, useMemo, useState} from "react";
 import {expandRates} from "./util.ts";
-import {roundRateValue} from "../../util.ts";
+import Rate from "../TariffPeriodTable/Rate/Rate.tsx";
 
 type BarChartProps = {
     currency: string;
@@ -94,16 +91,9 @@ export const BarChart = (props: BarChartProps) => {
                     </View>
                 </View>
                 <View className={styles.yAxis}>
-                    <Typography color="black" variant="rp_300_11">
-                        {currency}{data.max ? roundRateValue(data.max) : "0.00"}
-                    </Typography>
-                        <Typography color="black" variant="rp_300_11">
-                            {currency}{data.max ? roundRateValue(data.max / 2) : "0.00"}
-                        </Typography>
-
-                        <Typography color="black" variant="rp_300_11">
-                            {currency}0.00
-                        </Typography>
+                    <Rate currency={currency} cost={data.max ? data.max: 0.00} textVariant={"rp_300_11"}/>
+                    <Rate currency={currency} cost={data.max ? data.max / 2 : 0.00} textVariant={"rp_300_11"}/>
+                    <Rate currency={currency} cost={0.00}  textVariant={"rp_300_11"}/>
                 </View>
             </View>
             <Legend />

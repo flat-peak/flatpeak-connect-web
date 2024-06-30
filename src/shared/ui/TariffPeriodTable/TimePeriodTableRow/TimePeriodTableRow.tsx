@@ -19,7 +19,7 @@ export default function TimePeriodTableRow(props: TimePeriodTableRowProps) {
           validTo={valid_to}
       />
         <View className={styles.rateCol}>
-            <Rate cost={cost} currency={currency} />
+            <Rate cost={cost} currency={currency} units={"/ kWh"} />
         </View>
     </View>
   );

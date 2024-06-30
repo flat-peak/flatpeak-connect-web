@@ -4,8 +4,10 @@
   row-gap: 40px;
 }
 .yAxis {
-  width: 40px;
+  min-width: 32px;
+  padding-left: 2px;
   text-align: right;
+  flex-shrink: 0;
   padding-bottom: 20px;
   display: flex;
   flex-direction: column;
