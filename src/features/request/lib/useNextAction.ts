@@ -22,14 +22,18 @@ export function useNextAction(props: NextActionProps = {}) {
 
 
     const proceed = useCallback(async <T>(action: Promise<T>): Promise<T> => {
-        const response = await action;
+      const response = await action.catch((e) => ({
+            "object":"error",
+            "type":"api_error",
+            "code":"unexpected_error",
+            "message": (e as Error)?.message
+        } as T));
         navigate(`/?fp_cot=${token || ''}`, {
             state: {response},
             replace
         });
         return response;
     }, [navigate, token, replace])
-
 
     return {
         ready, token, proceed
