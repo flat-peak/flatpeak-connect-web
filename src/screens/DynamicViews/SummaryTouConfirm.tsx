@@ -12,7 +12,6 @@ import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/util.ts";
 import Typography from "../../shared/ui/Typography/Typography.tsx";
 import WarningMessage from "../../shared/ui/WarningMessage/WarningMessage.tsx";
-import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const SummaryTouConfirm = () => {
     const { action, proceed} = useConnect<'summary_tou_confirm'>();
@@ -43,7 +42,7 @@ export const SummaryTouConfirm = () => {
             route: action.route,
             type: "submit",
             connect_token: action.connect_token,
-            action: "EDIT"
+            action: "DISCONNECT"
         }));
     }
 
@@ -83,8 +82,7 @@ export const SummaryTouConfirm = () => {
             <Box mt={16} rg={24} d={"column"} f={1}>
                 <TariffDetails name={tariff.name} endDate={tariff.contract_end_date}/>
                 <DynamicRateSummary currency={getCurrencySymbol(action.data.currency_code)} rates={rates} />
-                <ButtonBig label={"Change Provider or Disconnect tariff"} variant="critical" type={"button"} onClick={handleDisconnect}/>
-                
+                <ButtonBig label={"Disconnect tariff"} variant="critical" type={"button"} onClick={handleDisconnect}/>
             </Box>
         </Layout>
     )

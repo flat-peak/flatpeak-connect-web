@@ -6,6 +6,7 @@
   flex-direction: column;
   flex: 0 0 auto;
   position: absolute;
+  z-index: 2;
   //bottom: var(--viewport-inset-bottom, 0);
   left: 0;
   padding: 0 24px;

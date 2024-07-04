@@ -23,7 +23,7 @@ export const Exception = (props: ExceptionProps) => {
                 <Typography color="white" variant="leading_string">
                     {token && (<>Token: {token}<br/><br/></>)}
                     {requestId && (<>Request: {requestId}<br/><br/></>)}
-                    {message || 'Something went wrong or your internet connection is slow.'}<br/>
+                    {message || 'Something went wrong or your internet connection is down.'}<br/>
                     Please try again later.
                 </Typography>
             </LeadingText>
