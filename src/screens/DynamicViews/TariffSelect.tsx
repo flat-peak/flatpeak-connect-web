@@ -49,7 +49,7 @@ export const TariffSelect = () => {
     }
 
     return (
-        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"My tariff is not listed"} variant={'secondary'}  onClick={onMissingTariff}/><DemoDisclaimer/></FooterActions>}>
+        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"My tariff is not listed"} variant={'secondary'}  onClick={onMissingTariff}/></FooterActions>}>
             <MainHeading text="Select your tariff plan" />
             <Search
                 onInput={(e) => setKeyword((e.target as HTMLInputElement).value)}

@@ -56,7 +56,7 @@ export const ProviderSelect = () => {
 
 
     return (
-        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"My provider is not listed"} variant={'secondary'}  onClick={onMissingProvider}/><DemoDisclaimer/></FooterActions>}>
+        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"My provider is not listed"} variant={'secondary'}  onClick={onMissingProvider}/></FooterActions>}>
             <MainHeading text="Select your provider" />
             <Search
                 onInput={(e) => setKeyword((e.target as HTMLInputElement).value)}

@@ -24,6 +24,7 @@ import {useNextAction} from "../features/request/lib/useNextAction.ts";
 import {ErrorRoute} from "./DynamicViews/ErrorRoute.tsx";
 import {submitAction} from "../features/connect/lib/service.ts";
 import {SummaryTaiffInProgress} from "./DynamicViews/SummaryTaiffInProgress.tsx";
+import DemoDisclaimer from "../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const Connect = () => {
     const {state} = useLocation();
@@ -32,12 +33,14 @@ export const Connect = () => {
     const navigate = useNavigate();
     const {token, ready: tokenParsed, proceed} = useNextAction();
     const maybeException =  (response as ActionException);
+    let requestId:string | undefined = '';
     let error = '';
     let isFailed = false;
     if (response) {
         isFailed = maybeException.object === "error";
-        if (maybeException.object === "error") {
+        if (isFailed) {
             error = (maybeException as ActionException).message;
+            requestId = (maybeException as ActionException).request_id;
         }
     }
 
@@ -74,9 +77,10 @@ export const Connect = () => {
 
     return (
         <ConnectProvider response={response}>
+            <DemoDisclaimer/>
             <NavHeader />
             {error ? (
-                <Exception token={response.connect_token} message={error}/>)
+                <Exception token={response.connect_token} message={error} requestId={requestId}/>)
             : (
                 <DynamicViewRouter
                     unknown={UnknownView}

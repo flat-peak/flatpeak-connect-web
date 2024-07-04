@@ -34,7 +34,7 @@ export const CompleteView = () => {
 
     return (
         <Layout component={"form"}
-                footer={<FooterActions><ButtonBig label={"Next"} type="submit"></ButtonBig><DemoDisclaimer/></FooterActions>}
+                footer={<FooterActions><ButtonBig label={"Next"} type="submit"></ButtonBig></FooterActions>}
                 onSubmit={handleSubmit} noValidate>
             <MainHeading text="Complete" />
             <LeadingText>

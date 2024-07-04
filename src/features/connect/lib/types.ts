@@ -32,6 +32,7 @@ export type ActionException = {
     object:     string;
     connect_token: string;
     type:       string;
+    request_id?: string;
 }
 
 export type TariffTemplate = {

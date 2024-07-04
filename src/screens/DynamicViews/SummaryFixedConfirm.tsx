@@ -12,7 +12,6 @@ import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/util.ts";
 import WarningMessage from "../../shared/ui/WarningMessage/WarningMessage.tsx";
 import Typography from "../../shared/ui/Typography/Typography.tsx";
-import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const SummaryFixedConfirm = () => {
     const { action, proceed} = useConnect<'summary_fixed_confirm'>();
@@ -82,7 +81,7 @@ export const SummaryFixedConfirm = () => {
                 <TariffDetails name={tariff.name} endDate={tariff.contract_end_date}/>
                 <FixedRatesummary currency={getCurrencySymbol(action.data.currency_code)} cost={cost} />
                 <ButtonBig label={"Change Provider or Disconnect tariff"} variant="critical" type={"button"} onClick={handleDisconnect} />
-                <DemoDisclaimer/>
+
             </Box>
         </Layout>
     )

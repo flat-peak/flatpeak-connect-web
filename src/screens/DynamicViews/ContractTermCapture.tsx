@@ -41,7 +41,7 @@ export const ContractTermCapture = () => {
     }
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/><DemoDisclaimer/></FooterActions>} onSubmit={handleSubmit} noValidate>
+        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Contract expiry date" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">

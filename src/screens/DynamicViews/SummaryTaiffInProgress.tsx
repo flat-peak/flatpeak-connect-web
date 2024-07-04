@@ -65,7 +65,7 @@ export const SummaryTaiffInProgress = () => {
                         <a href={"#"} onClick={handleDismissDirect}>set your tariff manually.</a>
                     </Typography>
                 </InfoMessage>
-                <DemoDisclaimer/>
+                
             </Box>
         </Layout>
     )

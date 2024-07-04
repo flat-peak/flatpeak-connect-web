@@ -11,16 +11,18 @@ import {ReactElement} from "react";
 type ExceptionProps = {
     message?: string | ReactElement;
     token?: string;
+    requestId?: string;
 }
 
 export const Exception = (props: ExceptionProps) => {
-    const {message, token} = props
+    const {message, token, requestId} = props
     return (
         <Layout component={"main"} footer={<FooterActions><ButtonBig label={"Back"} variant={'critical-invert'}/></FooterActions>}>
             <MainHeading text="Error" />
             <LeadingText>
                 <Typography color="white" variant="leading_string">
-                    {token && (<>{token}<br/><br/></>)}
+                    {token && (<>Token: {token}<br/><br/></>)}
+                    {requestId && (<>Request: {requestId}<br/><br/></>)}
                     {message || 'Something went wrong or your internet connection is slow.'}<br/>
                     Please try again later.
                 </Typography>

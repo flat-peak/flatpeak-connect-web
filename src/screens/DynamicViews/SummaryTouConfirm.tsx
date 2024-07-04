@@ -84,7 +84,7 @@ export const SummaryTouConfirm = () => {
                 <TariffDetails name={tariff.name} endDate={tariff.contract_end_date}/>
                 <DynamicRateSummary currency={getCurrencySymbol(action.data.currency_code)} rates={rates} />
                 <ButtonBig label={"Change Provider or Disconnect tariff"} variant="critical" type={"button"} onClick={handleDisconnect}/>
-                <DemoDisclaimer/>
+                
             </Box>
         </Layout>
     )

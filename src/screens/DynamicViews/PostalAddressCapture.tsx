@@ -44,7 +44,7 @@ export const PostalAddressCapture = () => {
 
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/><DemoDisclaimer/></FooterActions>} onSubmit={handleSubmit} noValidate>
+        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Add your address"/>
 
             <LeadingText>

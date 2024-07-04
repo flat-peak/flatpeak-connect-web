@@ -30,7 +30,7 @@ export const CaptureTariffStructure = () => {
     }
 
     return (
-        <Layout component={"main"} footer={<FooterActions><DemoDisclaimer/></FooterActions>}>
+        <Layout component={"main"}>
             <MainHeading text="Configure your tariff plan" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">
