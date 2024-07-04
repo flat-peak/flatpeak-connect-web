@@ -11,7 +11,6 @@ import {useEffect, useState} from "react";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {ProviderSummary} from "../../features/connect/lib/types.ts";
 import AddressCheckBlock from "../../shared/ui/AddressCheckBlock/AddressCheckBlock.tsx";
-import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const ProviderSelect = () => {
     const {action, proceed} = useConnect<'provider_select'>();

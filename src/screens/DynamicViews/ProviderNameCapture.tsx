@@ -12,7 +12,6 @@ import InputText from "../../shared/ui/InputText/InputText.tsx";
 import NoteIcon from "../../shared/ui/icons/NoteIcon.tsx";
 import AddressCheckBlock from "../../shared/ui/AddressCheckBlock/AddressCheckBlock.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
-import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const ProviderNameCapture = () => {
     const {action, proceed} = useConnect<"provider_name_capture">();

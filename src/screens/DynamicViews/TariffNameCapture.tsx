@@ -8,7 +8,6 @@ import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
-import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const TariffNameCapture = () => {
     const { action, proceed} = useConnect<"tariff_name_capture">();

@@ -15,7 +15,6 @@ import Separator from "../../shared/ui/Separator/Separator.tsx";
 import InputTime from "../../shared/ui/InputTime/InputTime.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/util.ts";
-import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const RateTodCapture = () => {
     const { action, proceed} = useConnect<"rate_tod_capture">();

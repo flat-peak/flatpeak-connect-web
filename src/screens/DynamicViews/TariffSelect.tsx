@@ -10,7 +10,6 @@ import Box from "../../shared/ui/Box/Box.tsx";
 import Search from "../../shared/ui/Search/Search.tsx";
 import TouchableOpacity from "../../shared/TouchahbleOpacity/TouchableOpacity.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
-import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const TariffSelect = () => {
     const {action,proceed} = useConnect<'tariff_select'>();

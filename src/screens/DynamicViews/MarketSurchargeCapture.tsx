@@ -13,7 +13,6 @@ import CoinsIcon from "../../shared/ui/icons/CoinsIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/util.ts";
 import RegionPicker from "../../shared/ui/RegionPicker/RegionPicker.tsx";
-import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const MarketSurchargeCapture = () => {
     const {action, proceed} = useConnect<"market_surcharge_capture">();
