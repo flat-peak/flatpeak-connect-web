@@ -14,7 +14,7 @@ import DayIcon from "../../shared/ui/icons/DayIcon.tsx";
 import Separator from "../../shared/ui/Separator/Separator.tsx";
 import InputTime from "../../shared/ui/InputTime/InputTime.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
-import {getCurrencySymbol} from "../../shared/util.ts";
+import {getCurrencySymbol} from "../../shared/lib/util.ts";
 
 export const RateTodCapture = () => {
     const { action, proceed} = useConnect<"rate_tod_capture">();

@@ -5,7 +5,7 @@ import Box from "../Box/Box.tsx";
 import {InputHTMLAttributes} from "react";
 
 type InputTextProps = {
-    options: string[];
+    options: Array<{label: string, value: string}>;
     secondaryText?: string
     primaryText?: string;
 } &  InputHTMLAttributes<HTMLSelectElement>
@@ -16,7 +16,7 @@ export default function Select(props: InputTextProps) {
           <View className={styles.host}>
               <select defaultValue={defaultValue} className={styles.control} {...inputAttributes}>
                   {options.map((opt) => (
-                      <option key={opt} value={opt}>{opt}</option>
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
               </select>
 

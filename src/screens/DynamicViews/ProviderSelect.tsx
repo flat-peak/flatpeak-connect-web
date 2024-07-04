@@ -11,6 +11,7 @@ import {useEffect, useState} from "react";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {ProviderSummary} from "../../features/connect/lib/types.ts";
 import AddressCheckBlock from "../../shared/ui/AddressCheckBlock/AddressCheckBlock.tsx";
+import {formatPostalAddress} from "../../shared/lib/util.ts";
 
 export const ProviderSelect = () => {
     const {action, proceed} = useConnect<'provider_select'>();
@@ -66,7 +67,7 @@ export const ProviderSelect = () => {
             {(action.actions || []).includes("ADDRESS_CHANGE") && postal_address && (
                 <Box mt={24}>
                     <AddressCheckBlock
-                        address={Object.values(postal_address).filter(Boolean).join(', ')}
+                        address={formatPostalAddress(postal_address)}
                         onClick={onChangeAddress}
                     />
                 </Box>
