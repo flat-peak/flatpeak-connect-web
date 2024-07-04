@@ -9,9 +9,9 @@ export default function DemoDisclaimer() {
         <div className={styles.host}>
           <WarningIcon color={'black'} opacity={1} width={16} height={16}/>
           <Typography variant={"rp_300_11"}>
-            Connect-web demo. Not for customer use. To remove, see{" "}
+             Demo, not for live use.{" "}
             <a href={"https://docs.flatpeak.com/guides/integration-test"} target={"_blank"}>
-              <Typography variant={"rp_300_11"} decoration={"underline"} component={"span"}>Docs.</Typography>
+              <Typography variant={"rp_300_11"} decoration={"underline"} component={"span"}>Docs to remove</Typography>
             </a>.
           </Typography>
         </div>
