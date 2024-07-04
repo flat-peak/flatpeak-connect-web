@@ -15,6 +15,7 @@ import Separator from "../../shared/ui/Separator/Separator.tsx";
 import InputTime from "../../shared/ui/InputTime/InputTime.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/util.ts";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const RateTodCapture = () => {
     const { action, proceed} = useConnect<"rate_tod_capture">();
@@ -48,7 +49,7 @@ export const RateTodCapture = () => {
     const [nightEnd, setNightEnd] = useState("00:00")
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
+        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/><DemoDisclaimer/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Day & night tariff plan" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">

@@ -11,6 +11,7 @@ import {useEffect, useState} from "react";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {ProviderSummary} from "../../features/connect/lib/types.ts";
 import AddressCheckBlock from "../../shared/ui/AddressCheckBlock/AddressCheckBlock.tsx";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const ProviderSelect = () => {
     const {action, proceed} = useConnect<'provider_select'>();
@@ -55,7 +56,7 @@ export const ProviderSelect = () => {
 
 
     return (
-        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"My provider is not listed"} variant={'secondary'}  onClick={onMissingProvider}/></FooterActions>}>
+        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"My provider is not listed"} variant={'secondary'}  onClick={onMissingProvider}/><DemoDisclaimer/></FooterActions>}>
             <MainHeading text="Select your provider" />
             <Search
                 onInput={(e) => setKeyword((e.target as HTMLInputElement).value)}

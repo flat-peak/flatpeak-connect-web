@@ -10,6 +10,7 @@ import Box from "../../shared/ui/Box/Box.tsx";
 import Search from "../../shared/ui/Search/Search.tsx";
 import TouchableOpacity from "../../shared/TouchahbleOpacity/TouchableOpacity.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const TariffSelect = () => {
     const {action,proceed} = useConnect<'tariff_select'>();
@@ -48,7 +49,7 @@ export const TariffSelect = () => {
     }
 
     return (
-        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"My tariff is not listed"} variant={'secondary'}  onClick={onMissingTariff}/></FooterActions>}>
+        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"My tariff is not listed"} variant={'secondary'}  onClick={onMissingTariff}/><DemoDisclaimer/></FooterActions>}>
             <MainHeading text="Select your tariff plan" />
             <Search
                 onInput={(e) => setKeyword((e.target as HTMLInputElement).value)}

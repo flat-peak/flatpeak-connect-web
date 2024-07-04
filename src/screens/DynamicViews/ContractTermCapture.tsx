@@ -10,6 +10,7 @@ import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import {CommonRenderRoute} from "../../features/connect/lib/types.ts";
 import {submitAction} from "../../features/connect/lib/service.ts";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const ContractTermCapture = () => {
     const { proceed, action} = useConnect();
@@ -40,7 +41,7 @@ export const ContractTermCapture = () => {
     }
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
+        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/><DemoDisclaimer/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Contract expiry date" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">

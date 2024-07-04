@@ -13,6 +13,7 @@ import CoinsIcon from "../../shared/ui/icons/CoinsIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/util.ts";
 import RegionPicker from "../../shared/ui/RegionPicker/RegionPicker.tsx";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const MarketSurchargeCapture = () => {
     const {action, proceed} = useConnect<"market_surcharge_capture">();
@@ -38,7 +39,7 @@ export const MarketSurchargeCapture = () => {
     }
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
+        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/><DemoDisclaimer/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Surcharge Rate" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">

@@ -11,6 +11,8 @@ import MarketIcon from "../../shared/ui/icons/MarketIcon.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {TariffStructureOption} from "../../features/connect/lib/types.ts";
+import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const CaptureTariffStructure = () => {
     const {action, proceed} = useConnect<"tariff_structure_select">();
@@ -28,7 +30,7 @@ export const CaptureTariffStructure = () => {
     }
 
     return (
-        <Layout component={"main"}>
+        <Layout component={"main"} footer={<FooterActions><DemoDisclaimer/></FooterActions>}>
             <MainHeading text="Configure your tariff plan" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">

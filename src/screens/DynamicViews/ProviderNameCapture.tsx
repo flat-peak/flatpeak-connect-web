@@ -12,6 +12,7 @@ import InputText from "../../shared/ui/InputText/InputText.tsx";
 import NoteIcon from "../../shared/ui/icons/NoteIcon.tsx";
 import AddressCheckBlock from "../../shared/ui/AddressCheckBlock/AddressCheckBlock.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const ProviderNameCapture = () => {
     const {action, proceed} = useConnect<"provider_name_capture">();
@@ -45,7 +46,7 @@ export const ProviderNameCapture = () => {
     }
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
+        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/><DemoDisclaimer/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Your provider" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">

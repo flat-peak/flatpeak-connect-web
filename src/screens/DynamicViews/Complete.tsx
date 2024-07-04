@@ -7,6 +7,7 @@ import Box from "../../shared/ui/Box/Box.tsx";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import WarningIcon from "../../shared/ui/icons/WarningIcon.tsx";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const CompleteView = () => {
 
@@ -33,7 +34,7 @@ export const CompleteView = () => {
 
     return (
         <Layout component={"form"}
-                footer={<FooterActions><ButtonBig label={"Next"} type="submit"></ButtonBig></FooterActions>}
+                footer={<FooterActions><ButtonBig label={"Next"} type="submit"></ButtonBig><DemoDisclaimer/></FooterActions>}
                 onSubmit={handleSubmit} noValidate>
             <MainHeading text="Complete" />
             <LeadingText>

@@ -9,6 +9,7 @@ import Layout from "../../shared/ui/Layout/Layout.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const PostalAddressCapture = () => {
     const {proceed, action} = useConnect<"postal_address_capture">();
@@ -43,7 +44,7 @@ export const PostalAddressCapture = () => {
 
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
+        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/><DemoDisclaimer/></FooterActions>} onSubmit={handleSubmit} noValidate>
             <MainHeading text="Add your address"/>
 
             <LeadingText>

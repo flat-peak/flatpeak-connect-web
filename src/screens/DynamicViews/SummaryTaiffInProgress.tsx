@@ -9,6 +9,7 @@ import {submitAction} from "../../features/connect/lib/service.ts";
 import Typography from "../../shared/ui/Typography/Typography.tsx";
 import InfoMessage from "../../shared/ui/InfoMessage/InfoMessage.tsx";
 import ForkIcon from "../../shared/ui/icons/ForkIcon.tsx";
+import DemoDisclaimer from "../../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 
 export const SummaryTaiffInProgress = () => {
     const { action, proceed} = useConnect<'summary_tariff_inprogress'>();
@@ -64,6 +65,7 @@ export const SummaryTaiffInProgress = () => {
                         <a href={"#"} onClick={handleDismissDirect}>set your tariff manually.</a>
                     </Typography>
                 </InfoMessage>
+                <DemoDisclaimer/>
             </Box>
         </Layout>
     )
