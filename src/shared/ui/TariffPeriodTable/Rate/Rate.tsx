@@ -1,7 +1,7 @@
 import Box from "../../Box/Box.tsx";
 import Typography, {FontVariant} from "../../Typography/Typography.tsx";
 import styles from "./Rate.module.scss";
-import {roundRateValue} from "../../../util.ts";
+import {roundRateValue} from "../../../lib/util.ts";
 
 type RateProps = {
     currency: string;

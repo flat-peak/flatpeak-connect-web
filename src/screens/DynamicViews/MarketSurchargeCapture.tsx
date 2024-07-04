@@ -11,7 +11,7 @@ import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import CoinsIcon from "../../shared/ui/icons/CoinsIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
-import {getCurrencySymbol} from "../../shared/util.ts";
+import {getCurrencySymbol} from "../../shared/lib/util.ts";
 import RegionPicker from "../../shared/ui/RegionPicker/RegionPicker.tsx";
 
 export const MarketSurchargeCapture = () => {
@@ -55,7 +55,7 @@ export const MarketSurchargeCapture = () => {
             </Box>
             {
                 Boolean(action.data.regions?.length) && (
-                    <Box mt={48}>
+                    <Box mt={32}>
                         <RegionPicker name={"region"} defaultValue={action.data.region || ''} options={action.data.regions || []} />
                     </Box>
                 )

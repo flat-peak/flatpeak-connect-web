@@ -1,7 +1,10 @@
 .host {
   background-color: var(--color-fill-background_light_gray);
   border-radius: 12px;
-  padding: 16px 16px 16px 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .label {
@@ -9,7 +12,7 @@
 }
 
 .value {
-  width: 238px;
+  min-width: 238px;
   line-height: 24px;
 }
 
@@ -17,4 +20,5 @@
   flex: 0 0 auto;
   height: 36px;
   width: 36px;
+  margin-bottom: -8px;
 }

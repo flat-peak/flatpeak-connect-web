@@ -16,15 +16,13 @@ export default function AddressCheckBlock(props: AddressCheckBlockProps) {
           <Typography color="black_a40" variant="button__forms14_book" className={styles.label}>
             Your address:
           </Typography>
-          <Box d={"row"} jc={"space-between"}>
               <Typography color="black" variant="button__forms16_book" className={styles.value}>
                   {address}
               </Typography>
-              <TouchableOpacity className={styles.control} onClick={onClick}>
-                  <EditIcon/>
-              </TouchableOpacity>
-          </Box>
       </Box>
+        <TouchableOpacity className={styles.control} onClick={onClick}>
+            <EditIcon/>
+        </TouchableOpacity>
     </View>
   );
 }

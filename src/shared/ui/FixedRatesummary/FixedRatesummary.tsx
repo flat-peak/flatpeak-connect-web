@@ -1,7 +1,7 @@
 import styles from "./FixedRatesummary.module.scss";
 import View from "../View/View.tsx";
 import Typography from "../Typography/Typography.tsx";
-import {roundRateValue} from "../../util.ts";
+import {roundRateValue} from "../../lib/util.ts";
 
 type FixedRatesummaryProps = {
   currency: string;

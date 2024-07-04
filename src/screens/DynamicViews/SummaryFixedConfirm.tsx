@@ -9,7 +9,7 @@ import Box from "../../shared/ui/Box/Box.tsx";
 import TariffDetails from "../../shared/ui/TariffBadges/TariffDetails.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
-import {getCurrencySymbol} from "../../shared/util.ts";
+import {getCurrencySymbol} from "../../shared/lib/util.ts";
 import WarningMessage from "../../shared/ui/WarningMessage/WarningMessage.tsx";
 import Typography from "../../shared/ui/Typography/Typography.tsx";
 

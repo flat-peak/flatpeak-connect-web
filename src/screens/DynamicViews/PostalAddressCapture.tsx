@@ -9,6 +9,8 @@ import Layout from "../../shared/ui/Layout/Layout.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
+import Select from "../../shared/ui/Select/Select.tsx";
+import {COUNTRIES} from "../../shared/lib/countries.ts";
 
 export const PostalAddressCapture = () => {
     const {proceed, action} = useConnect<"postal_address_capture">();
@@ -17,9 +19,7 @@ export const PostalAddressCapture = () => {
         event.preventDefault();
         const {
             address_line1: {value: address_line1},
-            address_line2: {value: address_line2},
             city: {value: city},
-            state: {value: state},
             country_code: {value: country_code},
             post_code: {value: post_code},
         } = event.target as unknown as { [key: string]: { value: string } };
@@ -31,11 +31,9 @@ export const PostalAddressCapture = () => {
             data: {
                 postal_address: {
                     address_line1,
-                    address_line2,
                     city,
                     country_code,
                     post_code,
-                    state
                 }
             }
         }))
@@ -54,20 +52,18 @@ export const PostalAddressCapture = () => {
             </LeadingText>
 
             <Box rg={12}>
+                <Select secondaryText="Country"
+                        id="country_code"
+                        name="country_code"
+                        autoComplete="country_code"
+                        defaultValue={action.data.postal_address.country_code} options={COUNTRIES}/>
                 <InputText
-                    secondaryText="Street address line 1"
+                    secondaryText="Street address"
                     id="address_line1"
                     name="address_line1"
                     autoComplete="address_line1"
                     defaultValue={action.data.postal_address.address_line1}
                     autoFocus
-                />
-                <InputText
-                    secondaryText="Street address line 2"
-                    id="address_line2"
-                    name="address_line2"
-                    autoComplete="address_line2"
-                    defaultValue={action.data.postal_address.address_line2}
                 />
                 <InputText
                     secondaryText="City"
@@ -77,28 +73,12 @@ export const PostalAddressCapture = () => {
                     defaultValue={action.data.postal_address.city}
                 />
                 <InputText
-                    secondaryText="State"
-                    id="state"
-                    name="state"
-                    primaryText=""
-                    defaultValue={action.data.postal_address.state}
-                />
-                <InputText
-                    secondaryText="Country"
-                    id="country_code"
-                    name="country_code"
-                    autoComplete="country_code"
-                    defaultValue={action.data.postal_address.country_code}
-                />
-
-                <InputText
                     secondaryText="Postcode / Zip"
                     id="post_code"
                     name="post_code"
                     autoComplete="post_code"
                     defaultValue={action.data.postal_address.post_code}
                 />
-
             </Box>
         </Layout>
     )

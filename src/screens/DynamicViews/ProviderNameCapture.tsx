@@ -12,6 +12,7 @@ import InputText from "../../shared/ui/InputText/InputText.tsx";
 import NoteIcon from "../../shared/ui/icons/NoteIcon.tsx";
 import AddressCheckBlock from "../../shared/ui/AddressCheckBlock/AddressCheckBlock.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
+import {formatPostalAddress} from "../../shared/lib/util.ts";
 
 export const ProviderNameCapture = () => {
     const {action, proceed} = useConnect<"provider_name_capture">();
@@ -56,7 +57,7 @@ export const ProviderNameCapture = () => {
 
             {((action.actions || []) as Array<string>).includes("ADDRESS_CHANGE") && (
                 <AddressCheckBlock
-                    address={Object.values(postal_address).filter(Boolean).join(', ')}
+                    address={formatPostalAddress(postal_address)}
                     onClick={onChangeAddress}
                 />)
             }

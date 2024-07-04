@@ -16,7 +16,11 @@ export default function RegionPicker(props: PropsWithChildren<RegionPickerProps>
             <Typography variant={"rp_300_14"} color={"yellow"}>
                 We were unable to automatically detect your tariff zone, please select it from list below:
             </Typography>
-            <Select options={options} name={name} defaultValue={defaultValue}/>
+            <Select
+                secondaryText="Tariff zone"
+                id="region"
+                autoComplete="region"
+                options={options.map((opt) => ({label: opt, value: opt}))} name={name} defaultValue={defaultValue}/>
         </View>
     );
 }
