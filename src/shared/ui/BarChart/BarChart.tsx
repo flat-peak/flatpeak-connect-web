@@ -27,31 +27,41 @@ export const BarChart = (props: BarChartProps) => {
     }, []);
 
     const data = useMemo(() => {
+        const values = rates.map((r) => Number(r.tariff.cost));
         if (!rates?.length) {
             return {
                 max: 0,
+                min: 0,
+                values,
                 rates: []
             }
         }
         return {
-            max: Math.max(...rates.map((r) => Number(r.tariff.cost))),
+            max: Math.max(...values),
+            min: Math.min(0, ...values),
+            values,
             rates: expandRates(rates)
         };
     }, [rates]);
 
-
+    const maxOffset = data.max - data.min;
+    const barsCssProps: Record<string, string | number | undefined> = {
+        '--bar-offset': `${(data.min / maxOffset * -100).toFixed(2)}%`
+    };
     return (
         <View className={styles.host}>
             <View className={styles.chartWrapper}>
                 <View className={styles.chartContent}>
-                    {data.rates.length ? <View className={classNames.join(" ")}>
+                    {data.rates.length ? <View className={classNames.join(" ")} style={barsCssProps}>
                         {data.rates.map((col, index) => {
                             const cssProps: Record<string, string | number | undefined> = { };
-
-                            cssProps['--bar-progress'] = `${(Number(col.tariff.cost) / data.max * 100).toFixed(2)}%`;
+                            const value = Number(col.tariff.cost);
+                            const isPositive = value >= 0;
+                            const factor = isPositive ? 100 : 100;
+                            cssProps['--bar-progress'] = `${(value / maxOffset * factor).toFixed(2)}%`;
                             cssProps['--bar-color'] = `var(--bar-color-${col.peak.toLowerCase()})`;
                             return (
-                             <View key={index.toString()} className={styles.bar} style={cssProps}></View>
+                                <View key={index.toString()} className={styles.bar} style={cssProps}/>
                             )
                         })}
                     </View> : (
@@ -92,8 +102,8 @@ export const BarChart = (props: BarChartProps) => {
                 </View>
                 <View className={styles.yAxis}>
                     <Rate currency={currency} cost={data.max ? data.max: 0.00} textVariant={"rp_300_11"}/>
-                    <Rate currency={currency} cost={data.max ? data.max / 2 : 0.00} textVariant={"rp_300_11"}/>
-                    <Rate currency={currency} cost={0.00}  textVariant={"rp_300_11"}/>
+                    <Rate currency={currency} cost={(data.max || data.min) ? (data.max - (data.max - data.min) / 2) : 0.00} textVariant={"rp_300_11"}/>
+                    <Rate currency={currency} cost={data.min ? data.min: 0.00}  textVariant={"rp_300_11"}/>
                 </View>
             </View>
             <Legend />

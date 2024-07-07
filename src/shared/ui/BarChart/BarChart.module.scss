@@ -37,8 +37,9 @@
   display: flex;
   column-gap: 1px;
   position: relative;
+  overflow: hidden;
   --bar-progress: 50%;
-
+  --bar-offset: 0%;
   --bar-color-undefinded: var(--color-fill-background_light_gray);
   --bar-color-low: #6FCF97;
   --bar-color-medium: #7857FF;
@@ -49,11 +50,24 @@
   &.animated .bar:before {
     transform: scaleY(var(--bar-progress));
   }
+
+  &:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    //background-color: var(--color-fill-concrete);
+    background-color: var(--color-typography-black);
+    opacity: 1;
+    bottom: var(--bar-offset);
+    position: absolute;
+  }
 }
 .bar {
   flex: 1;
   background-color: var(--color-fill-concrete);
   display: flex;
+  position: relative;
   &:before {
     content: "";
     display: block;
@@ -63,6 +77,8 @@
     transform-origin: left bottom;
     background-color: var(--bar-color);
     transition: transform 0.25s ease-in;
+    bottom: var(--bar-offset);
+    position: absolute;
   }
 }
 .noDataWarning {
