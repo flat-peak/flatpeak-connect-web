@@ -8,7 +8,7 @@ import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import Typography from "../../shared/ui/Typography/Typography.tsx";
 import InfoMessage from "../../shared/ui/InfoMessage/InfoMessage.tsx";
-import ForkIcon from "../../shared/ui/icons/ForkIcon.tsx";
+import ClockAltIcon from "../../shared/ui/icons/ClockAltIcon.tsx";
 
 export const SummaryTaiffInProgress = () => {
     const { action, proceed} = useConnect<'summary_tariff_inprogress'>();
@@ -48,23 +48,24 @@ export const SummaryTaiffInProgress = () => {
                         <ButtonBig label={"OK"} type="submit" size={"small"}/>
                     </FooterActions>
                 )}>
-            <MainHeading text="Tariff summary"  />
+            <MainHeading text="Connecting your tariff"  />
 
-            <Box mt={16} rg={24} d={"column"} f={1}>
+            <Box mt={16} rg={24} pb={30} d={"column"} f={1} ai={"center"} jc={"space-between"}>
                 <InfoMessage>
-                    <Box pb={24} jc={"center"} d={"row"}><ForkIcon /></Box>
-                    <Typography color="black" variant="button__forms28_book">
-                        Occasionally, it takes a little longer to retrieve a tariff.
+                    <Box pb={30} jc={"center"} d={"row"}><ClockAltIcon /></Box>
+                    <Typography color="black" variant="button__forms24_book">
+                        Sometimes it takes a little longer to retrieve the tariff.
                         <br/>
                         <br/>
-                        Click “OK” and we will automatically notify you when it's done.
-                        <br/>
-                        <br/>
-                        Don’t want to wait? You can also {" "}
-                        <a href={"#"} onClick={handleDismissDirect}>set your tariff manually.</a>
+                        Click “OK” and we will automatically notify you when it’s done.
                     </Typography>
                 </InfoMessage>
-
+                <Box mw={300}>
+                    <Typography color="black_a40" variant="leading_string" align={"center"} >
+                        Don’t want to wait? We don’t recommend it but you can also{" "}<br/>
+                        <a href={"#"} onClick={handleDismissDirect}><Typography variant={"leading_string"} decoration={"underline"} component={"span"}>set your tariff manually</Typography></a>.
+                    </Typography>
+                </Box>
             </Box>
         </Layout>
     )
