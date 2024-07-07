@@ -1,5 +1,4 @@
 import Typography from "../Typography/Typography.tsx";
-import WarningIcon from "../icons/WarningIcon.tsx";
 import styles from  "./DemoDisclaimer.module.css";
 
 const DISPLAY_DEMO_DISCLAIMER = true;
