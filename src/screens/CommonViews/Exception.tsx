@@ -17,7 +17,7 @@ type ExceptionProps = {
 export const Exception = (props: ExceptionProps) => {
     const {message, token, requestId} = props
     return (
-        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"Back"} variant={'critical-invert'}/></FooterActions>}>
+        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"Back"} variant={'critical-invert'} onClick={() => history.back()}/></FooterActions>}>
             <MainHeading text="Error" />
             <LeadingText>
                 <Typography color="white" variant="leading_string">
