@@ -41,32 +41,40 @@ export const SummaryTaiffInProgress = () => {
     }
 
     return (
-        <Layout component={"form"} onSubmit={handleSubmit} noValidate
-                footer={(
-                    <FooterActions variant={"secondary"}>
-                        <ButtonBig label={"Cancel"} type="button" variant={'link'} size={"small"} onClick={handleDisconnect}/>
-                        <ButtonBig label={"OK"} type="submit" size={"small"}/>
-                    </FooterActions>
-                )}>
-            <MainHeading text="Connecting your tariff"  />
+      <Layout
+        component={'form'}
+        onSubmit={handleSubmit}
+        noValidate
+        footer={
+          <FooterActions variant={'secondary'}>
+            <ButtonBig label={'Disconnect tariff'} type="button" variant={'link'} size={'small'} onClick={handleDisconnect} />
+            <ButtonBig label={'Save'} type="submit" size={'small'} />
+          </FooterActions>
+        }
+      >
+        <MainHeading text="Connecting your tariff" />
 
-            <Box mt={16} rg={24} pb={30} d={"column"} f={1} ai={"center"} jc={"space-between"}>
-                <InfoMessage>
-                    <Box pb={30} jc={"center"} d={"row"}><ClockAltIcon /></Box>
-                    <Typography color="black" variant="button__forms24_book">
-                        Sometimes it takes a little longer to retrieve the tariff.
-                        <br/>
-                        <br/>
-                        Click “OK” and we will automatically notify you when it’s done.
-                    </Typography>
-                </InfoMessage>
-                <Box mw={300}>
-                    <Typography color="black_a40" variant="leading_string" align={"center"} >
-                        Don’t want to wait? We don’t recommend it but you can also{" "}<br/>
-                        <a href={"#"} onClick={handleDismissDirect}><Typography variant={"leading_string"} decoration={"underline"} component={"span"}>set your tariff manually</Typography></a>.
-                    </Typography>
-                </Box>
+        <Box mt={16} rg={24} pb={30} d={'column'} f={1} ai={'center'} jc={'space-between'}>
+          <InfoMessage>
+            <Box pb={30} jc={'center'} d={'row'}>
+              <ClockAltIcon />
             </Box>
-        </Layout>
+            <Typography color="black" variant="button__forms24_book">
+              Occasionally, it takes a little longer to retrieve the tariff. Click “<b>Save</b>”, and we will automatically notify you when it’s done.
+            </Typography>
+          </InfoMessage>
+          <Box mw={300}>
+            <Typography color="black_a40" variant="leading_string" align={'center'}>
+              Don’t want to wait? We don’t recommend it but you can also <br />
+              <a href={'#'} onClick={handleDismissDirect}>
+                <Typography variant={'leading_string'} decoration={'underline'} component={'span'}>
+                  set your tariff manually
+                </Typography>
+              </a>
+              .
+            </Typography>
+          </Box>
+        </Box>
+      </Layout>
     )
 }
