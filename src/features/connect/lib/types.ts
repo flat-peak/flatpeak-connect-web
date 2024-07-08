@@ -231,13 +231,15 @@ export type RenderMarketSurchargeCapture = {
     currency_code: string;
     surcharge: {
         fixed: number;
+        percentage: number;
     },
     regions?: Array<string>
     region?: string
 } & HasProviderSummaryTrait;
 export type SubmitMarketSurchargeCapture = {
     surcharge: {
-        fixed: number
+        fixed: number;
+        percentage: number;
     },
     region?: string;
 };
