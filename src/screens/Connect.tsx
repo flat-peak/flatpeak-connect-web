@@ -25,6 +25,7 @@ import {ErrorRoute} from "./DynamicViews/ErrorRoute.tsx";
 import {submitAction} from "../features/connect/lib/service.ts";
 import {SummaryTaiffInProgress} from "./DynamicViews/SummaryTaiffInProgress.tsx";
 import DemoDisclaimer from "../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
+import {SummaryTaiffFailed} from "./DynamicViews/SummaryTaiffFailed.tsx";
 
 export const Connect = () => {
     const {state} = useLocation();
@@ -96,6 +97,7 @@ export const Connect = () => {
                     rate_tod_capture={RateTodCapture}
                     market_surcharge_capture={MarketSurchargeCapture}
                     summary_tariff_inprogress={SummaryTaiffInProgress}
+                    summary_tariff_failed={SummaryTaiffFailed}
                     summary_fixed_confirm={SummaryFixedConfirm}
                     summary_tou_confirm={SummaryTouConfirm}
                     complete_tariff={CompleteView} />
