@@ -1,7 +1,7 @@
 import Typography from "../Typography/Typography.tsx";
 import styles from  "./DemoDisclaimer.module.css";
 
-const DISPLAY_DEMO_DISCLAIMER = true;
+const DISPLAY_DEMO_DISCLAIMER = false;
 
 export default function DemoDisclaimer() {
   return (
