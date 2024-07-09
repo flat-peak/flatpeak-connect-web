@@ -54,7 +54,7 @@ export const SummaryTaiffInProgress = () => {
       >
         <MainHeading text="Connecting your tariff" />
 
-        <Box mt={16} rg={24} pb={30} d={'column'} f={1} ai={'center'} jc={'space-around'}>
+        <Box mt={16} rg={24} pb={30} d={'column'} f={1} ai={'center'} jc={'space-between'}>
           <InfoMessage>
             <Box pb={30} jc={'center'} d={'row'}>
               <ClockAltIcon />
