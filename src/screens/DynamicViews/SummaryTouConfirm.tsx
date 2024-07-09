@@ -52,7 +52,7 @@ export const SummaryTouConfirm = () => {
                         <ButtonBig label={"Save"} type="submit" size={"small"}/>
                     </FooterActions>
                 )}>
-            <MainHeading text="Tariff summary" />
+            <MainHeading text="Your tariff" />
             <TariffBadges
                 contract_type={action.direction}
                 structure_type={action.data.market_rates_source ? 'MARKET' : 'TIMEOFUSE'}

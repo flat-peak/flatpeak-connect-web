@@ -40,19 +40,26 @@ export const ContractTermCapture = () => {
     }
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
-            <MainHeading text="Contract expiry date" />
-            <LeadingText>
-                <Typography color="black_a40" variant="leading_string">
-                    Tell us when your contract expires so we can remind you to
-                    update this connection when it happens.
-                </Typography>
-            </LeadingText>
-            <InputDate placeholder="Choose expiry date" value={contract_end_date || ''}
-                       name="contractEndDate" />
-            <Box mt={24}>
-                <ButtonBig label={"Skip / Until terminated"} variant={"outlined"} type={"button"} onClick={skipUntilTerminated}/>
-            </Box>
-        </Layout>
-    );
+      <Layout
+        component={'form'}
+        footer={
+          <FooterActions>
+            <ButtonBig label={'Next'} type="submit" />
+          </FooterActions>
+        }
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <MainHeading text="Contract expiry date" />
+        <LeadingText>
+          <Typography color="black_a40" variant="leading_string">
+            Let us know when your contract expires so we can remind you to update this connection.
+          </Typography>
+        </LeadingText>
+        <InputDate placeholder="Choose expiry date" value={contract_end_date || ''} name="contractEndDate" />
+        <Box mt={24}>
+          <ButtonBig label={'Skip / Until terminated'} variant={'outlined'} type={'button'} onClick={skipUntilTerminated} />
+        </Box>
+      </Layout>
+    )
 }
