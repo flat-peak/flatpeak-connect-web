@@ -33,23 +33,26 @@ export const RateFixedCapture = () => {
     }
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
-            <MainHeading text="Fixed rate tariff plan" />
-            <LeadingText>
-                <Typography color="black_a40" variant="leading_string">
-                    Your tariff does not depend on any factors. It means you have a
-                    flat price all the time. Please provide the price.
-                </Typography>
-            </LeadingText>
-            <BlockHeading text="All year, all week, all day" icon={<HandIcon width={24} height={32}/>}/>
-            <Box mt={16}>
-                <InputRate
-                    name="cost"
-                    currency={getCurrencySymbol(action.data.currency_code)}
-                    defaultValue={action.data.cost}
-                    autoFocus={true}
-                />
-            </Box>
-        </Layout>
+      <Layout
+        component={'form'}
+        footer={
+          <FooterActions>
+            <ButtonBig label={'Next'} type="submit" />
+          </FooterActions>
+        }
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <MainHeading text="Fixed rate tariff plan" />
+        <LeadingText>
+          <Typography color="black_a40" variant="leading_string">
+            Your tariff is a flat rate with no time-based or seasonal variations. Please enter it below.
+          </Typography>
+        </LeadingText>
+        <BlockHeading text="Tariff, incl. VAT" icon={<HandIcon width={24} height={32} />} />
+        <Box mt={16}>
+          <InputRate name="cost" currency={getCurrencySymbol(action.data.currency_code)} defaultValue={action.data.cost} autoFocus={true} />
+        </Box>
+      </Layout>
     )
 }
