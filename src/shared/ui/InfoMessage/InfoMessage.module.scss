@@ -2,4 +2,13 @@
   background-color: var(--color-fill-background_light_gray);
   border-radius: 12px;
   padding: 30px;
+  min-height: 200px;
+}
+
+.info {
+  background-color: var(--color-fill-background_light_gray);
+}
+
+.error {
+  background-color: var(--color-fill-light_red);
 }

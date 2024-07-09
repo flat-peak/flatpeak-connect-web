@@ -1,19 +1,33 @@
 import styles from "./InputRate.module.scss";
 import View from "../View/View.js";
 import Typography from "../Typography/Typography.js";
-import {InputHTMLAttributes, useState} from "react";
+import {forwardRef, InputHTMLAttributes, useImperativeHandle, useRef, useState} from "react";
 
 type InputRateTimeProps = {
     variant?: "primary" | "secondary",
     currency: string;
-} &  InputHTMLAttributes<HTMLInputElement>
-export default function InputRate(props: InputRateTimeProps) {
+} & InputHTMLAttributes<HTMLInputElement>;
+
+export type InputRateHandle = {
+    reset: () => void;
+};
+
+const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) => {
     const { variant, currency, defaultValue, ...inputAttributes } = props
 
-    const [value, setValue] = useState(defaultValue || '0.00')
+    const [value, setValue] = useState(defaultValue || '0.00');
+
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useImperativeHandle(ref, () => ({
+        reset: () => setValue('0.00'),
+        input: inputRef.current
+    }));
+
   return (
       <View className={[styles.host, styles['variant-'+variant]].join(' ')}>
           <input
+              ref={inputRef}
                  className={styles.control}
                  type="number"
                  step={0.01}
@@ -36,4 +50,6 @@ export default function InputRate(props: InputRateTimeProps) {
           </View>
       </View>
   );
-}
+});
+
+export default InputRate;

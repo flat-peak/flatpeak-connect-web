@@ -90,8 +90,9 @@ export type SubmitRouteKey = keyof SubmitRouteMapping;
 
 interface RouteActionsMapping {
     summary_tariff_inprogress: "SAVE" | "DISCONNECT" | "DISMISS_DIRECT";
-    summary_tou_confirm: "SAVE" | "EDIT" | "DISCONNECT" | "RECONNECT";
-    summary_fixed_confirm: "SAVE" | "EDIT" | "DISCONNECT" | "RECONNECT";
+    summary_tou_confirm: "SAVE" | "EDIT" | "DISCONNECT";
+    summary_fixed_confirm: "SAVE" | "EDIT" | "DISCONNECT";
+    summary_tariff_failed: "DISCONNECT" | "RECONNECT";
     tariff_select: "TARIFF_MISSING" | "ADDRESS_CHANGE";
     provider_select: "PROVIDER_MISSING" | "ADDRESS_CHANGE";
 }
@@ -103,6 +104,7 @@ interface ExtrasSubmitRouteMapping {
 }
 interface RenderRouteDataMapping {
     summary_tariff_inprogress: RenderTariffInProgress;
+    summary_tariff_failed: RenderSummaryTariffFailed;
     postal_address_capture: RenderPostalAddressCapture;
     provider_select: RenderProviderSelect;
     provider_name_capture: RenderProviderNameCapture;
@@ -138,6 +140,7 @@ interface SubmitRouteMapping {
     summary_fixed_confirm: SubmitSummaryFixedConfirm;
     summary_tou_confirm: SubmitSummaryTouConfirm;
     summary_tariff_inprogress: SubmitTariffInProgress;
+    summary_tariff_failed: SubmitSummaryTariffFailed;
     complete_tariff: undefined;
     error: undefined;
 }
@@ -163,6 +166,9 @@ export type SubmitPostalAddressCapture = HasPostalAddressTrait;
 
 export type RenderTariffInProgress = HasProviderSummaryTrait;
 export type SubmitTariffInProgress = HasProviderSummaryTrait;
+
+export type RenderSummaryTariffFailed = HasProviderSummaryTrait;
+export type SubmitSummaryTariffFailed = HasProviderSummaryTrait;
 
 export type RenderProviderSelect = {
     providers: Array<ProviderSummary>
@@ -225,13 +231,15 @@ export type RenderMarketSurchargeCapture = {
     currency_code: string;
     surcharge: {
         fixed: number;
+        percentage: number;
     },
     regions?: Array<string>
     region?: string
 } & HasProviderSummaryTrait;
 export type SubmitMarketSurchargeCapture = {
     surcharge: {
-        fixed: number
+        fixed: number;
+        percentage: number;
     },
     region?: string;
 };
