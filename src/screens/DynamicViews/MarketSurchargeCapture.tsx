@@ -33,8 +33,8 @@ export const MarketSurchargeCapture = () => {
             connect_token: action.connect_token,
             data: {
                 surcharge: {
-                    fixed: Number(fixed) || 0,
-                    percentage: Number(percentage) || 0
+                    fixed: Number(fixed.trim().replace(",", '.')) || 0,
+                    percentage: Number(percentage.trim().replace(",", '.')) || 0
                 },
                 region: regionControl?.value
             }
@@ -64,8 +64,8 @@ export const MarketSurchargeCapture = () => {
             </LeadingText>
             <Box rg={16} ai={"center"}>
                 <BlockHeading text="Additional cost per kWh incl. VAT" icon={<CoinsIcon width={24} height={32}/>}/>
-                <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} currency={getCurrencySymbol(action.data.currency_code)}/>
-                <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={true} currency={"%"}/>
+                <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} prefix={getCurrencySymbol(action.data.currency_code)} useDefault={false}/>
+                <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false}/>
                 <ButtonBig label={"Reset all additional costs"} type="button" variant={'link'} size={"small"} onClick={handleReset} />
             </Box>
             {

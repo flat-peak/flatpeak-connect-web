@@ -45,7 +45,7 @@ export const RateFixedCapture = () => {
             <Box mt={16}>
                 <InputRate
                     name="cost"
-                    currency={getCurrencySymbol(action.data.currency_code)}
+                    prefix={getCurrencySymbol(action.data.currency_code)}
                     defaultValue={action.data.cost}
                     autoFocus={true}
                 />
