@@ -2,12 +2,14 @@ import styles from "./InputRate.module.scss";
 import View from "../View/View.js";
 import Typography from "../Typography/Typography.js";
 import {forwardRef, InputHTMLAttributes, useImperativeHandle, useRef, useState} from "react";
+import Box from "../Box/Box.js";
 
 type InputRateTimeProps = {
     variant?: "primary" | "secondary",
     prefix?: string;
     suffix?: string;
-    useDefault?: boolean
+    useDefault?: boolean;
+    layoutRightOffset?: number;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export type InputRateHandle = {
@@ -15,7 +17,7 @@ export type InputRateHandle = {
 };
 
 const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) => {
-    const { variant, prefix="", suffix = "", defaultValue, useDefault = true, ...inputAttributes } = props
+    const { variant, prefix="", suffix = "", defaultValue, useDefault = true, layoutRightOffset = 0, ...inputAttributes } = props
 
     const [value, setValue] = useState(defaultValue || useDefault ? '0.00' : "");
 
@@ -36,34 +38,40 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
 
     return (
       <View className={[styles.host, styles['variant-'+variant]].join(' ')}>
-          <input
-              ref={inputRef}
-                 className={styles.control}
-                 type="text"
-                 pattern="[0-9.,]*"
-                 inputMode="decimal"
-                 step={0.01}
-                 value={value}
-                 {...inputAttributes}
-                 onChange={handleChange}
-          />
-          <View className={styles.overlay}>
-              <View className={styles.wrapper}>
-                  <Typography color="black" variant="button__forms32_book" className={styles.prefix}>
-                      {prefix}
-                  </Typography>
-                  <Typography color="black" variant="button__forms32_book" className={styles.value}>
-                      {String(value)}
-                  </Typography>
-
-                  <Typography color="black"  variant="button__forms32_book" className={styles.suffix}>
-                      {suffix}
-                      <Typography color="black" variant="button__forms16_book_kwh">
-                          /kWh
+          <Box className={styles.placeholder}>
+              <input
+                  ref={inputRef}
+                     className={styles.control}
+                     type="text"
+                     pattern="[0-9.,]*"
+                     inputMode="decimal"
+                     step={0.01}
+                     value={value}
+                     {...inputAttributes}
+                     onChange={handleChange}
+              />
+              <View className={styles.overlay}>
+                  <View className={styles.wrapper}>
+                      <Typography color="black" variant="button__forms32_book" className={styles.prefix}>
+                          {prefix}
                       </Typography>
-                  </Typography>
+                      <Typography color="black" variant="button__forms32_book" className={styles.value}>
+                          {String(value)}
+                      </Typography>
+
+                      <Typography color="black" variant="button__forms32_book" className={styles.suffix}>
+                          {suffix}
+                          <Typography color="black" variant="button__forms16_book_kwh">
+                              /kWh
+                          </Typography>
+                      </Typography>
+                  </View>
+                  {/*<Typography color="black" variant="button__forms32_book" className={styles.fakeSuffix}>*/}
+                  {/*    {suffix}*/}
+                  {/*</Typography>*/}
               </View>
-          </View>
+          </Box>
+          {Boolean(layoutRightOffset) && <Box pr={layoutRightOffset}/>}
       </View>
   );
 });
