@@ -5,9 +5,9 @@ import {forwardRef, InputHTMLAttributes, useImperativeHandle, useRef, useState} 
 
 type InputRateTimeProps = {
     variant?: "primary" | "secondary",
-    prefix: string;
-    suffix: string;
-    useDefault: boolean
+    prefix?: string;
+    suffix?: string;
+    useDefault?: boolean
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export type InputRateHandle = {
@@ -41,7 +41,7 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                  className={styles.control}
                  type="text"
                  pattern="[0-9.,]*"
-                 inputmode="decimal"
+                 inputMode="decimal"
                  step={0.01}
                  value={value}
                  {...inputAttributes}
