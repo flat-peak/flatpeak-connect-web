@@ -51,30 +51,33 @@ export const MarketSurchargeCapture = () => {
     }
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
-            <MainHeading text="Additional Costs & Fees" />
-            <LeadingText>
-                <Typography color="black_a40" variant="leading_string">
-                    If your electricity cost includes
-                    additional charges or fees from your
-                    provider, for example, a fee on top of
-                    the market rate your tariff is based on,
-                    you can add them here.
-                </Typography>
-            </LeadingText>
-            <Box rg={16} ai={"center"}>
-                <BlockHeading text="Additional cost per kWh incl. VAT" icon={<CoinsIcon width={24} height={32}/>}/>
-                <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} prefix={getCurrencySymbol(action.data.currency_code)} useDefault={false}/>
-                <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false}/>
-                <ButtonBig label={"Reset all additional costs"} type="button" variant={'link'} size={"small"} onClick={handleReset} />
-            </Box>
-            {
-                Boolean(action.data.regions?.length) && (
-                    <Box mt={32}>
-                        <RegionPicker name={"region"} defaultValue={action.data.region || ''} options={action.data.regions || []} />
-                    </Box>
-                )
-            }
-        </Layout>
+      <Layout
+        component={'form'}
+        footer={
+          <FooterActions>
+            <ButtonBig label={'Next'} type="submit" />
+          </FooterActions>
+        }
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <MainHeading text="Additional Costs & Fees" />
+        <LeadingText>
+          <Typography color="black_a40" variant="leading_string">
+            If your electricity cost includes additional charges or fees from your provider, such as a fee on top of the market rate your tariff is based on, please add them here.
+          </Typography>
+        </LeadingText>
+        <Box rg={16} ai={'center'}>
+          <BlockHeading text="Fee per kWh incl. VAT" icon={<CoinsIcon width={24} height={32} />} />
+          <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} prefix={getCurrencySymbol(action.data.currency_code)} useDefault={false} />
+          <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false} />
+          <ButtonBig label={'Reset all additional costs'} type="button" variant={'link'} size={'small'} onClick={handleReset} />
+        </Box>
+        {Boolean(action.data.regions?.length) && (
+          <Box mt={32}>
+            <RegionPicker name={'region'} defaultValue={action.data.region || ''} options={action.data.regions || []} />
+          </Box>
+        )}
+      </Layout>
     )
 }

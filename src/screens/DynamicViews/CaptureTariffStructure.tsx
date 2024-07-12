@@ -32,14 +32,14 @@ export const CaptureTariffStructure = () => {
             <MainHeading text="Configure your tariff plan" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">
-                    Which ones of the following options affect your tariff rate?
+                    Which one of the following options affects your tariff rate?
                 </Typography>
             </LeadingText>
             <Box rg={8}>
                 {options.includes('FIXED') && (
                     <TariffStructureButton
                         key={'fixed'}
-                        description="My tariff is flat-rate"
+                        description="My tariff is flat"
                         mainText="Fixed Rate"
                         icon={<HandIcon/>}
                         onClick={() => selectRateType('FIXED')}
@@ -49,7 +49,7 @@ export const CaptureTariffStructure = () => {
                     <TariffStructureButton
                         key={"time-of-day"}
                         mainText="Day & Night"
-                        description="My tariff depends on the time of day"
+                        description="My tariff varies by time of day"
                         icon={<ClockIcon/>}
                         onClick={() => selectRateType('TIME_OF_DAY')}
                     />

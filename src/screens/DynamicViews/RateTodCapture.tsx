@@ -48,60 +48,101 @@ export const RateTodCapture = () => {
     const [nightEnd, setNightEnd] = useState("00:00")
 
     return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
-            <MainHeading text="Day & night tariff plan" />
-            <LeadingText>
-                <Typography color="black_a40" variant="leading_string">
-                    Please schedule day and night time periods and provide the rates.
-                </Typography>
-            </LeadingText>
-            {/*<Slider>*/}
-            {/*    <FormSlide color={"yellow"}>*/}
-            {/*        <BlockHeading text="Day Time Period" icon={<DayIcon width={24} height={32}/>}/>*/}
-            {/*        <Box pt={16} pb={16}><Separator/></Box>*/}
-            {/*        <Box cg={8} d={"row"}>*/}
-            {/*            <InputTime name="day_startTime" label={"Start"}  variant={"secondary"}/>*/}
-            {/*            <InputTime name="day_endTime" label={"End"}  variant={"secondary"}/>*/}
-            {/*        </Box>*/}
-            {/*        <Box mt={8}>*/}
-            {/*            <InputRate name="day_cost" variant={"secondary"} currency={getCurrencySymbol(action.data.currency_code)}/>*/}
-            {/*        </Box>*/}
-            {/*    </FormSlide>*/}
+      <Layout
+        component={'form'}
+        footer={
+          <FooterActions>
+            <ButtonBig label={'Next'} type="submit" />
+          </FooterActions>
+        }
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <MainHeading text="Day & night tariff plan" />
+        <LeadingText>
+          <Typography color="black_a40" variant="leading_string">
+            Please provide the rates and schedule for day and night periods.
+          </Typography>
+        </LeadingText>
+        {/*<Slider>*/}
+        {/*    <FormSlide color={"yellow"}>*/}
+        {/*        <BlockHeading text="Day Time Period" icon={<DayIcon width={24} height={32}/>}/>*/}
+        {/*        <Box pt={16} pb={16}><Separator/></Box>*/}
+        {/*        <Box cg={8} d={"row"}>*/}
+        {/*            <InputTime name="day_startTime" label={"Start"}  variant={"secondary"}/>*/}
+        {/*            <InputTime name="day_endTime" label={"End"}  variant={"secondary"}/>*/}
+        {/*        </Box>*/}
+        {/*        <Box mt={8}>*/}
+        {/*            <InputRate name="day_cost" variant={"secondary"} currency={getCurrencySymbol(action.data.currency_code)}/>*/}
+        {/*        </Box>*/}
+        {/*    </FormSlide>*/}
 
-            {/*    <FormSlide color={"blue"}>*/}
-            {/*        <BlockHeading text="Night Time Period" icon={<NightIcon width={24} height={32}/>}/>*/}
-            {/*        <Box pt={16} pb={16}><Separator/></Box>*/}
-            {/*        <Box cg={8} d={"row"}>*/}
-            {/*            <InputTime name="night_startTime" label={"Start"} variant={"secondary"}/>*/}
-            {/*            <InputTime name="night_endTime" label={"End"}  variant={"secondary"}/>*/}
-            {/*        </Box>*/}
-            {/*        <Box mt={8}>*/}
-            {/*            <InputRate name="night_cost" variant={"secondary"} currency={getCurrencySymbol(action.data.currency_code)}/>*/}
-            {/*        </Box>*/}
-            {/*    </FormSlide>*/}
-            {/*</Slider>*/}
+        {/*    <FormSlide color={"blue"}>*/}
+        {/*        <BlockHeading text="Night Time Period" icon={<NightIcon width={24} height={32}/>}/>*/}
+        {/*        <Box pt={16} pb={16}><Separator/></Box>*/}
+        {/*        <Box cg={8} d={"row"}>*/}
+        {/*            <InputTime name="night_startTime" label={"Start"} variant={"secondary"}/>*/}
+        {/*            <InputTime name="night_endTime" label={"End"}  variant={"secondary"}/>*/}
+        {/*        </Box>*/}
+        {/*        <Box mt={8}>*/}
+        {/*            <InputRate name="night_cost" variant={"secondary"} currency={getCurrencySymbol(action.data.currency_code)}/>*/}
+        {/*        </Box>*/}
+        {/*    </FormSlide>*/}
+        {/*</Slider>*/}
 
-            <Box rg={16}>
-                <BlockHeading text="Day Time Period" icon={<DayIcon width={24} height={32}/>}/>
-                <Box cg={8} d={"row"}>
-                    <InputTime name="day_startTime" value={dayStart} label={"Start"} variant={"primary"}
-                               onChange={(e) => { setDayStart(e.target.value); setNightEnd(e.target.value) }} />
-                    <InputTime name="day_endTime" value={dayEnd} label={"End"} variant={"primary"}
-                               onChange={(e) => { setDayEnd(e.target.value); setNightStart(e.target.value) }} />
-                    <InputRate name="day_cost" prefix={getCurrencySymbol(action.data.currency_code)}/>
-                </Box>
+        <Box rg={16}>
+          <BlockHeading text="Day Time, incl. VAT" icon={<DayIcon width={24} height={32} />} />
+          <Box cg={8} d={'row'}>
+            <InputTime
+              name="day_startTime"
+              value={dayStart}
+              label={'Start'}
+              variant={'primary'}
+              onChange={(e) => {
+                setDayStart(e.target.value)
+                setNightEnd(e.target.value)
+              }}
+            />
+            <InputTime
+              name="day_endTime"
+              value={dayEnd}
+              label={'End'}
+              variant={'primary'}
+              onChange={(e) => {
+                setDayEnd(e.target.value)
+                setNightStart(e.target.value)
+              }}
+            />
+            <InputRate name="day_cost" prefix={getCurrencySymbol(action.data.currency_code)} />
+          </Box>
 
-                <Separator/>
+          <Separator />
 
-                <BlockHeading text="Night Time Period" icon={<NightIcon width={24} height={32}/>}/>
-                <Box cg={8} d={"row"}>
-                    <InputTime name="night_startTime" value={nightStart} label={"Start"} variant={"primary"}
-                               onChange={(e) => { setNightStart(e.target.value); setDayEnd(e.target.value) }} />
-                    <InputTime name="night_endTime" value={nightEnd} label={"End"} variant={"primary"}
-                               onChange={(e) => { setNightEnd(e.target.value); setDayStart(e.target.value) }} />
-                    <InputRate name="night_cost" prefix={getCurrencySymbol(action.data.currency_code)}/>
-                </Box>
-            </Box>
-        </Layout>
+          <BlockHeading text="Night Time, incl. VAT" icon={<NightIcon width={24} height={32} />} />
+          <Box cg={8} d={'row'}>
+            <InputTime
+              name="night_startTime"
+              value={nightStart}
+              label={'Start'}
+              variant={'primary'}
+              onChange={(e) => {
+                setNightStart(e.target.value)
+                setDayEnd(e.target.value)
+              }}
+            />
+            <InputTime
+              name="night_endTime"
+              value={nightEnd}
+              label={'End'}
+              variant={'primary'}
+              onChange={(e) => {
+                setNightEnd(e.target.value)
+                setDayStart(e.target.value)
+              }}
+            />
+            <InputRate name="night_cost" prefix={getCurrencySymbol(action.data.currency_code)} />
+          </Box>
+        </Box>
+      </Layout>
     )
 }
