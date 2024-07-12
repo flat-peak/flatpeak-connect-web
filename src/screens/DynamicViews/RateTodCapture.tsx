@@ -61,7 +61,7 @@ export const RateTodCapture = () => {
         <MainHeading text="Day & night tariff plan" />
         <LeadingText>
           <Typography color="black_a40" variant="leading_string">
-            Please provide the rates and schedule for day and night periods.
+            Please input periods and rates for day and night, including VAT.
           </Typography>
         </LeadingText>
         {/*<Slider>*/}
@@ -91,7 +91,7 @@ export const RateTodCapture = () => {
         {/*</Slider>*/}
 
         <Box rg={16}>
-          <BlockHeading text="Day Time, incl. VAT" icon={<DayIcon width={24} height={32} />} />
+          <BlockHeading text="Day rate" icon={<DayIcon width={24} height={32} />} />
           <Box cg={8} d={'row'}>
             <InputTime
               name="day_startTime"
@@ -118,7 +118,7 @@ export const RateTodCapture = () => {
 
           <Separator />
 
-          <BlockHeading text="Night Time, incl. VAT" icon={<NightIcon width={24} height={32} />} />
+          <BlockHeading text="Night rate" icon={<NightIcon width={24} height={32} />} />
           <Box cg={8} d={'row'}>
             <InputTime
               name="night_startTime"

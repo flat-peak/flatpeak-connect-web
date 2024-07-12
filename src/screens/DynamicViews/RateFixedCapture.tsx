@@ -46,7 +46,7 @@ export const RateFixedCapture = () => {
         <MainHeading text="Fixed rate tariff plan" />
         <LeadingText>
           <Typography color="black_a40" variant="leading_string">
-            Your tariff is a flat rate with no time-based or seasonal variations. Please enter it below.
+            If your tariff is a flat rate with no time, weekday or seasonal variations, please enter it below.
           </Typography>
         </LeadingText>
         <BlockHeading text="Tariff, incl. VAT" icon={<HandIcon width={24} height={32} />} />

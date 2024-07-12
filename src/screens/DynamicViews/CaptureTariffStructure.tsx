@@ -32,7 +32,7 @@ export const CaptureTariffStructure = () => {
             <MainHeading text="Configure your tariff plan" />
             <LeadingText>
                 <Typography color="black_a40" variant="leading_string">
-                    Which one of the following options affects your tariff rate?
+                    What affects your rate?
                 </Typography>
             </LeadingText>
             <Box rg={8}>
