@@ -74,8 +74,8 @@ export const BarChart = (props: BarChartProps) => {
                                 )
                             })}
                             <View className={styles.noDataWarning}>
-                                <Typography variant={"heading_h2_text"}  align={"center"}>No data</Typography>
-                                <Typography variant={"button__forms16_book"} align={"center"}>Tariff information is not available yet. Please check back later</Typography>
+                                <Typography variant={"heading_h2_text"}  align={"center"}>Updating..</Typography>
+                                <Typography variant={"button__forms16_book"} align={"center"}>The tariff for this period is not available yet. Please check back later.</Typography>
                             </View>
                         </View>
                     )}
