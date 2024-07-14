@@ -1,7 +1,7 @@
 import {PropsWithChildren} from "react";
 import styles from "./Box.module.scss"
 import classNames from "classnames";
-const dynamicAttributes = ['mt', 'w', 'rg', 'cg', 'ml', 'mw','mih', 'pt',  'pb', 'ph', 'mg']
+const dynamicAttributes = ['mt', 'w', 'rg', 'cg', 'ml', 'mw','mih', 'pt',  'pb', 'ph', 'pl', 'pr', 'mg']
 type BoxProps = {
 	className?: string;
     rg?: number;
@@ -12,6 +12,8 @@ type BoxProps = {
 	w?: number | string;
 	pt?: number;
 	pb?: number;
+	pl?: number;
+	pr?: number;
 	ph?: number;
 	mg?: number;
 	f?: 1 | 0;

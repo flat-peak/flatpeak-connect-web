@@ -113,7 +113,7 @@ export const RateTodCapture = () => {
                 setNightStart(e.target.value)
               }}
             />
-            <InputRate name="day_cost" currency={getCurrencySymbol(action.data.currency_code)} />
+            <InputRate name="day_cost" prefix={getCurrencySymbol(action.data.currency_code)} />
           </Box>
 
           <Separator />
@@ -140,7 +140,7 @@ export const RateTodCapture = () => {
                 setDayStart(e.target.value)
               }}
             />
-            <InputRate name="night_cost" currency={getCurrencySymbol(action.data.currency_code)} />
+            <InputRate name="night_cost" prefix={getCurrencySymbol(action.data.currency_code)} />
           </Box>
         </Box>
       </Layout>

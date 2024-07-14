@@ -51,7 +51,12 @@ export const RateFixedCapture = () => {
         </LeadingText>
         <BlockHeading text="Tariff, incl. VAT" icon={<HandIcon width={24} height={32} />} />
         <Box mt={16}>
-          <InputRate name="cost" currency={getCurrencySymbol(action.data.currency_code)} defaultValue={action.data.cost} autoFocus={true} />
+          <InputRate
+              name="cost"
+              prefix={getCurrencySymbol(action.data.currency_code)}
+              defaultValue={action.data.cost}
+              autoFocus={true}
+          />
         </Box>
       </Layout>
     )
