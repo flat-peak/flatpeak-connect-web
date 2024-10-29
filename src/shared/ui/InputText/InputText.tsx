@@ -9,7 +9,8 @@ type InputTextProps = {
     primaryText?: string;
 } &  InputHTMLAttributes<HTMLInputElement>
 export default function InputText(props: InputTextProps) {
-  const {secondaryText: label, primaryText: value, ...inputAttributes } = props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {secondaryText: label, primaryText: value, ...inputAttributes } = props;
   return (
       <Box rg={8}>
           <View className={styles.host}>

@@ -2,7 +2,7 @@ import {ButtonHTMLAttributes, PropsWithChildren} from "react";
 import styles from "./TouchableOpacity.module.scss";
 
 type TouchableOpacityProps = {
-	component?: string | any;
+	component?: string | unknown;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function TouchableOpacity(props: PropsWithChildren<TouchableOpacityProps>) {
