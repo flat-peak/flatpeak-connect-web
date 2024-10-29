@@ -83,7 +83,7 @@ export type CommonSubmitRoute<T extends SubmitRouteKey = SubmitRouteKey> = {
     data?: T extends keyof SubmitRouteMapping ? SubmitRouteMapping[T] : undefined
 } & CommonSubmitRouteExtra<T>
 
-export type CommonSubmitRouteExtra<T> = T extends keyof ExtrasSubmitRouteMapping ? ExtrasSubmitRouteMapping[T] : {}
+export type CommonSubmitRouteExtra<T> = T extends keyof ExtrasSubmitRouteMapping ? ExtrasSubmitRouteMapping[T] : object
 
 export type RenderRouteKey = keyof RenderRouteDataMapping;
 export type SubmitRouteKey = keyof SubmitRouteMapping;

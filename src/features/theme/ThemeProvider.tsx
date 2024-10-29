@@ -12,7 +12,7 @@ const ThemeContext = createContext<{
 
 export const useTheme = () => useContext(ThemeContext);
 
-export type ThemeProviderProps = {}
+export type ThemeProviderProps = object
 export const ThemeProvider = (props: PropsWithChildren<ThemeProviderProps>) => {
     const {children} = props;
     const [theme, setTheme] = useState<ThemeVariant>("light");

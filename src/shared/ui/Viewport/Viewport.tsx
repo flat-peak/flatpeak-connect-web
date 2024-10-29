@@ -3,7 +3,7 @@ import View from "../View/View.tsx";
 import {PropsWithChildren} from "react";
 import {useTheme} from "../../../features/theme/ThemeProvider.tsx";
 
-type ViewportProps = {}
+type ViewportProps = object
 export const Viewport = (props: PropsWithChildren<ViewportProps>) => {
     const {children} = props;
     const {theme} = useTheme();
