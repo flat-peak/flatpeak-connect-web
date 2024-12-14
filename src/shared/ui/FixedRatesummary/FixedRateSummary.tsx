@@ -5,14 +5,15 @@ import {roundRateValue} from "../../lib/util.ts";
 
 type FixedRatesummaryProps = {
   currency: string;
+  tiered: boolean;
   cost?: number | string;
 }
-export default function FixedRatesummary(props: FixedRatesummaryProps) {
-  const {cost = 0, currency} = props;
+export default function FixedRateSummary(props: FixedRatesummaryProps) {
+  const {cost = 0, currency, tiered} = props;
 
   return (
     <View className={styles.host}>
-      <View className={styles.frame_313294}>
+      <View className={styles.rateWrapper}>
         <Typography color="black" variant="rp_300_72">
           {currency}{roundRateValue(cost) || '0.00'}
         </Typography>
@@ -20,6 +21,11 @@ export default function FixedRatesummary(props: FixedRatesummaryProps) {
           /kWh
         </Typography>
       </View>
+      {tiered && <View className={styles.tierData}>
+        <Typography color="black_a40" variant="button__forms16_book">
+          Tiered tariff, lowest tier displayed
+        </Typography>
+      </View>}
     </View>
   );
 }

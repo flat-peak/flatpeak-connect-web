@@ -4,7 +4,7 @@ import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
 import TariffBadges from "../../shared/ui/TariffBadges/TariffBadges.tsx";
-import FixedRatesummary from "../../shared/ui/FixedRatesummary/FixedRatesummary.tsx";
+import FixedRateSummary from "../../shared/ui/FixedRatesummary/FixedRateSummary.tsx";
 import Box from "../../shared/ui/Box/Box.tsx";
 import TariffDetails from "../../shared/ui/TariffBadges/TariffDetails.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
@@ -57,7 +57,10 @@ export const SummaryFixedConfirm = () => {
             />
             <Box mt={16} rg={24} d={"column"} f={1}>
                 <TariffDetails name={tariff.name} endDate={tariff.contract_end_date}/>
-                <FixedRatesummary currency={getCurrencySymbol(action.data.currency_code)} cost={cost} />
+                <FixedRateSummary
+                    currency={getCurrencySymbol(action.data.currency_code)}
+                    cost={cost}
+                    tiered={!!tariff.tiered} />
                 <ButtonBig label={"Disconnect tariff"} variant="critical" type={"button"} onClick={handleDisconnect} />
             </Box>
         </Layout>

@@ -6,13 +6,14 @@ import {PeakType, RateEntry, RateEntryDecorated, RatePeriodType} from "../../../
 import TimePeriodTable from "../TariffPeriodTable/TimePeriodTable.tsx";
 import {useState} from "react";
 import {BarChart} from "../BarChart/BarChart.tsx";
+import Typography from "../Typography/Typography.tsx";
 
 type DynamicRateSummaryProps = {
   currency: string;
   rates: Record<RatePeriodType, Array<RateEntry>>;
 }
 export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
-  const { currency, rates} = props;
+  const { currency, rates, tiered} = props;
 
     const [activeTab, setTab] = useState<RatePeriodType>("today");
     const [currentRates, setCurrentRates] = useState(decoratePeaks(rates.today));
@@ -23,14 +24,17 @@ export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
     }
 
     return (
-      <View
-          className={styles.host}
-      >
-          {/*<BarChartV2 rates={currentRates} currency={currency}/>*/}
+      <View className={styles.host}>
           <BarChart rates={currentRates} currency={currency}/>
-
-          <Box mt={24} rg={32}>
-            <TabsSelector currentTab={activeTab} changeTab={(tab) => handleTabChanged(tab)}/>
+          <Box mt={24} rg={tiered ? 16 : 32}>
+              <Box rg={8} ai={"center"} d={"column"}>
+                  <TabsSelector currentTab={activeTab} changeTab={(tab) => handleTabChanged(tab)}/>
+                  {tiered && (
+                      <Typography color="black_a40" variant="button__forms16_book">
+                          Tiered tariff, lowest tier displayed
+                      </Typography>
+                  )}
+              </Box>
             <TimePeriodTable rates={currentRates} currency={currency}/>
           </Box>
       </View>

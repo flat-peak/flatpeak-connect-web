@@ -248,9 +248,11 @@ export type RenderSummaryFixedConfirm = {
     currency_code: string;
     cost: number;
     tariff: {
-        name: string,
-        contract_end_date?: string,
-        reconnect_required?: boolean
+        name: string;
+        contract_end_date?: string;
+        reconnect_required?: boolean;
+        structure_type?: "FIXED";
+        tiered?: boolean
     },
 } & HasProviderSummaryTrait;
 export type SubmitSummaryFixedConfirm = never;
@@ -259,9 +261,11 @@ export type RenderSummaryTouConfirm = {
     currency_code: string;
     market_rates_source: boolean;
     tariff: {
-        name: string,
-        contract_end_date?: string
-        reconnect_required?: boolean
+        name: string;
+        contract_end_date?: string;
+        reconnect_required?: boolean;
+        structure_type?: string;
+        tiered?: boolean;
     },
     "rates": Record<"today"|"yesterday"|"tomorrow", Array<RateEntry>>;
 } & HasProviderSummaryTrait;
