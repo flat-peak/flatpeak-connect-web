@@ -1,4 +1,4 @@
-import styles from "./FixedRatesummary.module.scss";
+import styles from "./FixedRateSummary.module.scss";
 import View from "../View/View.tsx";
 import Typography from "../Typography/Typography.tsx";
 import {roundRateValue} from "../../lib/util.ts";

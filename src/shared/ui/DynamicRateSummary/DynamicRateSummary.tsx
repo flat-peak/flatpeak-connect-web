@@ -11,6 +11,7 @@ import Typography from "../Typography/Typography.tsx";
 type DynamicRateSummaryProps = {
   currency: string;
   rates: Record<RatePeriodType, Array<RateEntry>>;
+  tiered: boolean;
 }
 export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
   const { currency, rates, tiered} = props;
