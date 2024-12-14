@@ -264,7 +264,7 @@ export type RenderSummaryTouConfirm = {
         name: string;
         contract_end_date?: string;
         reconnect_required?: boolean;
-        structure_type?: string;
+        structure_type?: "TIME_OF_DAY";
         tiered?: boolean;
     },
     "rates": Record<"today"|"yesterday"|"tomorrow", Array<RateEntry>>;
