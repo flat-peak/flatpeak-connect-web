@@ -7,7 +7,7 @@ on:
 
 env:
   TAG: latest
-  REPO_NAME: tariff-connect-dev
+  REPO_NAME: saas/tariff-connect-dev
 
 jobs:
   build-and-push:
