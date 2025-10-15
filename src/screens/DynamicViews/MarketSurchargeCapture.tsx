@@ -12,10 +12,9 @@ import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import CoinsIcon from "../../shared/ui/icons/CoinsIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
-import RegionPicker from "../../shared/ui/RegionPicker/RegionPicker.tsx";
 
 export const MarketSurchargeCapture = () => {
-    const {action, proceed} = useConnect<"market_surcharge_capture">();
+    const {action, proceed} = useConnect<"surcharge_capture">();
     const fixedCostInputRef = useRef<InputRateHandle>(null);
     const percentCostInputRef = useRef<InputRateHandle>(null);
 
@@ -61,10 +60,10 @@ export const MarketSurchargeCapture = () => {
         onSubmit={handleSubmit}
         noValidate
       >
-        <MainHeading text="Additional Costs & Fees" />
+        <MainHeading text="Surcharges" />
         <LeadingText>
-          <Typography color="black_a40" variant="leading_string">
-            If your electricity cost includes additional charges or fees from your provider, such as a fee on top of the market rate your tariff is based on, please add them here.
+          <Typography color="black_a40" variant="leading_string">Add any extra charges if they are included in your tariff. <br/><br/>
+          We apply surcharges in this order: Fixed fee first, then Percentage on top.
           </Typography>
         </LeadingText>
         <Box rg={16} ai={'center'}>
@@ -73,11 +72,6 @@ export const MarketSurchargeCapture = () => {
           <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false} layoutRightOffset={44} />
           <ButtonBig label={'Reset all additional costs'} type="button" variant={'link'} size={'small'} onClick={handleReset} />
         </Box>
-        {Boolean(action.data.regions?.length) && (
-          <Box mt={32}>
-            <RegionPicker name={'region'} defaultValue={action.data.region || ''} options={action.data.regions || []} />
-          </Box>
-        )}
       </Layout>
     )
 }

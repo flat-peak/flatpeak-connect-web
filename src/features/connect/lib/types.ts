@@ -62,7 +62,7 @@ export type ContractDirection = "IMPORT" | "EXPORT";
 export type TariffStructureOption = "FIXED" | "TIME_OF_DAY" | "MARKET";
 
 export type PeakType = "Low" | "Medium" | "High";
-export type TariffStructureType = 'FIXEDRATE' | 'TIMEOFUSE' | 'MARKET';
+export type TariffStructureType = 'FIXED' | 'TIME_OF_DAY' | 'MARKET'; // | 'DYNAMIC';
 export type RatePeriodType = "today" | "yesterday" | "tomorrow";
 
 export interface CommonRenderRoute<T extends RenderRouteKey = RenderRouteKey> {
@@ -89,10 +89,9 @@ export type RenderRouteKey = keyof RenderRouteDataMapping;
 export type SubmitRouteKey = keyof SubmitRouteMapping;
 
 interface RouteActionsMapping {
-    summary_tariff_inprogress: "SAVE" | "DISCONNECT" | "DISMISS_DIRECT";
-    summary_tou_confirm: "SAVE" | "EDIT" | "DISCONNECT";
-    summary_fixed_confirm: "SAVE" | "EDIT" | "DISCONNECT";
-    summary_tariff_failed: "DISCONNECT" | "RECONNECT";
+    tariff_connection_pending: "SAVE" | "DISCONNECT" | "DISMISS_DIRECT";
+    tariff_summary: "SAVE" | "EDIT" | "DISCONNECT";
+    tariff_connection_failed: "DISCONNECT" | "RECONNECT";
     tariff_select: "TARIFF_MISSING" | "ADDRESS_CHANGE";
     provider_select: "PROVIDER_MISSING" | "ADDRESS_CHANGE";
 }
@@ -103,8 +102,8 @@ interface ExtrasSubmitRouteMapping {
     }
 }
 interface RenderRouteDataMapping {
-    summary_tariff_inprogress: RenderTariffInProgress;
-    summary_tariff_failed: RenderSummaryTariffFailed;
+    tariff_connection_pending: RenderTariffInProgress;
+    tariff_connection_failed: RenderSummaryTariffFailed;
     postal_address_capture: RenderPostalAddressCapture;
     provider_select: RenderProviderSelect;
     provider_name_capture: RenderProviderNameCapture;
@@ -114,18 +113,17 @@ interface RenderRouteDataMapping {
     contract_term_capture: RenderContractTermCapture;
     rate_fixed_capture: RenderRateFixedCapture;
     rate_tod_capture: RenderRateTodCapture;
-    market_surcharge_capture: RenderMarketSurchargeCapture;
-    summary_fixed_confirm: RenderSummaryFixedConfirm;
-    summary_tou_confirm: RenderSummaryTouConfirm;
+    region_select: RenderRegionSelect;
+    surcharge_capture: RenderMarketSurchargeCapture;
+    tariff_summary: RenderTariffSummary;
     // session_redirect: RenderSessionRedirect;
-    // session_complete: RenderSessionComplete;
     complete_tariff: RenderComplete;
     error: RenderError;
 }
 
 interface SubmitRouteMapping {
     start_tariff: SubmitStartTariff;
-    session_restore: never;
+    session_start: never;
     session_redirect: never;
     postal_address_capture: SubmitPostalAddressCapture;
     provider_select: SubmitProviderSelect;
@@ -136,11 +134,11 @@ interface SubmitRouteMapping {
     contract_term_capture: SubmitContractTermCapture;
     rate_fixed_capture: SubmitRateFixedCapture;
     rate_tod_capture: SubmitRateTodCapture;
-    market_surcharge_capture: SubmitMarketSurchargeCapture;
-    summary_fixed_confirm: SubmitSummaryFixedConfirm;
-    summary_tou_confirm: SubmitSummaryTouConfirm;
-    summary_tariff_inprogress: SubmitTariffInProgress;
-    summary_tariff_failed: SubmitSummaryTariffFailed;
+    region_select: SubmitRegionSelect;
+    surcharge_capture: SubmitMarketSurchargeCapture;
+    tariff_summary: SubmitTariffSummary;
+    tariff_connection_pending: SubmitTariffInProgress;
+    tariff_connection_failed: SubmitSummaryTariffFailed;
     complete_tariff: undefined;
     error: undefined;
 }
@@ -244,33 +242,28 @@ export type SubmitMarketSurchargeCapture = {
     region?: string;
 };
 
-export type RenderSummaryFixedConfirm = {
-    currency_code: string;
-    cost: number;
-    tariff: {
-        name: string;
-        contract_end_date?: string;
-        reconnect_required?: boolean;
-        structure_type?: "FIXED";
-        tiered?: boolean
-    },
-} & HasProviderSummaryTrait;
-export type SubmitSummaryFixedConfirm = never;
-
-export type RenderSummaryTouConfirm = {
+export type RenderTariffSummary = {
     currency_code: string;
     market_rates_source: boolean;
     tariff: {
         name: string;
         contract_end_date?: string;
         reconnect_required?: boolean;
-        structure_type?: "TIME_OF_DAY";
+        structure_type?: TariffStructureType;
         tiered?: boolean;
     },
     "rates": Record<"today"|"yesterday"|"tomorrow", Array<RateEntry>>;
 } & HasProviderSummaryTrait;
-export type SubmitSummaryTouConfirm = never;
+export type SubmitTariffSummary = never;
 
+export type RenderRegionSelect = {
+    regions: string[];
+    region?: string;
+} & HasProviderSummaryTrait;
+
+export type SubmitRegionSelect = {
+    region: string;
+};
 
 export type RenderComplete = never;
 

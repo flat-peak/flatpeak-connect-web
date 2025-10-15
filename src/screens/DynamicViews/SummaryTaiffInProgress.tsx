@@ -11,7 +11,7 @@ import InfoMessage from "../../shared/ui/InfoMessage/InfoMessage.tsx";
 import ClockAltIcon from "../../shared/ui/icons/ClockAltIcon.tsx";
 
 export const SummaryTaiffInProgress = () => {
-    const { action, proceed} = useConnect<'summary_tariff_inprogress'>();
+    const { action, proceed} = useConnect<'tariff_connection_pending'>();
 
     const handleSubmit: FormEventHandler = (event) => {
         event.preventDefault();
