@@ -1,4 +1,4 @@
-app = "connect-web-prod-fp"
+app = "connect-web-anode-prod-fp" 
 primary_region = "lhr"
 kill_signal = "SIGINT"
 kill_timeout = "5s"
@@ -7,7 +7,7 @@ kill_timeout = "5s"
   auto_rollback = true
 
 [env]
-  CLOUDWATCH_GROUP_NAME = "/production/app/provider/connect-web"
+  CLOUDWATCH_GROUP_NAME = "/production/app/provider/connect-web-anode"
   CONNECT_API_URL = "https://connect.flatpeak.com"
 
 [[services]]

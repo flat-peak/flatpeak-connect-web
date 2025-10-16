@@ -8,10 +8,8 @@ import {CaptureTariffStructure} from "./DynamicViews/CaptureTariffStructure.tsx"
 import {RateFixedCapture} from "./DynamicViews/RateFixedCapture.tsx";
 import {TariffNameCapture} from "./DynamicViews/TariffNameCapture.tsx";
 import {ContractTermCapture} from "./DynamicViews/ContractTermCapture.tsx";
-import {SummaryTouConfirm} from "./DynamicViews/SummaryTouConfirm.tsx";
 import {TariffSelect} from "./DynamicViews/TariffSelect.tsx";
 import NavHeader from "../shared/ui/NavHeader/NavHeader.tsx";
-import {SummaryFixedConfirm} from "./DynamicViews/SummaryFixedConfirm.tsx";
 import {useTheme} from "../features/theme/ThemeProvider.tsx";
 import {useEffect} from "react";
 import {Exception} from "./CommonViews/Exception.tsx";
@@ -26,6 +24,8 @@ import {submitAction} from "../features/connect/lib/service.ts";
 import {SummaryTaiffInProgress} from "./DynamicViews/SummaryTaiffInProgress.tsx";
 import DemoDisclaimer from "../shared/ui/DemoDisclaimer/DemoDisclaimer.tsx";
 import {SummaryTaiffFailed} from "./DynamicViews/SummaryTaiffFailed.tsx";
+import {RegionSelect} from "./DynamicViews/RegionSelect.tsx";
+import { TariffSummary } from "./DynamicViews/TariffSummary.tsx";
 
 export const Connect = () => {
     const {state} = useLocation();
@@ -49,7 +49,7 @@ export const Connect = () => {
         if (!response && tokenParsed) {
             proceed(
                 submitAction({
-                    route: "session_restore",
+                    route: "session_start",
                     connect_token: token,
                     type: "submit",
                 })
@@ -68,11 +68,6 @@ export const Connect = () => {
 
     if (response.route === "session_redirect") {
         location.replace(response.data.redirect_uri)
-        return null;
-    }
-
-    if (response.route === "session_complete") {
-        location.replace(response.data.callback_uri)
         return null;
     }
 
@@ -95,12 +90,12 @@ export const Connect = () => {
                     tariff_structure_select={CaptureTariffStructure}
                     rate_fixed_capture={RateFixedCapture}
                     rate_tod_capture={RateTodCapture}
-                    market_surcharge_capture={MarketSurchargeCapture}
-                    summary_tariff_inprogress={SummaryTaiffInProgress}
-                    summary_tariff_failed={SummaryTaiffFailed}
-                    summary_fixed_confirm={SummaryFixedConfirm}
-                    summary_tou_confirm={SummaryTouConfirm}
-                    complete_tariff={CompleteView} />
+                    surcharge_capture={MarketSurchargeCapture}
+                    tariff_connection_pending={SummaryTaiffInProgress}
+                    tariff_connection_failed={SummaryTaiffFailed}
+                    tariff_summary={TariffSummary}
+                    complete_tariff={CompleteView}
+                    region_select={RegionSelect} />
                 )}
         </ConnectProvider>
     )

@@ -11,7 +11,7 @@ import InfoMessage from '../../shared/ui/InfoMessage/InfoMessage.tsx'
 import WarningIcon from '../../shared/ui/icons/WarningIcon.tsx'
 
 export const SummaryTaiffFailed = () => {
-  const {action, proceed} = useConnect<'summary_tariff_failed'>()
+  const {action, proceed} = useConnect<'tariff_connection_failed'>()
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault()

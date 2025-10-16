@@ -10,18 +10,18 @@ type TariffStructureBadgeProps = {
     value: TariffStructureType
 }
 
-
 export default function TariffStructureBadge(props: TariffStructureBadgeProps) {
-    const {value = 'FIXEDRATE'} = props;
+    const {value = 'FIXED'} = props;
+
     const label = {
-        'FIXEDRATE': 'Flat Rate',
-        'TIMEOFUSE': 'Day & night',
+        'FIXED': 'Flat Rate',
+        'TIME_OF_DAY': 'Day & night',
         'MARKET': 'Market Rate'
     }[value];
-
+ 
     const Icon = {
-        'FIXEDRATE': HandIcon,
-        'TIMEOFUSE': ClockIcon,
+        'FIXED': HandIcon,
+        'TIME_OF_DAY': ClockIcon,
         'MARKET': MarketIcon
     }[value];
 
