@@ -1,6 +1,5 @@
 import {PropsWithChildren} from "react";
-import styles from "./RegionPicker.module.scss";
-import DropdownArrow from "../icons/DropdownArrow.tsx";
+import Select from "../Select/Select.tsx";
 
 type RegionPickerProps = {
 	options: string[];
@@ -14,26 +13,13 @@ export default function RegionPicker(props: PropsWithChildren<RegionPickerProps>
     const {name, options, defaultValue, placeholder = "Choose your region", onChange} = props;
     
     return (
-        <div className={styles.container}>
-					<select 
-						name={name}
-						defaultValue={defaultValue || ""}
-						className={styles.select}
-						onChange={(e) => onChange?.(e.target.value)}
-						required
-					>
-						<option value="" disabled hidden>
-							{placeholder}
-						</option>
-						{options.map((option) => (
-							<option key={option} value={option}>
-								{option}
-							</option>
-						))}
-            </select>
-            <div className={styles.chevron}>
-							<DropdownArrow />
-            </div>
-        </div>
+        <Select
+            name={name}
+            placeholder={placeholder}
+            defaultValue={defaultValue || ""}
+            options={options.map((opt) => ({label: opt, value: opt}))}
+            onChange={onChange}
+            required
+        />
     );
 }
