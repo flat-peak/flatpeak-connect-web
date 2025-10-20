@@ -5,6 +5,9 @@ const API_HOST = (window as unknown as {CONNECT_API_URL: string}).CONNECT_API_UR
 export const submitAction = (payload: CommonSubmitRoute): Promise<CommonRenderRoute> => {
    return fetch(API_HOST, {
        method: 'POST',
+       headers: {
+           'Content-Type': 'application/json'
+       },
        body: JSON.stringify(payload)
    })
    .then((response) => response.json())

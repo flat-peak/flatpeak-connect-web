@@ -1,19 +1,20 @@
 import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler} from "react";
+import {FormEventHandler, useState} from "react";
 import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
 import TariffBadges from "../../shared/ui/TariffBadges/TariffBadges.tsx";
 import Box from "../../shared/ui/Box/Box.tsx";
-import TariffDetails from "../../shared/ui/TariffBadges/TariffDetails.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import DynamicRateSummary from "../../shared/ui/DynamicRateSummary/DynamicRateSummary.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
 import FixedRateSummary from "../../shared/ui/FixedRatesummary/FixedRateSummary.tsx";
+import Typography from "../../shared/ui/Typography/Typography.tsx";
 
 export const TariffSummary = () => {
     const { action, proceed} = useConnect<'tariff_summary'>();
+    const [isReportProblemDisabled, setIsReportProblemDisabled] = useState(false);
 
     const {tariff, rates} = action.data;
 
@@ -43,26 +44,42 @@ export const TariffSummary = () => {
             action: "DISCONNECT"
         }));
     }
+    
+    const handleReportProblem = () => {
+        setIsReportProblemDisabled(true);
+        
+        proceed(submitAction({
+            route: action.route,
+            type: "submit",
+            connect_token: action.connect_token,
+            action: "WRONG_TARIFF"
+        }))
+        .then(() => {})
+        .catch(() => {
+            setIsReportProblemDisabled(false);
+        });
+    }
 
     return (
         <Layout component={"form"} onSubmit={handleSubmit} noValidate
                 footer={(
                     <FooterActions variant={"secondary"} transparent={false}>
-                        <ButtonBig label={"Edit tariff"} type="button" variant={'link'} size={"small"} onClick={handleEdit}/>
-                        <ButtonBig label={"Save"} type="submit" size={"small"}/>
+                        <ButtonBig label={"Disconnect"} type="button" variant={'link'} size={"small"} onClick={handleDisconnect}/>
+                        <ButtonBig label={"Edit"} type="button" size={"small"} onClick={handleEdit}/>
                     </FooterActions>
                 )}>
+            <Typography color="black" variant="basic_string" align="center">{tariff.name}</Typography>
             <MainHeading text="Tariff summary" />
             <TariffBadges
                 contract_type={action.direction}
                 structure_type={tariff.structure_type || 'FIXED'}
+                onReportProblem={handleReportProblem}
+                isReportProblemDisabled={isReportProblemDisabled}
             />
             <Box mt={16} rg={24} d={"column"} f={1}>
-                <TariffDetails name={tariff.name} endDate={tariff.contract_end_date}/>
                 {tariff.structure_type === 'FIXED' ? 
                  <FixedRateSummary currency={getCurrencySymbol(action.data.currency_code)} cost={rates.today?.[0]?.tariff.cost || 0} tiered={!!tariff.tiered} /> 
                  : <DynamicRateSummary currency={getCurrencySymbol(action.data.currency_code)} rates={rates} tiered={!!tariff.tiered} />}
-                <ButtonBig label={"Disconnect tariff"} variant="critical" type={"button"} onClick={handleDisconnect}/>
             </Box>
         </Layout>
     )

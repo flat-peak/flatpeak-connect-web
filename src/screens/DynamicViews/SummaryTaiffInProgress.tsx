@@ -13,13 +13,12 @@ import ClockAltIcon from "../../shared/ui/icons/ClockAltIcon.tsx";
 export const SummaryTaiffInProgress = () => {
     const { action, proceed} = useConnect<'tariff_connection_pending'>();
 
-    const handleSubmit: FormEventHandler = (event) => {
-        event.preventDefault();
+    const handleEdit = () => {
         proceed(submitAction({
             route: action.route,
             type: "submit",
             connect_token: action.connect_token,
-            action: "SAVE"
+            action: "EDIT"
         }));
     }
     const handleDisconnect = () => {
@@ -42,13 +41,12 @@ export const SummaryTaiffInProgress = () => {
 
     return (
       <Layout
-        component={'form'}
-        onSubmit={handleSubmit}
+        component={'main'}
         noValidate
         footer={
           <FooterActions variant={'secondary'}>
-            <ButtonBig label={'Disconnect tariff'} type="button" variant={'link'} size={'small'} onClick={handleDisconnect} />
-            <ButtonBig label={'Save'} type="submit" size={'small'} />
+            <ButtonBig label={'Disconnect'} type="button" variant={'link'} size={'small'} onClick={handleDisconnect} />
+            <ButtonBig label={'Edit'} type="button" size={'small'} onClick={handleEdit} />
           </FooterActions>
         }
       >

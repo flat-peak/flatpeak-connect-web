@@ -11,14 +11,15 @@ type SelectProps = {
     placeholder?: string;
     onChange?: (value: string) => void;
     hostClassName?: string;
+    className?: string;
 } & Omit<InputHTMLAttributes<HTMLSelectElement>, 'onChange'>
 
 export default function Select(props: SelectProps) {
-	const {label, defaultValue, options, placeholder, onChange, hostClassName, ...inputAttributes } = props
+    const {label, defaultValue, options, placeholder, onChange, hostClassName, className, ...inputAttributes } = props
 
 	return (
 		<Box rg={8}>
-			<View className={`${styles.host} ${hostClassName || ''}`}>
+            <View className={`${styles.host} ${hostClassName || ''}`}>
 				{label && (
 					<Typography
 						color={'black_a60'}
@@ -27,9 +28,9 @@ export default function Select(props: SelectProps) {
 						className={styles.label}
 					>{label}</Typography>
 				)}
-				<select
+                <select
 					defaultValue={defaultValue}
-					className={`${styles.control} ${label && styles.inputWithLabel}`}
+                    className={`${styles.control} ${label && styles.inputWithLabel} ${className || ''}`}
 					onChange={(e) => onChange?.(e.target.value)}
 					{...inputAttributes}
 				>

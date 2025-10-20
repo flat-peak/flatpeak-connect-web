@@ -7,6 +7,7 @@ import TimePeriodTable from "../TariffPeriodTable/TimePeriodTable.tsx";
 import {useState} from "react";
 import {BarChart} from "../BarChart/BarChart.tsx";
 import Typography from "../Typography/Typography.tsx";
+import PriceNow from "../PriceNow/PriceNow.tsx";
 
 type DynamicRateSummaryProps = {
   currency: string;
@@ -26,6 +27,10 @@ export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
 
     return (
       <View className={styles.host}>
+        <PriceNow 
+            rates={currentRates}
+            currency={currency}
+        />
           <BarChart rates={currentRates} currency={currency}/>
           <Box mt={24} rg={tiered ? 16 : 32}>
               <Box rg={8} ai={"center"} d={"column"}>

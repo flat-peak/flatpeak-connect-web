@@ -1,16 +1,16 @@
-import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler} from "react";
-import Typography from "../../shared/ui/Typography/Typography.tsx";
-import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
-import InputText from "../../shared/ui/InputText/InputText.tsx";
-import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
-import Box from "../../shared/ui/Box/Box.tsx";
-import Layout from "../../shared/ui/Layout/Layout.tsx";
-import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
-import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
-import {submitAction} from "../../features/connect/lib/service.ts";
-import Select from "../../shared/ui/Select/Select.tsx";
-import {COUNTRIES} from "../../shared/lib/countries.ts";
+import { FormEventHandler } from "react";
+import { useConnect } from "../../features/connect/lib/ConnectProvider";
+import { submitAction } from "../../features/connect/lib/service";
+import { COUNTRIES } from "../../shared/lib/countries";
+import Box from "../../shared/ui/Box/Box";
+import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig";
+import FooterActions from "../../shared/ui/FooterActions/FooterActions";
+import InputText from "../../shared/ui/InputText/InputText";
+import Layout from "../../shared/ui/Layout/Layout";
+import { LeadingText } from "../../shared/ui/LeadingText/LeadingText";
+import MainHeading from "../../shared/ui/MainHeading/MainHeading";
+import Select from "../../shared/ui/Select/Select";
+import Typography from "../../shared/ui/Typography/Typography";
 import styles from "./PostalAddressCapture.module.scss";
 
 export const PostalAddressCapture = () => {

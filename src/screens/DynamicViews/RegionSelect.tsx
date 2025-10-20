@@ -51,6 +51,7 @@ export const RegionSelect = () => {
             <RegionPicker 
               name={'region'} 
               defaultValue={action.data.region || ''} 
+              placeholder="Choose your region"
               options={action.data.regions || []} 
             />
           </Box>
