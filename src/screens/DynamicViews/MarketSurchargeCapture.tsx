@@ -9,7 +9,8 @@ import BlockHeading from "../../shared/ui/BlockHeading/BlockHeading.tsx";
 import InputRate, {InputRateHandle} from "../../shared/ui/InputRate/InputRate.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
-import CoinsIcon from "../../shared/ui/icons/CoinsIcon.tsx";
+import FixedSurchargesIcon from "../../shared/ui/icons/FixedSurchargesIcon.tsx";
+import PercentageIcon from "../../shared/ui/icons/PercentageIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
 
@@ -66,10 +67,27 @@ export const MarketSurchargeCapture = () => {
           We apply surcharges in this order: Fixed fee first, then Percentage on top.
           </Typography>
         </LeadingText>
-        <Box rg={16} ai={'center'}>
-          <BlockHeading text="Fee per kWh incl. VAT" icon={<CoinsIcon width={24} height={32} />} />
-          <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} prefix={getCurrencySymbol(action.data.currency_code)} useDefault={false} />
-          <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false} layoutRightOffset={44} />
+        <Box rg={16}>
+          <BlockHeading text="Fixed/kWh" icon={<FixedSurchargesIcon width={26} height={26} />}/>
+          <InputRate 
+            ref={fixedCostInputRef}
+            name="fixed"
+            defaultValue={action.data.surcharge.fixed}
+            autoFocus={true}
+            prefix={getCurrencySymbol(action.data.currency_code)}
+            suffix={false} 
+            prefixPosition="end"
+          />
+          <BlockHeading text="Percentage/kWh" icon={<PercentageIcon width={26} height={26} />} />
+          <InputRate
+            ref={percentCostInputRef}
+            name="percentage"
+            defaultValue={action.data.surcharge.percentage}
+            prefix='%' autoFocus={false}
+            suffix={false}
+            prefixPosition="end"
+            showDecimals={false}
+          />
           <ButtonBig label={'Reset all additional costs'} type="button" variant={'link'} size={'small'} onClick={handleReset} />
         </Box>
       </Layout>

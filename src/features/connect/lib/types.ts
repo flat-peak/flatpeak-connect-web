@@ -90,7 +90,7 @@ export type SubmitRouteKey = keyof SubmitRouteMapping;
 
 interface RouteActionsMapping {
     tariff_connection_pending: "SAVE" | "DISCONNECT" | "DISMISS_DIRECT";
-    tariff_summary: "SAVE" | "EDIT" | "DISCONNECT";
+    tariff_summary: "SAVE" | "EDIT" | "DISCONNECT" | "WRONG_TARIFF";
     tariff_connection_failed: "DISCONNECT" | "RECONNECT";
     tariff_select: "TARIFF_MISSING" | "ADDRESS_CHANGE";
     provider_select: "PROVIDER_MISSING" | "ADDRESS_CHANGE";
