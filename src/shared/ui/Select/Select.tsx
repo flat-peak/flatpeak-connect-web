@@ -43,7 +43,7 @@ export default function Select(props: SelectProps) {
 				</select>
 
 				<div className={styles.chevron}>
-					<SmallArrowRightIcon />
+					<SmallArrowRightIcon direction='down'/>
 				</div>
 			</View>
 		</Box>

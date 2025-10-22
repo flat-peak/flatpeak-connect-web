@@ -24,7 +24,6 @@ export const MarketSurchargeCapture = () => {
         const {
             fixed: {value: fixed},
             percentage: {value: percentage},
-            region: regionControl,
         } = event.target as unknown as {[PostalAddressKey: string]: {value: string}};
 
         proceed(submitAction({
@@ -36,7 +35,20 @@ export const MarketSurchargeCapture = () => {
                     fixed: Number(fixed.trim().replace(",", '.')) || 0,
                     percentage: Number(percentage.trim().replace(",", '.')) || 0
                 },
-                region: regionControl?.value
+            }
+        }));
+    }
+
+    const handleSkip = () => {
+        proceed(submitAction({
+            route: action.route,
+            type: "submit",
+            connect_token: action.connect_token,
+            data: {
+                surcharge: {
+                    fixed: 0,
+                    percentage: 0
+                },
             }
         }));
     }
@@ -56,6 +68,7 @@ export const MarketSurchargeCapture = () => {
         footer={
           <FooterActions>
             <ButtonBig label={'Next'} type="submit" />
+            <ButtonBig label={'Or skip this step'} type="button" variant={'text'}  onClick={handleSkip} />
           </FooterActions>
         }
         onSubmit={handleSubmit}
