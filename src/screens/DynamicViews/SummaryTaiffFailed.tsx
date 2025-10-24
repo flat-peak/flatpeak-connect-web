@@ -41,13 +41,13 @@ export const SummaryTaiffFailed = () => {
             footer={
                 <FooterActions variant={'secondary'} transparent={false}>
                     <ButtonBig
-                        label={'Disconnect'}
+                        label={'Cancel'}
                         type='button'
                         variant={'link'}
                         size={'small'}
                         onClick={handleDisconnect}
                     />
-                    <ButtonBig label={'Edit'} type='button' size={'small'} onClick={handleEdit} />
+                    <ButtonBig label={'Start again'} type='button' size={'small'} onClick={handleEdit} />
                 </FooterActions>
             }>
             <MainHeading text='Tariff connection failed' />
