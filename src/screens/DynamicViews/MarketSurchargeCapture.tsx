@@ -68,22 +68,24 @@ export const MarketSurchargeCapture = () => {
           </Typography>
         </LeadingText>
         <Box rg={16}>
-          <BlockHeading text="Fixed/kWh" icon={<FixedSurchargesIcon width={26} height={26} />}/>
+          <BlockHeading
+            text={`Fixed (${getCurrencySymbol(action.data.currency_code)}/kWh)`}
+            icon={<FixedSurchargesIcon width={26} height={26} />}
+        />
           <InputRate 
             ref={fixedCostInputRef}
             name="fixed"
             defaultValue={action.data.surcharge.fixed}
             autoFocus={true}
-            prefix={getCurrencySymbol(action.data.currency_code)}
             suffix={false} 
             prefixPosition="end"
           />
-          <BlockHeading text="Percentage/kWh" icon={<PercentageIcon width={26} height={26} />} />
+          <BlockHeading text="Percentage (%/kWh)" icon={<PercentageIcon width={26} height={26} />} />
           <InputRate
             ref={percentCostInputRef}
             name="percentage"
             defaultValue={action.data.surcharge.percentage}
-            prefix='%' autoFocus={false}
+            autoFocus={false}
             suffix={false}
             prefixPosition="end"
             showDecimals={false}
