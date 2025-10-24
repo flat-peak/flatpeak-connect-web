@@ -49,6 +49,15 @@
   text-decoration: underline;
 }
 
+.variant-text {
+    background-color: transparent;
+    --color-typography-dynamic:  var(--color-typography-blue_2);
+    text-align: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+  }
+
 .size-small {
   padding-top: 20px;
   padding-bottom: 20px;

@@ -34,9 +34,9 @@ export const SummaryTaiffInProgress = () => {
             noValidate
             footer={
                 <FooterActions variant={'secondary'}>
-                    <ButtonBig label={'Disconnect'} type="button" variant={'link'} size={'small'} onClick={handleDisconnect}
+                    <ButtonBig label={'Cancel'} type="button" variant={'link'} size={'small'} onClick={handleDisconnect}
                     />
-                    <ButtonBig label={'Edit'} type="button" size={'small'} onClick={handleEdit} />
+                    <ButtonBig label={'Start again'} type="button" size={'small'} onClick={handleEdit} />
                 </FooterActions>
             }
         >
