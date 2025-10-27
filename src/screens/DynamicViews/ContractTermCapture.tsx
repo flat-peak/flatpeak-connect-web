@@ -25,17 +25,17 @@ export const ContractTermCapture = () => {
 
     const handleSubmit: FormEventHandler = event => {
         event.preventDefault();
-        if (selectedDate) {
-            proceed(submitAction({
-                route: action.route,
-                type: "submit",
-                connect_token: action.connect_token,
+        proceed(submitAction({
+            route: action.route,
+            type: "submit",
+            connect_token: action.connect_token,
+            ...(selectedDate && {
                 data: {
                     contract_end_date: selectedDate,
                 }
-            }));
-            }
-        }
+            })
+        }));
+    }
 
         const skipUntilTerminated = () => {
             proceed(submitAction({
