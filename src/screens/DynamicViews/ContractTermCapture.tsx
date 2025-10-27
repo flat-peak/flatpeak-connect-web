@@ -50,8 +50,8 @@ export const ContractTermCapture = () => {
             component={'form'}
             footer={
                 <FooterActions>
-                    <ButtonBig label={'Next'} type='submit' />
                     <ButtonBig label={'Skip / Until terminated'} variant={'outlined'} type={'button'} onClick={skipUntilTerminated} />
+                    <ButtonBig label={'Next'} type='submit' />
                 </FooterActions>
             }
             onSubmit={handleSubmit}
@@ -59,7 +59,7 @@ export const ContractTermCapture = () => {
         >
             <MainHeading text="Contract expiry date" />
             <LeadingText>
-                <Typography color="black_a40'" variant="leading_string">
+                <Typography color="black_a40" variant="leading_string">
                     Tell us when your contract expires so we can remind you to update this connection when it happens.
                 </Typography>
             </LeadingText>
