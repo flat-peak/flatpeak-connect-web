@@ -275,5 +275,5 @@ export type RenderError = {
     error_message: string;
 };
 
-export type RenderSessionRedirect = { redirect_uri: string };
-export type RenderSessionComplete = { callback_uri: string };
+export type RenderSessionRedirect = { redirect_url: string };
+export type RenderSessionComplete = { callback_url: string };
