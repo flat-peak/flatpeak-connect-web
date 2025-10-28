@@ -54,7 +54,9 @@
     --color-typography-dynamic:  var(--color-typography-blue_2);
     text-align: center;
     justify-content: center;
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: var(--color-typography-blue_2);
+    text-underline-offset: 6px;
     border: none;
   }
 
