@@ -6,6 +6,8 @@ import NavigationButton from "../NavigationButton/NavigationButton.tsx";
 import {useConnect} from "../../../features/connect/lib/ConnectProvider.tsx";
 import {useTheme} from "../../../features/theme/ThemeProvider.tsx";
 import {HasProviderSummaryTrait} from "../../../features/connect/lib/types.ts";
+import { useNextAction } from '../../../features/request/lib/useNextAction.ts';
+import { submitAction } from '../../../features/connect/lib/service.ts';
 
 export type TitleBlockProps = {
     showLeftButton?: boolean;
@@ -25,21 +27,42 @@ export default function NavHeader(props: TitleBlockProps) {
     const {action} = useConnect();
     const {theme} = useTheme();
     const { provider} = (action?.data || {}) as HasProviderSummaryTrait;
+    const { proceed} = useNextAction();
 
+    const handleBack = () => {
+        proceed(
+            submitAction({
+                route: action.route,
+                type: 'submit',
+                connect_token: action.connect_token,
+                action: 'BACK',
+            })
+        )
+    }
+
+    const hasBackAction = (action?.actions as string[] || []).includes("BACK");
     const showLogo = Boolean(provider && provider.logo_url) && theme !== "failure";
     const showTitle = Boolean(provider && !provider.logo_url && provider.display_name) && theme !== "failure";
     return (
         <View component={"header"} className={classList.join(' ')}>
-            {showLeftButton && <NavigationButton action="Left" onClick={() => history.back()}/>}
-            {showLogo && <Logotypes src={provider.logo_url} title={provider.display_name} />}
-            {showTitle && <View className={styles.customProvider}>
-                <Typography color="black_a40" variant="rp_regular_10" align="center" transform={"uppercase"} className={styles.title}>
-                    {provider.display_name}
-                </Typography>
-            </View>}
-            {showRightButton && <NavigationButton action="Close" onClick={() => {
-                location.href = `/`
-            }} />}
+            {showLeftButton && hasBackAction && (
+                <NavigationButton action="Left" onClick={handleBack} className={styles.leftButton} />
+            )}
+            {(showLogo || showTitle) && (
+                <View className={styles.centerContent}>
+                    {showLogo && <Logotypes src={provider.logo_url} title={provider.display_name} />}
+                    {showTitle && <View className={styles.customProvider}>
+                        <Typography color="black_a40" variant="rp_regular_10" align="center" transform={"uppercase"} className={styles.title}>
+                            {provider.display_name}
+                        </Typography>
+                    </View>}
+                </View>
+            )}
+            {showRightButton && (
+                <NavigationButton action="Close" onClick={() => {
+                    location.href = `/`
+                }} className={styles.rightButton} />
+            )}
         </View>
     );
 }
