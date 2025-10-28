@@ -4,6 +4,7 @@ import Typography from "../Typography/Typography.tsx";
 import Box from "../Box/Box.tsx";
 import PriceChartIcon from "../icons/PriceChartIcon.tsx";
 import ColorDot from "../icons/ColorDot.tsx";
+import LongArrowRightIcon from "../icons/LongArrowRightIcon.tsx";
 import styles from "./PriceNow.module.scss";
 
 type PriceNowProps = {
@@ -42,7 +43,7 @@ export default function PriceNow(props: PriceNowProps) {
     
     const timeRange = useMemo(() => {
         if (!currentInterval?.rate) {
-            return "No data";
+            return null;
         }
         
         const currentRate = currentInterval.rate;
@@ -84,7 +85,10 @@ export default function PriceNow(props: PriceNowProps) {
         const [startHours, startMinutes] = startRate.valid_from.substring(11, 16).split(":");
         const [endHours, endMinutes] = endRate.valid_to.substring(11, 16).split(":");
         
-        return `${startHours}:${startMinutes} → ${endHours}:${endMinutes}`;
+        return {
+            start: `${startHours}:${startMinutes}`,
+            end: `${endHours}:${endMinutes}`
+        };
     }, [currentInterval, rates]);
     
     const currentPrice = useMemo(() => {
@@ -104,9 +108,15 @@ export default function PriceNow(props: PriceNowProps) {
                     </Typography>
                     <Box className={styles.timeRange}>
                         <ColorDot peak={currentInterval?.rate?.peak || "Medium"} width={10} height={10} />
-                        <Typography color="black" variant="button__forms14_sup_regular">
-                            {timeRange}
-                        </Typography>
+                        {timeRange ? (
+                            <Typography color="black" variant="button__forms14_sup_regular">
+                                {timeRange.start} <LongArrowRightIcon width={14} height={6} /> {timeRange.end}
+                            </Typography>
+                        ) : (
+                            <Typography color="black" variant="button__forms14_sup_regular">
+                                No data
+                            </Typography>
+                        )}
                     </Box>
                 </Box>
                 <Box className={styles.priceRow}>
