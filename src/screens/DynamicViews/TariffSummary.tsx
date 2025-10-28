@@ -1,5 +1,5 @@
 import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler, useState} from "react";
+import {useState} from "react";
 import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
@@ -17,16 +17,6 @@ export const TariffSummary = () => {
     const [isReportProblemDisabled, setIsReportProblemDisabled] = useState(false);
 
     const {tariff, rates} = action.data;
-
-    const handleSubmit: FormEventHandler = (event) => {
-        event.preventDefault();
-        proceed(submitAction({
-            route: action.route,
-            type: "submit",
-            connect_token: action.connect_token,
-            action: "SAVE"
-        }));
-    }
 
     const handleEdit = () => {
         proceed(submitAction({
@@ -61,7 +51,7 @@ export const TariffSummary = () => {
     }
 
     return (
-        <Layout component={"form"} onSubmit={handleSubmit} noValidate
+        <Layout component={"form"} noValidate
                 footer={(
                     <FooterActions variant={"secondary"} transparent={false}>
                         <ButtonBig label={"Disconnect"} type="button" variant={'link'} size={"small"} onClick={handleDisconnect}/>
