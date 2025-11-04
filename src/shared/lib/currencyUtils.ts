@@ -5,9 +5,13 @@ export function getCurrencyMinorSymbol(currencyCode: string): string | null {
 }
 
 export function convertCurrencyToMinorUnits(currencyCode: string, amount: number): number {
-  const exponent = CURRENCY_MINOR_DATA[currencyCode]?.exponent || 2;
+  if (!CURRENCY_MINOR_DATA[currencyCode]) {
+    return amount;
+  }
+  
+  const exponent = CURRENCY_MINOR_DATA[currencyCode].exponent;
   const converted = amount * Math.pow(10, exponent);
-  return Math.floor(converted * 100) / 100;
+  return Math.round(converted * 10000) / 10000;
 }
 
 export function convertMinorToMajorUnits(currencyCode: string, amount: number): number {
@@ -15,6 +19,7 @@ export function convertMinorToMajorUnits(currencyCode: string, amount: number): 
     return amount;
   }
   
-const exponent = CURRENCY_MINOR_DATA[currencyCode].exponent;
+    const exponent = CURRENCY_MINOR_DATA[currencyCode].exponent;
+    
     return amount / Math.pow(10, exponent);
 }
