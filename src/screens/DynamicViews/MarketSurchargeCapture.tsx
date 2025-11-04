@@ -13,6 +13,7 @@ import FixedSurchargesIcon from "../../shared/ui/icons/FixedSurchargesIcon.tsx";
 import PercentageIcon from "../../shared/ui/icons/PercentageIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
+import { convertCurrencyToMinorUnits, convertMinorToMajorUnits } from '../../shared/lib/currencyUtils.ts';
 
 export const MarketSurchargeCapture = () => {
     const {action, proceed} = useConnect<"surcharge_capture">();
@@ -32,7 +33,7 @@ export const MarketSurchargeCapture = () => {
             connect_token: action.connect_token,
             data: {
                 surcharge: {
-                    fixed: Number(fixed.trim().replace(",", '.')) || 0,
+                    fixed: Number(convertMinorToMajorUnits(action.data.currency_code, Number(fixed.trim().replace(",", '.')))) || 0,
                     percentage: Number(percentage.trim().replace(",", '.')) || 0
                 },
             }
@@ -53,14 +54,6 @@ export const MarketSurchargeCapture = () => {
         }));
     }
 
-    const handleReset = () => {
-        if (fixedCostInputRef.current) {
-            fixedCostInputRef.current.reset()
-        }
-        if (percentCostInputRef.current) {
-            percentCostInputRef.current.reset()
-        }
-    }
 
     return (
       <Layout
@@ -88,9 +81,9 @@ export const MarketSurchargeCapture = () => {
           <InputRate 
             ref={fixedCostInputRef}
             name="fixed"
-            defaultValue={action.data.surcharge.fixed}
+            defaultValue={convertCurrencyToMinorUnits(action.data.currency_code, action.data.surcharge.fixed)}
             autoFocus={true}
-            suffix={false} 
+            suffix={false}
             prefixPosition="end"
           />
           <BlockHeading text="Percentage (%/kWh)" icon={<PercentageIcon width={26} height={26} />} />
@@ -103,7 +96,6 @@ export const MarketSurchargeCapture = () => {
             prefixPosition="end"
             showDecimals={false}
           />
-          <ButtonBig label={'Reset all additional costs'} type="button" variant={'link'} size={'small'} onClick={handleReset} />
         </Box>
       </Layout>
     )

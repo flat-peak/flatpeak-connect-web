@@ -10,12 +10,12 @@ import Typography from "../Typography/Typography.tsx";
 import PriceNow from "../PriceNow/PriceNow.tsx";
 
 type DynamicRateSummaryProps = {
-  currency: string;
+  currencyCode: string;
   rates: Record<RatePeriodType, Array<RateEntry>>;
   tiered: boolean;
 }
 export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
-  const { currency, rates, tiered} = props;
+  const { currencyCode, rates, tiered} = props;
 
     const [activeTab, setTab] = useState<RatePeriodType>("today");
     const [currentRates, setCurrentRates] = useState(decoratePeaks(rates.today));
@@ -29,9 +29,9 @@ export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
       <View className={styles.host}>
         <PriceNow 
             rates={currentRates}
-            currency={currency}
+            currencyCode={currencyCode}
         />
-          <BarChart rates={currentRates} currency={currency}/>
+          <BarChart rates={currentRates} currencyCode={currencyCode}/>
           <Box mt={24} rg={tiered ? 16 : 32}>
               <Box rg={8} ai={"center"} d={"column"}>
                   <TabsSelector currentTab={activeTab} changeTab={(tab) => handleTabChanged(tab)}/>
@@ -41,7 +41,7 @@ export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
                       </Typography>
                   )}
               </Box>
-            <TimePeriodTable rates={currentRates} currency={currency}/>
+            <TimePeriodTable rates={currentRates} currencyCode={currencyCode}/>
           </Box>
       </View>
   );

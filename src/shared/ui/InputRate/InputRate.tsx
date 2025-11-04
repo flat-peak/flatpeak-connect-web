@@ -12,6 +12,7 @@ type InputRateTimeProps = {
     useDefault?: boolean;
     layoutRightOffset?: number;
     showDecimals?: boolean;
+    label?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export type InputRateHandle = {
@@ -19,7 +20,7 @@ export type InputRateHandle = {
 };
 
 const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) => {
-    const { variant, prefix = "", prefixPosition = "start", suffix = true, defaultValue, useDefault = true, layoutRightOffset = 0, showDecimals = true, ...inputAttributes } = props
+    const { variant, prefix = "", prefixPosition = "start", suffix = true, defaultValue, useDefault = true, layoutRightOffset = 0, showDecimals = true, label, ...inputAttributes } = props
 
     const [value, setValue] = useState(() => {
         if (defaultValue !== undefined) {
@@ -64,14 +65,19 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                     onChange={handleChange}
                 />
                 <View className={styles.overlay}>
+                {label && 
+                    <Typography className={styles.label} color="black_a40" variant="button__forms12_book">
+                    {label}
+                    </Typography>
+                }
                     <View className={styles.wrapper}>
+                        <Typography className={styles.label} color="black_a40" variant="button__forms12_book"></Typography>
                         <Typography color="black" variant="button__forms32_book" className={styles.value}>
                             {String(value)}
                         </Typography>
-
                         {Boolean(prefix) && prefixPosition === "start" && (
                             <View className={styles.leftDock}>
-                                <Typography color="black" variant="button__forms32_book" className={styles.prefix}>
+                                <Typography color="black" variant="button__forms16_book_kwh" className={styles.prefix}>
                                     {prefix}
                                 </Typography>
                             </View>
@@ -79,12 +85,12 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                         {(prefixPosition === "end" && Boolean(prefix)) || suffix ? (
                             <View className={styles.rightDock}>
                                 {prefixPosition === "end" && Boolean(prefix) && (
-                                    <Typography color="black" variant="button__forms32_book" className={styles.prefix}>
+                                    <Typography color="black" variant="button__forms16_book_kwh" className={styles.prefix}>
                                         {prefix}
                                     </Typography>
                                 )}
                                 {suffix && (
-                                    <Typography color="black" variant="button__forms16_book_kwh" className={styles.suffix}>
+                                    <Typography color="black" variant="button__forms16_book_kwh" >
                                         /kWh
                                     </Typography>
                                 )}
