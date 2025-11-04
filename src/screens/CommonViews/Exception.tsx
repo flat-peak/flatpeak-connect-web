@@ -7,6 +7,9 @@ import WarningIcon from "../../shared/ui/icons/WarningIcon.tsx";
 import Box from "../../shared/ui/Box/Box.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import {ReactElement} from "react";
+import { submitAction } from '../../features/connect/lib/service.ts';
+import { useConnect } from '../../features/connect/lib/ConnectProvider.tsx';
+import { useNextAction } from '../../features/request/lib/useNextAction.ts';
 
 type ExceptionProps = {
     message?: string | ReactElement;
@@ -16,8 +19,24 @@ type ExceptionProps = {
 
 export const Exception = (props: ExceptionProps) => {
     const {message, token, requestId} = props
+    const {action} = useConnect();
+    const { proceed} = useNextAction();
+
+    const handleBack = () => {
+        proceed(
+            submitAction({
+                route: action.route,
+                type: 'submit',
+                connect_token: action.connect_token,
+                action: 'BACK',
+            })
+        )
+    }
+
     return (
-        <Layout component={"main"} footer={<FooterActions><ButtonBig label={"Back"} variant={'critical-invert'} onClick={() => history.back()}/></FooterActions>}>
+        <Layout component={"main"} footer={<FooterActions>
+            <ButtonBig label={"Back"} variant={'critical-invert'} onClick={handleBack}/>              
+            </FooterActions>}>
             <MainHeading text="Error" />
             <LeadingText>
                 <Typography color="white" variant="leading_string">
