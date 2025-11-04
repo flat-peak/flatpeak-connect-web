@@ -8,13 +8,13 @@ import {expandRates} from "./util.ts";
 import Rate from "../TariffPeriodTable/Rate/Rate.tsx";
 
 type BarChartProps = {
-    currency: string;
+    currencyCode: string;
     rates: Array<RateEntryDecorated>;
 }
 
 const placeholderBars = new Array(24).fill(0);
 export const BarChart = (props: BarChartProps) => {
-    const {currency, rates} = props;
+    const {currencyCode, rates} = props;
     const [animated, setAnimated] = useState(false);
 
     const classNames = [styles.bars];
@@ -101,9 +101,9 @@ export const BarChart = (props: BarChartProps) => {
                     </View>
                 </View>
                 <View className={styles.yAxis}>
-                    <Rate currency={currency} cost={data.max ? data.max: 0.00} textVariant={"rp_300_11"}/>
-                    <Rate currency={currency} cost={(data.max || data.min) ? (data.max - (data.max - data.min) / 2) : 0.00} textVariant={"rp_300_11"}/>
-                    <Rate currency={currency} cost={data.min ? data.min: 0.00}  textVariant={"rp_300_11"}/>
+                    <Rate currencyCode={currencyCode} cost={data.max ? data.max: 0.00} textVariant={"rp_300_11"}/>
+                    <Rate currencyCode={currencyCode} cost={(data.max || data.min) ? (data.max - (data.max - data.min) / 2) : 0.00} textVariant={"rp_300_11"}/>
+                    <Rate currencyCode={currencyCode} cost={data.min ? data.min: 0.00}  textVariant={"rp_300_11"}/>
                 </View>
             </View>
             <Legend />

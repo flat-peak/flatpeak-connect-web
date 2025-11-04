@@ -15,6 +15,7 @@ import Separator from "../../shared/ui/Separator/Separator.tsx";
 import InputTime from "../../shared/ui/InputTime/InputTime.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
+import { convertCurrencyToMinorUnits, convertMinorToMajorUnits } from '../../shared/lib/currencyUtils.ts';
 
 export const RateTodCapture = () => {
     const { action, proceed} = useConnect<"rate_tod_capture">();
@@ -35,8 +36,8 @@ export const RateTodCapture = () => {
             connect_token: action.connect_token,
             data: {
                 hours: [
-                    {valid_from: dayStartTime+':00', valid_to: dayEndTime+':00', cost: Number(dayCost)},
-                    {valid_from: nightStartTime+':00', valid_to: nightEndTime+':00', cost: Number(nightCost)},
+                    {valid_from: dayStartTime+':00', valid_to: dayEndTime+':00', cost: convertMinorToMajorUnits(action.data.currency_code, Number(dayCost))},
+                    {valid_from: nightStartTime+':00', valid_to: nightEndTime+':00', cost: convertMinorToMajorUnits(action.data.currency_code, Number(nightCost))},
                 ]
             }
         }));
@@ -91,7 +92,7 @@ export const RateTodCapture = () => {
         {/*</Slider>*/}
 
         <Box rg={16}>
-          <BlockHeading text="Day rate" icon={<DayIcon width={24} height={32} />} />
+          <BlockHeading text={`Day rate (${getCurrencySymbol(action.data.currency_code)}/kWh)`} icon={<DayIcon width={24} height={32} />} />
           <Box cg={8} d={'row'}>
             <InputTime
               name="day_startTime"
@@ -113,12 +114,17 @@ export const RateTodCapture = () => {
                 setNightStart(e.target.value)
               }}
             />
-            <InputRate name="day_cost" prefix={getCurrencySymbol(action.data.currency_code)} />
+            <InputRate 
+                name="day_cost" 
+                defaultValue={action.data.hours?.[0]?.cost !== undefined ? convertCurrencyToMinorUnits(action.data.currency_code, action.data.hours[0].cost) : 0}
+                suffix={false}      
+                label="Rate"
+            />
           </Box>
 
           <Separator />
 
-          <BlockHeading text="Night rate" icon={<NightIcon width={24} height={32} />} />
+          <BlockHeading text={`Night rate (${getCurrencySymbol(action.data.currency_code)}/kWh)`} icon={<NightIcon width={24} height={32} />} />
           <Box cg={8} d={'row'}>
             <InputTime
               name="night_startTime"
@@ -140,7 +146,12 @@ export const RateTodCapture = () => {
                 setDayStart(e.target.value)
               }}
             />
-            <InputRate name="night_cost" prefix={getCurrencySymbol(action.data.currency_code)} />
+            <InputRate 
+                name="night_cost" 
+                defaultValue={action.data.hours?.[1]?.cost !== undefined ? convertCurrencyToMinorUnits(action.data.currency_code, action.data.hours[1].cost) : 0}
+                suffix={false}
+                label="Rate"
+            />
           </Box>
         </Box>
       </Layout>

@@ -40,6 +40,17 @@ export default function NavHeader(props: TitleBlockProps) {
         )
     }
 
+    const handleClose = () => {
+        proceed(
+            submitAction({
+                route: action.route,
+                type: 'submit',
+                connect_token: action.connect_token,
+                action: 'CLOSE',
+            })
+        )
+    }
+
     const hasBackAction = (action?.actions as string[] || []).includes("BACK");
     const showLogo = Boolean(provider && provider.logo_url) && theme !== "failure";
     const showTitle = Boolean(provider && !provider.logo_url && provider.display_name) && theme !== "failure";
@@ -59,9 +70,10 @@ export default function NavHeader(props: TitleBlockProps) {
                 </View>
             )}
             {showRightButton && (
-                <NavigationButton action="Close" onClick={() => {
-                    location.href = `/`
-                }} className={styles.rightButton} />
+                <NavigationButton action="Close" 
+                    onClick={handleClose}
+                    className={styles.rightButton}
+                />
             )}
         </View>
     );

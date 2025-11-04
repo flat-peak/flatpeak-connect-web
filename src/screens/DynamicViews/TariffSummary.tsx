@@ -8,7 +8,6 @@ import Box from "../../shared/ui/Box/Box.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import DynamicRateSummary from "../../shared/ui/DynamicRateSummary/DynamicRateSummary.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
-import {getCurrencySymbol} from "../../shared/lib/util.ts";
 import FixedRateSummary from "../../shared/ui/FixedRatesummary/FixedRateSummary.tsx";
 import Typography from "../../shared/ui/Typography/Typography.tsx";
 
@@ -68,8 +67,8 @@ export const TariffSummary = () => {
             />
             <Box mt={16} rg={24} d={"column"} f={1}>
                 {tariff.structure_type === 'FIXED' ? 
-                 <FixedRateSummary currency={getCurrencySymbol(action.data.currency_code)} cost={rates.today?.[0]?.tariff.cost || 0} tiered={!!tariff.tiered} /> 
-                 : <DynamicRateSummary currency={getCurrencySymbol(action.data.currency_code)} rates={rates} tiered={!!tariff.tiered} />}
+                 <FixedRateSummary currencyCode={action.data.currency_code} cost={rates.today?.[0]?.tariff.cost || 0} tiered={!!tariff.tiered} /> 
+                 : <DynamicRateSummary currencyCode={action.data.currency_code} rates={rates} tiered={!!tariff.tiered} />}
             </Box>
         </Layout>
     )

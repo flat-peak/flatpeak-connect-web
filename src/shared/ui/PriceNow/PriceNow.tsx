@@ -5,6 +5,7 @@ import Box from "../Box/Box.tsx";
 import PriceChartIcon from "../icons/PriceChartIcon.tsx";
 import ColorDot from "../icons/ColorDot.tsx";
 import LongArrowRightIcon from "../icons/LongArrowRightIcon.tsx";
+import {getCurrencySymbol, roundRateValue} from "../../lib/util.ts";
 import styles from "./PriceNow.module.scss";
 
 type PriceNowProps = {
@@ -16,11 +17,11 @@ type PriceNowProps = {
         };
         peak: "Low" | "Medium" | "High";
     }>;
-    currency: string;
+    currencyCode: string;
 }
 
 export default function PriceNow(props: PriceNowProps) {
-    const {rates, currency} = props;
+    const {rates, currencyCode} = props;
     
     const currentInterval = useMemo(() => {
         const now = new Date();
@@ -47,7 +48,7 @@ export default function PriceNow(props: PriceNowProps) {
         }
         
         const currentRate = currentInterval.rate;
-        const roundedCurrentPrice = Math.round(currentRate.tariff.cost * 100) / 100;
+        const roundedCurrentPrice = roundRateValue(currentRate.tariff.cost, 4, currencyCode);
         
         const sortedRates = [...rates].sort((a, b) => {
             const [aHours, aMinutes] = a.valid_from.substring(11, 16).split(":");
@@ -62,7 +63,7 @@ export default function PriceNow(props: PriceNowProps) {
         let startIndex = currentIndex;
         for (let i = currentIndex - 1; i >= 0; i--) {
             const rate = sortedRates[i];
-            const roundedPrice = Math.round(rate.tariff.cost * 100) / 100;
+            const roundedPrice = roundRateValue(rate.tariff.cost, 4, currencyCode);
             if (roundedPrice !== roundedCurrentPrice) {
                 break;
             }
@@ -72,7 +73,7 @@ export default function PriceNow(props: PriceNowProps) {
         let endIndex = currentIndex;
         for (let i = currentIndex + 1; i < sortedRates.length; i++) {
             const rate = sortedRates[i];
-            const roundedPrice = Math.round(rate.tariff.cost * 100) / 100;
+            const roundedPrice = roundRateValue(rate.tariff.cost, 4, currencyCode);
             if (roundedPrice !== roundedCurrentPrice) {
                 break;
             }
@@ -95,9 +96,8 @@ export default function PriceNow(props: PriceNowProps) {
         return currentInterval?.price || 0;
     }, [currentInterval]);
 
-    const formatPrice = (price: number) => {
-        return `${price.toFixed(2)}${currency}`;
-    };
+    const roundedPrice = roundRateValue(currentPrice, 4, currencyCode);
+    const [base, decimals = "00"] = String(roundedPrice).split('.');
     
     return (
         <View className={styles.host}>
@@ -121,9 +121,9 @@ export default function PriceNow(props: PriceNowProps) {
                 </Box>
                 <Box className={styles.priceRow}>
                     <Typography color="black" variant="button__forms30_regular">
-                        {formatPrice(currentPrice)}
+                        {base}.{decimals}{"\u00A0"}
                     </Typography>
-                    <Typography color="black" variant="button__forms20_regular">/kWh</Typography>
+                    <Typography color="black" variant="button__forms20_regular">{getCurrencySymbol(currencyCode)}/kWh</Typography>
                 </Box>
             </Box>
             <PriceChartIcon width={33} height={32} />

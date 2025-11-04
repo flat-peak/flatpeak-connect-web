@@ -89,13 +89,13 @@ export type RenderRouteKey = keyof RenderRouteDataMapping;
 export type SubmitRouteKey = keyof SubmitRouteMapping;
 
 interface RouteActionsMapping {
-    tariff_connection_pending: "DISCONNECT" | "DISMISS_DIRECT";
-    tariff_summary: "EDIT" | "DISCONNECT" | "WRONG_TARIFF" | "BACK";
-    tariff_connection_failed: "DISCONNECT" | "RECONNECT";
-    tariff_select: "TARIFF_MISSING" | "ADDRESS_CHANGE" | "BACK";
-    provider_select: "PROVIDER_MISSING" | "ADDRESS_CHANGE" | "BACK";
-    provider_name_capture: "ADDRESS_CHANGE" | "BACK";
-    postal_address_capture: "BACK";
+    tariff_connection_pending: "DISCONNECT" | "DISMISS_DIRECT" | "CLOSE";
+    tariff_summary: "EDIT" | "DISCONNECT" | "WRONG_TARIFF" | "BACK" | "CLOSE";
+    tariff_connection_failed: "DISCONNECT" | "RECONNECT" | "CLOSE";
+    tariff_select: "TARIFF_MISSING" | "ADDRESS_CHANGE" | "BACK" | "CLOSE";
+    provider_select: "PROVIDER_MISSING" | "ADDRESS_CHANGE" | "BACK" | "CLOSE";
+    provider_name_capture: "ADDRESS_CHANGE" | "BACK" | "CLOSE";
+    postal_address_capture: "BACK" | "CLOSE";
 }
 interface ExtrasSubmitRouteMapping {
     init_tariff: {
