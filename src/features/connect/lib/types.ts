@@ -59,10 +59,10 @@ export type ProviderSummary = {
     logo_url: string;
 }
 export type ContractDirection = "IMPORT" | "EXPORT";
-export type TariffStructureOption = "FIXED" | "TIME_OF_DAY" | "MARKET";
+export type TariffStructureOption = "FIXED" | "TIME_OF_DAY" | "MARKET" | 'DYNAMIC';
 
 export type PeakType = "Low" | "Medium" | "High";
-export type TariffStructureType = 'FIXED' | 'TIME_OF_DAY' | 'MARKET'; // | 'DYNAMIC';
+export type TariffStructureType = 'FIXED' | 'TIME_OF_DAY' | 'MARKET' | 'DYNAMIC';
 export type RatePeriodType = "today" | "yesterday" | "tomorrow";
 
 export interface CommonRenderRoute<T extends RenderRouteKey = RenderRouteKey> {

@@ -6,7 +6,6 @@ import NavigationButton from "../NavigationButton/NavigationButton.tsx";
 import {useConnect} from "../../../features/connect/lib/ConnectProvider.tsx";
 import {useTheme} from "../../../features/theme/ThemeProvider.tsx";
 import {HasProviderSummaryTrait} from "../../../features/connect/lib/types.ts";
-import { useNextAction } from '../../../features/request/lib/useNextAction.ts';
 import { submitAction } from '../../../features/connect/lib/service.ts';
 
 export type TitleBlockProps = {
@@ -24,10 +23,9 @@ export default function NavHeader(props: TitleBlockProps) {
     // if (hasNoExtraUi) {
     //     classList.push(styles['host_no-extra-ui'])
     // }
-    const {action} = useConnect();
+    const {action, proceed} = useConnect();
     const {theme} = useTheme();
     const { provider} = (action?.data || {}) as HasProviderSummaryTrait;
-    const { proceed} = useNextAction();
 
     const handleBack = () => {
         proceed(
@@ -41,14 +39,20 @@ export default function NavHeader(props: TitleBlockProps) {
     }
 
     const handleClose = () => {
-        proceed(
-            submitAction({
-                route: action.route,
-                type: 'submit',
-                connect_token: action.connect_token,
-                action: 'CLOSE',
-            })
-        )
+        const hasCloseAction = action?.actions?.includes("CLOSE") ?? false;
+        
+        if (hasCloseAction) {
+            proceed(
+                submitAction({
+                    route: action.route,
+                    type: 'submit',
+                    connect_token: action.connect_token,
+                    action: 'CLOSE',
+                })
+            )
+        } else {
+            history.back();
+        }
     }
 
     const hasBackAction = (action?.actions as string[] || []).includes("BACK");

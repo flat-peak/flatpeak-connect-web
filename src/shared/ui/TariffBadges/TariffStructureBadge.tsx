@@ -16,14 +16,16 @@ export default function TariffStructureBadge(props: TariffStructureBadgeProps) {
     const label = {
         'FIXED': 'Flat Rate',
         'TIME_OF_DAY': 'Day & night',
+        'DYNAMIC':'Day & night',
         'MARKET': 'Market Rate'
     }[value];
  
     const Icon = {
         'FIXED': HandIcon,
-        'TIME_OF_DAY': ClockIcon,
+        'TIME_OF_DAY': ClockIcon,   
+        'DYNAMIC': ClockIcon,
         'MARKET': MarketIcon
-    }[value];
+    }[value] || ClockIcon;
 
   return (
     <View className={styles.host}>
