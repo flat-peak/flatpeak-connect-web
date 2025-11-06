@@ -11,7 +11,8 @@ export function convertCurrencyToMinorUnits(currencyCode: string, amount: number
   
   const exponent = CURRENCY_MINOR_DATA[currencyCode].exponent;
   const converted = amount * Math.pow(10, exponent);
-  return Math.round(converted * 10000) / 10000;
+
+  return Math.floor(converted * 10000) / 10000;
 }
 
 export function convertMinorToMajorUnits(currencyCode: string, amount: number): number {
@@ -19,7 +20,9 @@ export function convertMinorToMajorUnits(currencyCode: string, amount: number): 
     return amount;
   }
   
-    const exponent = CURRENCY_MINOR_DATA[currencyCode].exponent;
-    
-    return amount / Math.pow(10, exponent);
+  const exponent = CURRENCY_MINOR_DATA[currencyCode].exponent;
+  const divisor = Math.pow(10, exponent);
+  const result = amount / divisor;
+
+  return Math.floor(result * 1000000) / 1000000;
 }

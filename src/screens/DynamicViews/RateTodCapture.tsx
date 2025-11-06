@@ -1,5 +1,5 @@
 import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler, useState} from "react";
+import {FormEventHandler, useEffect, useState} from "react";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
 import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
@@ -47,6 +47,31 @@ export const RateTodCapture = () => {
     const [dayEnd, setDayEnd] = useState("00:00")
     const [nightStart, setNightStart] = useState("00:00")
     const [nightEnd, setNightEnd] = useState("00:00")
+
+    useEffect(() => {
+        if (action.data.hours && action.data.hours.length > 0) {
+            if (action.data.hours[0]) {
+                const dayFrom = action.data.hours[0].valid_from;
+                const dayTo = action.data.hours[0].valid_to;
+                if (dayFrom) {
+                    setDayStart(dayFrom.substring(0, 5));
+                }
+                if (dayTo) {
+                    setDayEnd(dayTo.substring(0, 5));
+                }
+            }
+            if (action.data.hours[1]) {
+                const nightFrom = action.data.hours[1].valid_from;
+                const nightTo = action.data.hours[1].valid_to;
+                if (nightFrom) {
+                    setNightStart(nightFrom.substring(0, 5));
+                }
+                if (nightTo) {
+                    setNightEnd(nightTo.substring(0, 5));
+                }
+            }
+        }
+    }, [action.data.hours])
 
     return (
       <Layout
