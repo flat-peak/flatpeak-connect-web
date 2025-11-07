@@ -3,6 +3,7 @@ import View from "../View/View.js";
 import Typography from "../Typography/Typography.js";
 import { forwardRef, InputHTMLAttributes, useImperativeHandle, useRef, useState } from "react";
 import Box from "../Box/Box.js";
+import { validateDecimalInput } from "../../lib/inputValidation.ts";
 
 type InputRateTimeProps = {
     variant?: "primary" | "secondary",
@@ -13,6 +14,8 @@ type InputRateTimeProps = {
     layoutRightOffset?: number;
     showDecimals?: boolean;
     label?: string;
+    maxIntegerLength?: number;
+    maxDecimalLength?: number;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export type InputRateHandle = {
@@ -20,7 +23,7 @@ export type InputRateHandle = {
 };
 
 const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) => {
-    const { variant, prefix = "", prefixPosition = "start", suffix = true, defaultValue, useDefault = true, layoutRightOffset = 0, showDecimals = true, label, ...inputAttributes } = props
+    const { variant, prefix = "", prefixPosition = "start", suffix = true, defaultValue, useDefault = true, layoutRightOffset = 0, showDecimals = true, label, maxIntegerLength = 6, maxDecimalLength = 4, ...inputAttributes } = props
 
     const [value, setValue] = useState(() => {
         if (defaultValue !== undefined) {
@@ -43,10 +46,11 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
     }));
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let { value } = e.target;
-        value = value.replace(/,/g, '.');
-        if (/^\d*\.?\d{0,4}$/.test(value)) {
-            setValue(value);
+        let { value: newValue } = e.target;
+        newValue = newValue.replace(/,/g, '.');
+        
+        if (validateDecimalInput(newValue, maxIntegerLength, maxDecimalLength)) {
+            setValue(newValue);
         }
     };
 
