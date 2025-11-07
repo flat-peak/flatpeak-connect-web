@@ -1,3 +1,4 @@
+// All currencies from countries list (countries.ts) with exponent greater than 0
 export const CURRENCY_MINOR_DATA: Record<
   string,
   { symbol: string; exponent: number }
