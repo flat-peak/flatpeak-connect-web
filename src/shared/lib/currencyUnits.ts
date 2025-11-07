@@ -25,7 +25,7 @@ export const CURRENCY_MINOR_DATA: Record<
   BSD: { symbol: '¢', exponent: 2 }, // Bahamas
   BTN: { symbol: 'chhertum', exponent: 2 }, // Bhutan
   BWP: { symbol: 'thebe', exponent: 2 }, // Botswana
-  BYN: { symbol: 'kapyeyka', exponent: 2 }, // Belarus
+  BYN: { symbol: 'кап', exponent: 2 }, // Belarus
   BZD: { symbol: '¢', exponent: 2 }, // Belize
   CAD: { symbol: '¢', exponent: 2 }, // Canada
   CDF: { symbol: 'centime', exponent: 2 }, // Congo, Democratic Republic of the
