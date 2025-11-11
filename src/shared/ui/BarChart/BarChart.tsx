@@ -1,7 +1,7 @@
 import styles from "./BarChart.module.scss";
 import View from "../View/View.tsx";
 import Typography from "../Typography/Typography.tsx";
-import {RateEntryDecorated} from "../../../features/connect/lib/types.ts";
+import {RateEntryDecorated, RatePeriodType} from "../../../features/connect/lib/types.ts";
 import Legend from "../Legend/Legend.tsx";
 import {useEffect, useMemo, useState} from "react";
 import {expandRates} from "./util.ts";
@@ -10,11 +10,12 @@ import Rate from "../TariffPeriodTable/Rate/Rate.tsx";
 type BarChartProps = {
     currencyCode: string;
     rates: Array<RateEntryDecorated>;
+    period: RatePeriodType;
 }
 
 const placeholderBars = new Array(24).fill(0);
 export const BarChart = (props: BarChartProps) => {
-    const {currencyCode, rates} = props;
+    const {currencyCode, rates, period} = props;
     const [animated, setAnimated] = useState(false);
 
     const classNames = [styles.bars];
@@ -75,7 +76,12 @@ export const BarChart = (props: BarChartProps) => {
                             })}
                             <View className={styles.noDataWarning}>
                                 <Typography variant={"heading_h2_text"}  align={"center"}>Updating..</Typography>
-                                <Typography variant={"button__forms16_book"} align={"center"}>The tariff for this period is not available yet. Please check back later.</Typography>
+                                <Typography variant={"button__forms16_book"} align={"center"}>
+                                    {period === "tomorrow"
+                                        ? "Prices are not yet available. They usually update in the afternoon. Please check again soon."
+                                        : "The tariff for this period is not available yet. Please check back later."
+                                    }
+                                </Typography>
                             </View>
                         </View>
                     )}
