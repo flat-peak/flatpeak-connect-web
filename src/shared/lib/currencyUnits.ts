@@ -132,8 +132,7 @@ export const CURRENCY_MINOR_DATA: Record<
   TZS: { symbol: 'ct', exponent: 2 }, // Tanzania
   UAH: { symbol: 'kop', exponent: 2 }, // Ukraine
   USD: { symbol: '¢', exponent: 2 }, // United States, Ecuador, El Salvador, Palau, Federated States of Micronesia, Marshall Islands
-  UYI: { symbol: '¢', exponent: 2 },
-  UYU: { symbol: 'cts', exponent: 2 }, // Uruguay
+  UYU: { symbol: 'cts', exponent: 2 }, // Uruguay (Peso Uruguayo)
   UZS: { symbol: 'tyn', exponent: 2 }, // Uzbekistan
   VES: { symbol: 'ctm', exponent: 2 }, // Venezuela
   WST: { symbol: 'sene', exponent: 2 }, // Samoa

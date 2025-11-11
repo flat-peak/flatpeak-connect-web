@@ -15,7 +15,7 @@ import Separator from "../../shared/ui/Separator/Separator.tsx";
 import InputTime from "../../shared/ui/InputTime/InputTime.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
-import { convertCurrencyToMinorUnits, convertMinorToMajorUnits } from '../../shared/lib/currencyUtils.ts';
+import { convertCurrencyToMinorUnits, convertCurrencyToMajorUnits } from '../../shared/lib/currencyUtils.ts';
 
 type HourEntry = {
     cost: number;
@@ -104,12 +104,12 @@ export const RateTodCapture = () => {
                     {
                         valid_from: `${form.day_startTime.value}:00`,
                         valid_to: `${form.day_endTime.value}:00`,
-                        cost: convertMinorToMajorUnits(currencyCode, Number(form.day_cost.value))
+                        cost: convertCurrencyToMajorUnits(currencyCode, Number(form.day_cost.value))
                     },
                     {
                         valid_from: `${form.night_startTime.value}:00`,
                         valid_to: `${form.night_endTime.value}:00`,
-                        cost: convertMinorToMajorUnits(currencyCode, Number(form.night_cost.value))
+                        cost: convertCurrencyToMajorUnits(currencyCode, Number(form.night_cost.value))
                     }
                 ]
             }

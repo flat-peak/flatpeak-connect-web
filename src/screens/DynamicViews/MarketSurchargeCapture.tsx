@@ -13,7 +13,7 @@ import FixedSurchargesIcon from "../../shared/ui/icons/FixedSurchargesIcon.tsx";
 import PercentageIcon from "../../shared/ui/icons/PercentageIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
-import { convertCurrencyToMinorUnits, convertMinorToMajorUnits } from '../../shared/lib/currencyUtils.ts';
+import { convertCurrencyToMinorUnits, convertCurrencyToMajorUnits } from '../../shared/lib/currencyUtils.ts';
 
 export const MarketSurchargeCapture = () => {
     const {action, proceed} = useConnect<"surcharge_capture">();
@@ -33,7 +33,7 @@ export const MarketSurchargeCapture = () => {
             connect_token: action.connect_token,
             data: {
                 surcharge: {
-                    fixed: Number(convertMinorToMajorUnits(action.data.currency_code, Number(fixed.trim().replace(",", '.')))) || 0,
+                    fixed: Number(convertCurrencyToMajorUnits(action.data.currency_code, Number(fixed.trim().replace(",", '.')))) || 0,
                     percentage: Number(percentage.trim().replace(",", '.')) || 0
                 },
             }
