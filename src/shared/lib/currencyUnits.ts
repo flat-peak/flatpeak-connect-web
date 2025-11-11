@@ -42,10 +42,10 @@ export const CURRENCY_MINOR_DATA: Record<
   EGP: { symbol: 'pt', exponent: 2 },
   ERN: { symbol: 'ct', exponent: 2 }, // Eritrea
   ETB: { symbol: 'snt', exponent: 2 }, // Ethiopia
-  //EUR: { symbol: 'c', exponent: 2 }, // Andorra, Austria and 29 more
+  EUR: { symbol: 'c', exponent: 2 }, // Andorra, Austria and 29 more
   FJD: { symbol: '¢', exponent: 2 }, // Fiji
   FKP: { symbol: 'p', exponent: 2 }, // Falkland Islands
-  //GBP: { symbol: 'p', exponent: 2 }, // United Kingdom
+  GBP: { symbol: 'p', exponent: 2 }, // United Kingdom
   GEL: { symbol: 'tet', exponent: 2 }, // Georgia
   GHS: { symbol: 'psw', exponent: 2 }, // Ghana
   GIP: { symbol: 'p', exponent: 2 },
@@ -131,7 +131,7 @@ export const CURRENCY_MINOR_DATA: Record<
   TWD: { symbol: 'fen', exponent: 2 }, // Taiwan
   TZS: { symbol: 'ct', exponent: 2 }, // Tanzania
   UAH: { symbol: 'kop', exponent: 2 }, // Ukraine
-  //USD: { symbol: '¢', exponent: 2 }, // United States, Ecuador, El Salvador, Palau, Federated States of Micronesia, Marshall Islands
+  USD: { symbol: '¢', exponent: 2 }, // United States, Ecuador, El Salvador, Palau, Federated States of Micronesia, Marshall Islands
   UYU: { symbol: 'cts', exponent: 2 }, // Uruguay (Peso Uruguayo)
   UZS: { symbol: 'tyn', exponent: 2 }, // Uzbekistan
   VES: { symbol: 'ctm', exponent: 2 }, // Venezuela
