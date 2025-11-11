@@ -12,7 +12,7 @@ import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
-import { convertCurrencyToMinorUnits, convertMinorToMajorUnits } from '../../shared/lib/currencyUtils.ts';
+import { convertCurrencyToMinorUnits, convertCurrencyToMajorUnits } from '../../shared/lib/currencyUtils.ts';
 
 export const RateFixedCapture = () => {
     const {action, proceed} = useConnect<"rate_fixed_capture">();
@@ -28,7 +28,7 @@ export const RateFixedCapture = () => {
             type: "submit",
             connect_token: action.connect_token,
             data: {
-                cost: Number(convertMinorToMajorUnits(action.data.currency_code, Number(cost.trim().replace(",", '.')))) || 0
+                cost: Number(convertCurrencyToMajorUnits(action.data.currency_code, Number(cost.trim().replace(",", '.')))) || 0
             }
         }));
     }
