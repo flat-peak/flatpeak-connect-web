@@ -1,4 +1,4 @@
-import {useMemo} from "react";
+import {memo, useMemo} from "react";
 import View from "../View/View.tsx";
 import Typography from "../Typography/Typography.tsx";
 import Box from "../Box/Box.tsx";
@@ -20,7 +20,7 @@ type PriceNowProps = {
     currencyCode: string;
 }
 
-export default function PriceNow(props: PriceNowProps) {
+function PriceNow(props: PriceNowProps) {
     const {rates, currencyCode} = props;
     
     const currentInterval = useMemo(() => {
@@ -90,7 +90,7 @@ export default function PriceNow(props: PriceNowProps) {
             start: `${startHours}:${startMinutes}`,
             end: `${endHours}:${endMinutes}`
         };
-    }, [currentInterval, rates]);
+    }, [currentInterval, rates, currencyCode]);
     
     const currentPrice = useMemo(() => {
         return currentInterval?.price || 0;
@@ -130,3 +130,5 @@ export default function PriceNow(props: PriceNowProps) {
         </View>
     );
 }
+
+export default memo(PriceNow);
