@@ -2,11 +2,10 @@ import {memo, useMemo} from "react";
 import View from "../View/View.tsx";
 import Typography from "../Typography/Typography.tsx";
 import Box from "../Box/Box.tsx";
-import PriceChartIcon from "../icons/PriceChartIcon.tsx";
 import ColorDot from "../icons/ColorDot.tsx";
-import LongArrowRightIcon from "../icons/LongArrowRightIcon.tsx";
 import {getCurrencySymbol, roundRateValue} from "../../lib/util.ts";
 import styles from "./PriceNow.module.scss";
+import TextArrowRight from '../icons/TextArrowRight.tsx';
 
 type PriceNowProps = {
     rates: Array<{
@@ -103,14 +102,14 @@ function PriceNow(props: PriceNowProps) {
         <View className={styles.host}>
             <Box className={styles.content}>
                 <Box className={styles.header}>
-                    <Typography color="black_a60" variant="button__forms14_book">
-                        Price now
+                    <Typography  variant="button__forms14_book">
+                        Now
                     </Typography>
                     <Box className={styles.timeRange}>
                         <ColorDot peak={currentInterval?.rate?.peak || "Medium"} width={10} height={10} />
                         {timeRange ? (
                             <Typography color="black" variant="button__forms14_sup_regular">
-                                {timeRange.start} <LongArrowRightIcon width={14} height={6} /> {timeRange.end}
+                                {timeRange.start} <TextArrowRight /> {timeRange.end}
                             </Typography>
                         ) : (
                             <Typography color="black" variant="button__forms14_sup_regular">
@@ -126,7 +125,6 @@ function PriceNow(props: PriceNowProps) {
                     <Typography color="black" variant="button__forms20_regular">{getCurrencySymbol(currencyCode)}/kWh</Typography>
                 </Box>
             </Box>
-            <PriceChartIcon width={33} height={32} />
         </View>
     );
 }
