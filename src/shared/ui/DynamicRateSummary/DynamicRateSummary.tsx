@@ -4,7 +4,7 @@ import Box from "../Box/Box.tsx";
 import TabsSelector from "../TabsSelector/TabsSelector.tsx";
 import {PeakType, RateEntry, RateEntryDecorated, RatePeriodType} from "../../../features/connect/lib/types.ts";
 import TimePeriodTable from "../TariffPeriodTable/TimePeriodTable.tsx";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {BarChart} from "../BarChart/BarChart.tsx";
 import Typography from "../Typography/Typography.tsx";
 import PriceNow from "../PriceNow/PriceNow.tsx";
@@ -21,6 +21,10 @@ export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
     const [currentRates, setCurrentRates] = useState(decoratePeaks(rates.today));
     const hasYesterdayRates = Boolean(rates?.yesterday?.length);
     const getRatesForTab = useCallback((tab: RatePeriodType) => rates[tab] ?? [], [rates]);
+
+    const todayRatesForPriceNow = useMemo(() => {
+        return decoratePeaks(rates.today);
+    }, [rates.today]);
 
     const handleTabChanged = (tabId: "today"|"yesterday"|"tomorrow") => {
         if (!hasYesterdayRates && tabId === "yesterday") {
@@ -40,7 +44,7 @@ export default function DynamicRateSummary(props: DynamicRateSummaryProps) {
     return (
       <View className={styles.host}>
         <PriceNow 
-            rates={currentRates}
+            rates={todayRatesForPriceNow}
             currencyCode={currencyCode}
         />
           <BarChart rates={currentRates} currencyCode={currencyCode} period={activeTab}/>
