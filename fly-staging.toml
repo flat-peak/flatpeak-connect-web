@@ -1,8 +1,3 @@
-# fly.toml app configuration file generated for connect-web-anode-stg-fp on 2025-10-21T10:26:24+03:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'connect-web-anode-stg-fp'
 primary_region = 'lhr'
 kill_signal = 'SIGINT'
@@ -13,7 +8,7 @@ kill_timeout = '5s'
 
 [build]
 [build.args]
-    CONNECT_API_URL = "https://stg-connect.flatpeak.com"
+  CONNECT_API_URL = "https://stg-connect.flatpeak.com"
 
 [env]
   CLOUDWATCH_GROUP_NAME = '/staging/app/provider/connect-web-anode'
