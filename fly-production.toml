@@ -13,7 +13,7 @@ kill_timeout = '5s'
 
 [build]
 [build.args]
-    CONNECT_API_URL = "https://connect.flatpeak.com"
+  CONNECT_API_URL = "https://connect.flatpeak.com"
 
 [env]
   CLOUDWATCH_GROUP_NAME = '/production/app/provider/connect-web-anode'
