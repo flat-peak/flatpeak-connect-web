@@ -192,7 +192,13 @@ export default function Combobox(props: ComboboxProps) {
     }
     const hasOption = filteredOptions.length > 0;
     setHighlightedIndex(hasOption ? 0 : -1);
-  }, [isOpen, inputValue, filteredOptions]);
+
+    // isOpen is removed from dependency array intentionally
+    // this won't cause any issue for country selector
+    // but it'll overwrite the selected highlight to the first option
+    // when the list is opened by keyboard and there're still multiple options
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputValue, filteredOptions]);
 
   return (
     <Box rg={8}>
