@@ -1,6 +1,7 @@
 import {
   ChangeEventHandler,
   KeyboardEvent,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -42,6 +43,15 @@ export default function Combobox(props: ComboboxProps) {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  useEffect(() => {
+    if (!isOpen || highlightedIndex < 0) return;
+
+    // follow the highlighted option and keep it inside the scroll window
+    const node = optionRefs.current[highlightedIndex];
+    node?.scrollIntoView({ block: "nearest" });
+  }, [highlightedIndex, isOpen]);
 
   const selectOption = (option: ComboboxOption) => {
     const { label, value } = option;
@@ -213,6 +223,9 @@ export default function Combobox(props: ComboboxProps) {
 
               return (
                 <button
+                  ref={(node) => {
+                    optionRefs.current[index] = node;
+                  }}
                   key={value}
                   type="button"
                   className={`${styles.option} ${
