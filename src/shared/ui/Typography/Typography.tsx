@@ -79,6 +79,7 @@ export default function Typography(props: PropsWithChildren<TypographyProps>) {
     align,
     transform,
     decoration,
+    htmlFor,
   } = props;
   const Tag = component || "span";
 
@@ -92,5 +93,9 @@ export default function Typography(props: PropsWithChildren<TypographyProps>) {
     decoration && styles["decoration_" + decoration],
   ].filter(Boolean);
 
-  return <Tag className={classNames.join(" ")}>{children}</Tag>;
+  return (
+    <Tag className={classNames.join(" ")} htmlFor={htmlFor}>
+      {children}
+    </Tag>
+  );
 }
