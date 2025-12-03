@@ -21,6 +21,7 @@ export default function Combobox(props: ComboboxProps) {
     options,
     onChange,
     name,
+    label,
     placeholder = "Select an option",
     noOptionsText = "No options found",
     className,
@@ -73,18 +74,36 @@ export default function Combobox(props: ComboboxProps) {
     return filteredOptions;
   }, [inputValue, options]);
 
+  const hasLabel = Boolean(label);
+  const shouldFloatLabel = hasLabel && (isOpen || inputValue || selectOption);
+
   return (
     <Box rg={8}>
       <div ref={containerRef} className={`${styles.host}`}>
         <input
           ref={inputRef}
-          className={`${styles.control} ${className ?? ""}`}
+          className={`${styles.control} ${className ?? ""} ${
+            hasLabel ? styles.inputWithLabel : ""
+          }`}
           type="text"
           value={inputValue}
           onClick={openList}
           onChange={handleInputChange}
-          placeholder={placeholder}
+          placeholder={label ? label : placeholder}
         />
+
+        {label && (
+          <Typography
+            component="label"
+            color="black_a60"
+            variant="button__forms16_book"
+            className={`${styles.label} ${
+              shouldFloatLabel ? styles.labelRaised : ""
+            }`}
+          >
+            {label}
+          </Typography>
+        )}
 
         <div
           className={`${styles.chevron}`}
@@ -116,10 +135,8 @@ export default function Combobox(props: ComboboxProps) {
             })}
 
             {!filteredOptions.length && (
-              <div className={styles.noOptions}>
-                <Typography color="black_a40" variant="button__forms16_book">
-                  {noOptionsText}
-                </Typography>
+              <div className={`${styles.option} ${styles.empty}`}>
+                {noOptionsText}
               </div>
             )}
           </div>
