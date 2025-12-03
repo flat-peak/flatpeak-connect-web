@@ -2,6 +2,7 @@ import {
   ChangeEventHandler,
   KeyboardEvent,
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -44,6 +45,9 @@ export default function Combobox(props: ComboboxProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const inputId = useId();
+  const listboxId = useId();
 
   useEffect(() => {
     if (!isOpen || highlightedIndex < 0) return;
@@ -176,11 +180,19 @@ export default function Combobox(props: ComboboxProps) {
   const hasLabel = Boolean(label);
   const shouldFloatLabel = hasLabel && (isOpen || !!inputValue);
 
+  // actual focus is on the input tag. This is used to inform screen reader current active option
+  const activeOption =
+    highlightedIndex >= 0 ? filteredOptions[highlightedIndex] : undefined;
+  const activeDescendantId = activeOption
+    ? `${listboxId}-option-${activeOption.value}`
+    : undefined;
+
   return (
     <Box rg={8}>
       <div ref={containerRef} className={`${styles.host}`}>
         <input
           ref={inputRef}
+          id={inputId}
           className={`${styles.control} ${className ?? ""} ${
             hasLabel ? styles.inputWithLabel : ""
           }`}
@@ -190,6 +202,11 @@ export default function Combobox(props: ComboboxProps) {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder={label ? label : placeholder}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-controls={listboxId}
+          aria-autocomplete="list"
+          aria-activedescendant={activeDescendantId}
         />
 
         {label && (
@@ -200,6 +217,7 @@ export default function Combobox(props: ComboboxProps) {
             className={`${styles.label} ${
               shouldFloatLabel ? styles.labelRaised : ""
             }`}
+            htmlFor={inputId}
           >
             {label}
           </Typography>
@@ -215,7 +233,7 @@ export default function Combobox(props: ComboboxProps) {
 
         {/* select options come here */}
         {isOpen && (
-          <div className={`${styles.popover}`}>
+          <div className={`${styles.popover}`} role="listbox" id={listboxId}>
             {filteredOptions.map((option, index) => {
               const { label, value } = option;
               const isSelected = value === selectedValue;
@@ -226,6 +244,7 @@ export default function Combobox(props: ComboboxProps) {
                   ref={(node) => {
                     optionRefs.current[index] = node;
                   }}
+                  id={`${listboxId}-option-${value}`}
                   key={value}
                   type="button"
                   className={`${styles.option} ${
@@ -233,6 +252,8 @@ export default function Combobox(props: ComboboxProps) {
                   } ${isActive ? styles.active : ""}`}
                   onMouseDown={(event) => event.preventDefault()}
                   onClick={() => selectOption(option)}
+                  role="option"
+                  aria-selected={isSelected}
                 >
                   {label}
                 </button>
@@ -240,7 +261,7 @@ export default function Combobox(props: ComboboxProps) {
             })}
 
             {!filteredOptions.length && (
-              <div className={`${styles.option} ${styles.empty}`}>
+              <div className={`${styles.option} ${styles.empty}`} aria-disabled>
                 {noOptionsText}
               </div>
             )}
