@@ -71,10 +71,6 @@ export default function Combobox(props: ComboboxProps) {
     setInputValue(nextValue);
     // Open when it is typed
     setIsOpen(true);
-
-    // highlight the first option when it is typed
-    const hasQuery = nextValue.trim().length > 0;
-    setHighlightedIndex(hasQuery && filteredOptions.length > 0 ? 0 : -1);
   };
 
   const updateHighlight = (nextIndex: number) => {
@@ -186,6 +182,17 @@ export default function Combobox(props: ComboboxProps) {
   const activeDescendantId = activeOption
     ? `${listboxId}-option-${activeOption.value}`
     : undefined;
+
+  // focus the first option when there're options
+  useEffect(() => {
+    if (!isOpen) return;
+    if (inputValue.trim() === "") {
+      setHighlightedIndex(-1);
+      return;
+    }
+    const hasOption = filteredOptions.length > 0;
+    setHighlightedIndex(hasOption ? 0 : -1);
+  }, [isOpen, inputValue, filteredOptions]);
 
   return (
     <Box rg={8}>
