@@ -75,7 +75,7 @@ export default function Combobox(props: ComboboxProps) {
   }, [inputValue, options]);
 
   const hasLabel = Boolean(label);
-  const shouldFloatLabel = hasLabel && (isOpen || inputValue || selectOption);
+  const shouldFloatLabel = hasLabel && (isOpen || inputValue || !!inputValue);
 
   return (
     <Box rg={8}>
@@ -143,7 +143,7 @@ export default function Combobox(props: ComboboxProps) {
         )}
 
         {/* hidden input to store the selected value */}
-        <input type="hidden" name={name} value={inputValue || ""} />
+        <input type="hidden" name={name} value={selectedValue || ""} />
       </div>
     </Box>
   );
