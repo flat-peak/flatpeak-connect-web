@@ -1,4 +1,10 @@
-import { ChangeEventHandler, useMemo, useRef, useState } from "react";
+import {
+  ChangeEventHandler,
+  KeyboardEvent,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styles from "./Combobox.module.scss";
 import Box from "../Box/Box";
 import SmallArrowRightIcon from "../icons/SmallArrowRightIcon";
@@ -32,16 +38,10 @@ export default function Combobox(props: ComboboxProps) {
     undefined
   );
   const [inputValue, setInputValue] = useState<string>("");
+  const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const openList = () => {
-    setIsOpen(true);
-  };
-  const closeList = () => {
-    setIsOpen(false);
-  };
 
   const selectOption = (option: ComboboxOption) => {
     const { label, value } = option;
@@ -57,6 +57,66 @@ export default function Combobox(props: ComboboxProps) {
     setInputValue(nextValue);
     // Open when it is typed
     setIsOpen(true);
+
+    // highlight the first option when it is typed
+    const hasQuery = nextValue.trim().length > 0;
+    setHighlightedIndex(hasQuery && filteredOptions.length > 0 ? 0 : -1);
+  };
+
+  const updateHighlight = (nextIndex: number) => {
+    if (!filteredOptions.length) {
+      setHighlightedIndex(-1);
+      return;
+    }
+
+    const lastIndex = filteredOptions.length - 1;
+    if (nextIndex < 0) {
+      setHighlightedIndex(lastIndex);
+    } else if (nextIndex > lastIndex) {
+      setHighlightedIndex(0);
+    } else {
+      setHighlightedIndex(nextIndex);
+    }
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    switch (event.key) {
+      case "ArrowDown": {
+        event.preventDefault();
+        openList();
+        updateHighlight(highlightedIndex + 1);
+        break;
+      }
+      case "ArrowUp": {
+        event.preventDefault();
+        openList();
+        updateHighlight(highlightedIndex - 1);
+        break;
+      }
+      case "Enter": {
+        const hasSelected = highlightedIndex >= 0;
+        if (isOpen && hasSelected) {
+          event.preventDefault();
+          const option = filteredOptions[highlightedIndex];
+          if (option) {
+            selectOption(option);
+          }
+        }
+        break;
+      }
+      case "Escape": {
+        if (isOpen) {
+          event.preventDefault();
+          closeList();
+          inputRef.current?.blur();
+        }
+        break;
+      }
+
+      default: {
+        break;
+      }
+    }
   };
 
   const filteredOptions = useMemo(() => {
@@ -74,8 +134,37 @@ export default function Combobox(props: ComboboxProps) {
     return filteredOptions;
   }, [inputValue, options]);
 
+  const openList = () => {
+    if (!isOpen) {
+      setIsOpen(true);
+
+      const selectedIndex = filteredOptions.findIndex(
+        ({ value }) => value === selectedValue
+      );
+      const nextIndex =
+        filteredOptions.length === 0
+          ? -1
+          : selectedIndex >= 0
+          ? selectedIndex
+          : 0;
+
+      setHighlightedIndex(nextIndex);
+    }
+  };
+
+  const closeList = () => {
+    setIsOpen(false);
+    setHighlightedIndex(-1);
+
+    // reset to selected label
+    const selectedOption = options.find(({ value }) => value === selectedValue);
+    if (selectedOption) {
+      setInputValue(selectedOption?.label);
+    }
+  };
+
   const hasLabel = Boolean(label);
-  const shouldFloatLabel = hasLabel && (isOpen || inputValue || !!inputValue);
+  const shouldFloatLabel = hasLabel && (isOpen || !!inputValue);
 
   return (
     <Box rg={8}>
@@ -89,6 +178,7 @@ export default function Combobox(props: ComboboxProps) {
           value={inputValue}
           onClick={openList}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           placeholder={label ? label : placeholder}
         />
 
@@ -116,16 +206,18 @@ export default function Combobox(props: ComboboxProps) {
         {/* select options come here */}
         {isOpen && (
           <div className={`${styles.popover}`}>
-            {filteredOptions.map((option) => {
+            {filteredOptions.map((option, index) => {
               const { label, value } = option;
               const isSelected = value === selectedValue;
+              const isActive = index === highlightedIndex;
+
               return (
                 <button
                   key={value}
                   type="button"
                   className={`${styles.option} ${
                     isSelected ? styles.selected : ""
-                  }`}
+                  } ${isActive ? styles.active : ""}`}
                   onMouseDown={(event) => event.preventDefault()}
                   onClick={() => selectOption(option)}
                 >
