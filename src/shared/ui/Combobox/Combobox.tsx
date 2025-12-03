@@ -21,6 +21,7 @@ export type ComboboxProps = {
   label?: string;
   placeholder?: string;
   noOptionsText?: string;
+  defaultValue?: string;
   className?: string;
 };
 
@@ -32,14 +33,19 @@ export default function Combobox(props: ComboboxProps) {
     label,
     placeholder = "Select an option",
     noOptionsText = "No options found",
+    defaultValue,
     className,
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | undefined>(
-    undefined
+    defaultValue ?? undefined
   );
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>(() => {
+    if (!defaultValue) return "";
+    const selectedOption = options.find(({ value }) => value === defaultValue);
+    return selectedOption?.label ?? "";
+  });
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,6 +54,15 @@ export default function Combobox(props: ComboboxProps) {
 
   const inputId = useId();
   const listboxId = useId();
+
+  useEffect(() => {
+    if (defaultValue === undefined) return;
+
+    setSelectedValue(defaultValue || undefined);
+    // the check is case sensitive
+    const option = options.find(({ value }) => value === defaultValue);
+    setInputValue(option?.label || "");
+  }, [defaultValue, options]);
 
   useEffect(() => {
     if (!isOpen || highlightedIndex < 0) return;
