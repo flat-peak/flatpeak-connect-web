@@ -272,6 +272,7 @@ export default function Combobox(props: ComboboxProps) {
             aria-controls={listboxId}
             aria-autocomplete="list"
             aria-activedescendant={activeDescendantId}
+            aria-haspopup="listbox"
             {...inputAttributes}
           />
 
