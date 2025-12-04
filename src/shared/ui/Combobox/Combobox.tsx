@@ -12,6 +12,7 @@ import styles from "./Combobox.module.scss";
 import Box from "../Box/Box";
 import SmallArrowRightIcon from "../icons/SmallArrowRightIcon";
 import Typography from "../Typography/Typography";
+import View from "../View/View";
 
 export type ComboboxOption = { label: string; value: string };
 
@@ -24,6 +25,7 @@ export type ComboboxProps = {
   placeholder?: string;
   noOptionsText?: string;
   defaultValue?: string;
+  hostClassName?: string;
   className?: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, OmittedInputProps>;
 
@@ -36,6 +38,7 @@ export default function Combobox(props: ComboboxProps) {
     placeholder = "Select an option",
     noOptionsText = "No options found",
     defaultValue,
+    hostClassName,
     className,
   } = props;
 
@@ -234,87 +237,92 @@ export default function Combobox(props: ComboboxProps) {
 
   return (
     <Box rg={8}>
-      <div ref={containerRef} className={`${styles.host}`} onBlur={handleBlur}>
-        <input
-          ref={inputRef}
-          id={inputId}
-          className={`${styles.control} ${className ?? ""} ${
-            hasLabel ? styles.inputWithLabel : ""
-          }`}
-          type="text"
-          value={inputValue}
-          onClick={openList}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder={label ? label : placeholder}
-          role="combobox"
-          aria-expanded={isOpen}
-          aria-controls={listboxId}
-          aria-autocomplete="list"
-          aria-activedescendant={activeDescendantId}
-        />
-
-        {label && (
-          <Typography
-            component="label"
-            color="black_a60"
-            variant="button__forms16_book"
-            className={`${styles.label} ${
-              shouldFloatLabel ? styles.labelRaised : ""
+      <div ref={containerRef} onBlur={handleBlur}>
+        <View className={`${styles.host} ${hostClassName || ""}`}>
+          <input
+            ref={inputRef}
+            id={inputId}
+            className={`${styles.control} ${className ?? ""} ${
+              hasLabel ? styles.inputWithLabel : ""
             }`}
-            htmlFor={inputId}
+            type="text"
+            value={inputValue}
+            onClick={openList}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            placeholder={label ? label : placeholder}
+            role="combobox"
+            aria-expanded={isOpen}
+            aria-controls={listboxId}
+            aria-autocomplete="list"
+            aria-activedescendant={activeDescendantId}
+          />
+
+          {label && (
+            <Typography
+              component="label"
+              color="black_a60"
+              variant="button__forms16_book"
+              className={`${styles.label} ${
+                shouldFloatLabel ? styles.labelRaised : ""
+              }`}
+              htmlFor={inputId}
+            >
+              {label}
+            </Typography>
+          )}
+
+          <div
+            className={`${styles.chevron}`}
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={isOpen ? closeList : openList}
           >
-            {label}
-          </Typography>
-        )}
-
-        <div
-          className={`${styles.chevron}`}
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={isOpen ? closeList : openList}
-        >
-          <SmallArrowRightIcon direction={isOpen ? "up" : "down"} />
-        </div>
-
-        {/* select options come here */}
-        {isOpen && (
-          <div className={`${styles.popover}`} role="listbox" id={listboxId}>
-            {filteredOptions.map((option, index) => {
-              const { label, value } = option;
-              const isSelected = value === selectedValue;
-              const isActive = index === highlightedIndex;
-
-              return (
-                <button
-                  ref={(node) => {
-                    optionRefs.current[index] = node;
-                  }}
-                  id={`${listboxId}-option-${value}`}
-                  key={value}
-                  type="button"
-                  className={`${styles.option} ${
-                    isSelected ? styles.selected : ""
-                  } ${isActive ? styles.active : ""}`}
-                  onMouseDown={(event) => event.preventDefault()}
-                  onClick={() => selectOption(option)}
-                  role="option"
-                  aria-selected={isSelected}
-                >
-                  {label}
-                </button>
-              );
-            })}
-
-            {!filteredOptions.length && (
-              <div className={`${styles.option} ${styles.empty}`} aria-disabled>
-                {noOptionsText}
-              </div>
-            )}
+            <SmallArrowRightIcon direction={isOpen ? "up" : "down"} />
           </div>
-        )}
 
-        {/* hidden input to store the selected value */}
-        <input type="hidden" name={name} value={selectedValue || ""} />
+          {/* select options come here */}
+          {isOpen && (
+            <div className={`${styles.popover}`} role="listbox" id={listboxId}>
+              {filteredOptions.map((option, index) => {
+                const { label, value } = option;
+                const isSelected = value === selectedValue;
+                const isActive = index === highlightedIndex;
+
+                return (
+                  <button
+                    ref={(node) => {
+                      optionRefs.current[index] = node;
+                    }}
+                    id={`${listboxId}-option-${value}`}
+                    key={value}
+                    type="button"
+                    className={`${styles.option} ${
+                      isSelected ? styles.selected : ""
+                    } ${isActive ? styles.active : ""}`}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={() => selectOption(option)}
+                    role="option"
+                    aria-selected={isSelected}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+
+              {!filteredOptions.length && (
+                <div
+                  className={`${styles.option} ${styles.empty}`}
+                  aria-disabled
+                >
+                  {noOptionsText}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* hidden input to store the selected value */}
+          <input type="hidden" name={name} value={selectedValue || ""} />
+        </View>
       </div>
     </Box>
   );
