@@ -4,14 +4,22 @@
   border-radius: 12px;
   position: relative;
   height: 64px;
+
+  &:focus-within {
+    border-color: var(--color-border-azure-radiance);
+    box-shadow: 0px 0px 0px 8px #d9eafd;
+    background-color: var(--color-fill-white);
+  }
 }
 
 .label {
   position: absolute;
   top: 24px;
   left: 16px;
+  line-height: 1;
   font-feature-settings: "salt" on;
   color: var(--color-border-black_a40);
+  pointer-events: none;
 }
 
 .labelRaised {
@@ -23,12 +31,13 @@
   font-family: var(--font-regolapro-book); // same as other text input
   font-size: 16px;
   font-weight: 300;
+  font-feature-settings: "case" on, "ss03" on, "salt" on;
   color: #333333;
   line-height: 1.4;
   background: none;
   border: none;
   height: 64px;
-  padding: 0 40px 0 16px;
+  padding: 21px 20px 0;
   width: 100%;
 
   &:focus {
@@ -46,9 +55,10 @@
 
 .chevron {
   position: absolute;
-  right: 20px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
+  pointer-events: auto;
 }
 
 .popover {
@@ -70,14 +80,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 16px;
+  padding: 20px 16px;
   background: transparent;
   border: none;
   text-align: left;
   cursor: pointer;
   font-family: var(--font-regolapro-book);
   font-size: 16px;
-  color: #333333;
+  color: var(--color-typography-black);
 
   &:focus {
     outline: none;
@@ -89,7 +99,8 @@
 }
 
 .active {
-  background-color: var(--color-fill-light_blue);
+  color: var(--color-typography-white);
+  background-color: var(--color-fill-blue_2);
 }
 
 .selected {
