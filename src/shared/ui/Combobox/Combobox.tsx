@@ -204,21 +204,24 @@ export default function Combobox(props: ComboboxProps) {
   };
 
   const openList = () => {
-    if (!isOpen) {
-      setIsOpen(true);
+    if (isOpen) return;
+    setIsOpen(true);
 
-      const selectedIndex = filteredOptions.findIndex(
-        ({ value }) => value === selectedValue
-      );
-      const nextIndex =
-        filteredOptions.length === 0
-          ? -1
-          : selectedIndex >= 0
-          ? selectedIndex
-          : 0;
-
-      setHighlightedIndex(nextIndex);
+    // 1. If no options, highlight nothing
+    if (filteredOptions.length === 0) {
+      setHighlightedIndex(-1);
     }
+
+    // 2. If a value is already selected, highlight it
+    const selectedIndex = filteredOptions.findIndex(
+      ({ value }) => value === selectedValue
+    );
+    if (selectedIndex >= 0) {
+      setHighlightedIndex(selectedIndex);
+    }
+
+    // 3. Otherwise highlight the first option
+    setHighlightedIndex(0);
   };
 
   const closeList = () => {
