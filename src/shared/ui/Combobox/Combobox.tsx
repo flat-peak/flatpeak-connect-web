@@ -189,14 +189,18 @@ export default function Combobox(props: ComboboxProps) {
   };
 
   const handleBlur = () => {
-    const container = containerRef.current;
-    if (!container) return;
+    // Wait one frame to allow focus to move (e.g. input → option) before deciding to close.
+    // Without this, the list would close before option clicks are processed.
+    requestAnimationFrame(() => {
+      const container = containerRef.current;
+      if (!container) return;
 
-    // this prevents from closing the list while the focus moves from input to options
-    const isStillFocusInside = container.contains(document.activeElement);
-    if (isStillFocusInside) return;
+      // this prevents from closing the list while the focus moves from input to options
+      const isStillFocusInside = container.contains(document.activeElement);
+      if (isStillFocusInside) return;
 
-    closeList();
+      closeList();
+    });
   };
 
   const hasLabel = Boolean(label);
