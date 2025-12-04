@@ -123,10 +123,13 @@ export default function Combobox(props: ComboboxProps) {
     const hasOption = filteredOptions.length > 0;
     setHighlightedIndex(hasOption ? 0 : -1);
 
-    // isOpen is removed from dependency array intentionally
-    // this won't cause any issue for country selector
-    // but it'll overwrite the selected highlight to the first option
-    // when the list is opened by keyboard and there're still multiple options
+    // NOTE:
+    // - We intentionally exclude `isOpen` from deps.
+    // - If we include it, opening the list via keyboard (ArrowDown) would
+    //   first set the highlighted index to the selected option in `openList`,
+    //   then this effect would immediately overwrite it to 0 (first option).
+    // - For type-to-search we *do* want to reset to the first result,
+    //   but only when the query (`inputValue`) changes, not when `isOpen` flips.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue, filteredOptions]);
 
@@ -232,7 +235,7 @@ export default function Combobox(props: ComboboxProps) {
     // reset to selected label
     const selectedOption = options.find(({ value }) => value === selectedValue);
     if (selectedOption) {
-      setInputValue(selectedOption?.label);
+      setInputValue(selectedOption.label);
     }
   };
 
