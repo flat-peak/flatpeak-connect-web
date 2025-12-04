@@ -9,9 +9,9 @@ import InputText from "../../shared/ui/InputText/InputText";
 import Layout from "../../shared/ui/Layout/Layout";
 import { LeadingText } from "../../shared/ui/LeadingText/LeadingText";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading";
-import Select from "../../shared/ui/Select/Select";
 import Typography from "../../shared/ui/Typography/Typography";
 import styles from "./PostalAddressCapture.module.scss";
+import Combobox from "../../shared/ui/Combobox/Combobox";
 
 export const PostalAddressCapture = () => {
   const { proceed, action } = useConnect<"postal_address_capture">();
@@ -64,15 +64,13 @@ export const PostalAddressCapture = () => {
       </LeadingText>
 
       <Box rg={12}>
-        <Select
-          placeholder="Choose your country"
-          label="Country"
-          id="country_code"
-          name="country_code"
-          autoComplete="country_code"
-          defaultValue={action.data.postal_address.country_code}
+        <Combobox
           options={COUNTRIES}
+          name="country_code"
+          label="Country"
+          defaultValue={action.data.postal_address.country_code}
           hostClassName={styles.selectGray}
+          includeValueInSearch // enable search by country code
         />
         <InputText
           secondaryText="Street address"
