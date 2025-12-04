@@ -188,6 +188,17 @@ export default function Combobox(props: ComboboxProps) {
     }
   };
 
+  const handleBlur = () => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // this prevents from closing the list while the focus moves from input to options
+    const isStillFocusInside = container.contains(document.activeElement);
+    if (isStillFocusInside) return;
+
+    closeList();
+  };
+
   const hasLabel = Boolean(label);
   const shouldFloatLabel = hasLabel && (isOpen || !!inputValue);
 
@@ -217,7 +228,7 @@ export default function Combobox(props: ComboboxProps) {
 
   return (
     <Box rg={8}>
-      <div ref={containerRef} className={`${styles.host}`}>
+      <div ref={containerRef} className={`${styles.host}`} onBlur={handleBlur}>
         <input
           ref={inputRef}
           id={inputId}
