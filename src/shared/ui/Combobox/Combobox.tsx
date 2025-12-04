@@ -42,6 +42,7 @@ export default function Combobox(props: ComboboxProps) {
     searchByValue,
     hostClassName,
     className,
+    ...inputAttributes
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
@@ -260,6 +261,7 @@ export default function Combobox(props: ComboboxProps) {
             aria-controls={listboxId}
             aria-autocomplete="list"
             aria-activedescendant={activeDescendantId}
+            {...inputAttributes}
           />
 
           {label && (
