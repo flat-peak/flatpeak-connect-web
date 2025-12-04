@@ -17,6 +17,7 @@ import View from "../View/View";
 export type ComboboxOption = { label: string; value: string };
 
 type OmittedInputProps = "onChange" | "value" | "defaultValue" | "type";
+
 export type ComboboxProps = {
   options: Array<ComboboxOption>;
   onChange?: (value: string | undefined) => void;
@@ -31,6 +32,7 @@ export type ComboboxProps = {
 } & Omit<InputHTMLAttributes<HTMLInputElement>, OmittedInputProps>;
 
 export default function Combobox(props: ComboboxProps) {
+  // props
   const {
     options,
     onChange,
@@ -45,6 +47,7 @@ export default function Combobox(props: ComboboxProps) {
     ...inputAttributes
   } = props;
 
+  // state
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | undefined>(
     defaultValue ?? undefined
@@ -56,13 +59,43 @@ export default function Combobox(props: ComboboxProps) {
   });
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
 
+  // refs
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
+  // derived values (ids, filtered options, flags, aria helpers)
   const inputId = useId();
   const listboxId = useId();
 
+  const filteredOptions = useMemo(() => {
+    const query = inputValue.trim().toLowerCase();
+    // return all options if query is empty
+    if (!query) return options;
+
+    const filteredOptions = options.filter(({ label, value }) => {
+      const labelText = label.toLowerCase();
+      const valueText = value.toLowerCase();
+      // return even if it is a partial match
+      return searchByValue
+        ? labelText.includes(query) || valueText.includes(query)
+        : labelText.includes(query);
+    });
+
+    return filteredOptions;
+  }, [inputValue, options, searchByValue]);
+
+  const hasLabel = Boolean(label);
+  const shouldFloatLabel = hasLabel && (isOpen || !!inputValue);
+
+  // actual focus is on the input tag. This is used to inform screen reader current active option
+  const activeOption =
+    highlightedIndex >= 0 ? filteredOptions[highlightedIndex] : undefined;
+  const activeDescendantId = activeOption
+    ? `${listboxId}-option-${activeOption.value}`
+    : undefined;
+
+  // effects
   useEffect(() => {
     if (defaultValue === undefined) return;
 
@@ -80,6 +113,24 @@ export default function Combobox(props: ComboboxProps) {
     node?.scrollIntoView({ block: "nearest" });
   }, [highlightedIndex, isOpen]);
 
+  // focus the first option when there're options
+  useEffect(() => {
+    if (!isOpen) return;
+    if (inputValue.trim() === "") {
+      setHighlightedIndex(-1);
+      return;
+    }
+    const hasOption = filteredOptions.length > 0;
+    setHighlightedIndex(hasOption ? 0 : -1);
+
+    // isOpen is removed from dependency array intentionally
+    // this won't cause any issue for country selector
+    // but it'll overwrite the selected highlight to the first option
+    // when the list is opened by keyboard and there're still multiple options
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputValue, filteredOptions]);
+
+  // event handlers / callbacks
   const selectOption = (option: ComboboxOption) => {
     const { label, value } = option;
     setSelectedValue(value);
@@ -152,23 +203,6 @@ export default function Combobox(props: ComboboxProps) {
     }
   };
 
-  const filteredOptions = useMemo(() => {
-    const query = inputValue.trim().toLowerCase();
-    // return all options if query is empty
-    if (!query) return options;
-
-    const filteredOptions = options.filter(({ label, value }) => {
-      const labelText = label.toLowerCase();
-      const valueText = value.toLowerCase();
-      // return even if it is a partial match
-      return searchByValue
-        ? labelText.includes(query) || valueText.includes(query)
-        : labelText.includes(query);
-    });
-
-    return filteredOptions;
-  }, [inputValue, options, searchByValue]);
-
   const openList = () => {
     if (!isOpen) {
       setIsOpen(true);
@@ -212,33 +246,6 @@ export default function Combobox(props: ComboboxProps) {
       closeList();
     });
   };
-
-  const hasLabel = Boolean(label);
-  const shouldFloatLabel = hasLabel && (isOpen || !!inputValue);
-
-  // actual focus is on the input tag. This is used to inform screen reader current active option
-  const activeOption =
-    highlightedIndex >= 0 ? filteredOptions[highlightedIndex] : undefined;
-  const activeDescendantId = activeOption
-    ? `${listboxId}-option-${activeOption.value}`
-    : undefined;
-
-  // focus the first option when there're options
-  useEffect(() => {
-    if (!isOpen) return;
-    if (inputValue.trim() === "") {
-      setHighlightedIndex(-1);
-      return;
-    }
-    const hasOption = filteredOptions.length > 0;
-    setHighlightedIndex(hasOption ? 0 : -1);
-
-    // isOpen is removed from dependency array intentionally
-    // this won't cause any issue for country selector
-    // but it'll overwrite the selected highlight to the first option
-    // when the list is opened by keyboard and there're still multiple options
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputValue, filteredOptions]);
 
   return (
     <Box rg={8}>
@@ -286,7 +293,6 @@ export default function Combobox(props: ComboboxProps) {
             <SmallArrowRightIcon direction={isOpen ? "up" : "down"} />
           </div>
 
-          {/* select options come here */}
           {isOpen && (
             <div className={`${styles.popover}`} role="listbox" id={listboxId}>
               {filteredOptions.map((option, index) => {
