@@ -1,5 +1,6 @@
 import {
   ChangeEventHandler,
+  InputHTMLAttributes,
   KeyboardEvent,
   useEffect,
   useId,
@@ -14,6 +15,7 @@ import Typography from "../Typography/Typography";
 
 export type ComboboxOption = { label: string; value: string };
 
+type OmittedInputProps = "onChange" | "value" | "defaultValue" | "type";
 export type ComboboxProps = {
   options: Array<ComboboxOption>;
   onChange?: (value: string | undefined) => void;
@@ -23,7 +25,7 @@ export type ComboboxProps = {
   noOptionsText?: string;
   defaultValue?: string;
   className?: string;
-};
+} & Omit<InputHTMLAttributes<HTMLInputElement>, OmittedInputProps>;
 
 export default function Combobox(props: ComboboxProps) {
   const {
