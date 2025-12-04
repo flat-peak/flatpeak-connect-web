@@ -25,6 +25,7 @@ export type ComboboxProps = {
   placeholder?: string;
   noOptionsText?: string;
   defaultValue?: string;
+  searchByValue?: boolean;
   hostClassName?: string;
   className?: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, OmittedInputProps>;
@@ -38,6 +39,7 @@ export default function Combobox(props: ComboboxProps) {
     placeholder = "Select an option",
     noOptionsText = "No options found",
     defaultValue,
+    searchByValue,
     hostClassName,
     className,
   } = props;
@@ -158,11 +160,13 @@ export default function Combobox(props: ComboboxProps) {
       const labelText = label.toLowerCase();
       const valueText = value.toLowerCase();
       // return even if it is a partial match
-      return labelText.includes(query) || valueText.includes(query);
+      return searchByValue
+        ? labelText.includes(query) || valueText.includes(query)
+        : labelText.includes(query);
     });
 
     return filteredOptions;
-  }, [inputValue, options]);
+  }, [inputValue, options, searchByValue]);
 
   const openList = () => {
     if (!isOpen) {
