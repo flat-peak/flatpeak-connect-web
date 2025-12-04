@@ -196,7 +196,6 @@ export default function Combobox(props: ComboboxProps) {
         }
         break;
       }
-
       default: {
         break;
       }
@@ -210,6 +209,7 @@ export default function Combobox(props: ComboboxProps) {
     // 1. If no options, highlight nothing
     if (filteredOptions.length === 0) {
       setHighlightedIndex(-1);
+      return;
     }
 
     // 2. If a value is already selected, highlight it
@@ -218,6 +218,7 @@ export default function Combobox(props: ComboboxProps) {
     );
     if (selectedIndex >= 0) {
       setHighlightedIndex(selectedIndex);
+      return;
     }
 
     // 3. Otherwise highlight the first option
