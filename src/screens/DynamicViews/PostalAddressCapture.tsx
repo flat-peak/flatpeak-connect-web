@@ -9,82 +9,92 @@ import InputText from "../../shared/ui/InputText/InputText";
 import Layout from "../../shared/ui/Layout/Layout";
 import { LeadingText } from "../../shared/ui/LeadingText/LeadingText";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading";
-import Select from "../../shared/ui/Select/Select";
 import Typography from "../../shared/ui/Typography/Typography";
 import styles from "./PostalAddressCapture.module.scss";
+import Combobox from "../../shared/ui/Combobox/Combobox";
 
 export const PostalAddressCapture = () => {
-    const {proceed, action} = useConnect<"postal_address_capture">();
+  const { proceed, action } = useConnect<"postal_address_capture">();
 
-    const handleSubmit: FormEventHandler = (event) => {
-        event.preventDefault();
-        const {
-            address_line1: {value: address_line1},
-            city: {value: city},
-            country_code: {value: country_code},
-            post_code: {value: post_code},
-        } = event.target as unknown as { [key: string]: { value: string } };
+  const handleSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+    const {
+      address_line1: { value: address_line1 },
+      city: { value: city },
+      country_code: { value: country_code },
+      post_code: { value: post_code },
+    } = event.target as unknown as { [key: string]: { value: string } };
 
-        proceed(submitAction({
-            route: action.route,
-            type: "submit",
-            connect_token: action.connect_token,
-            data: {
-                postal_address: {
-                    address_line1,
-                    city,
-                    country_code,
-                    post_code,
-                }
-            }
-        }))
-    }
+    proceed(
+      submitAction({
+        route: action.route,
+        type: "submit",
+        connect_token: action.connect_token,
+        data: {
+          postal_address: {
+            address_line1,
+            city,
+            country_code,
+            post_code,
+          },
+        },
+      })
+    );
+  };
 
+  return (
+    <Layout
+      component={"form"}
+      footer={
+        <FooterActions>
+          <ButtonBig label={"Next"} type="submit" />
+        </FooterActions>
+      }
+      onSubmit={handleSubmit}
+      noValidate
+    >
+      <MainHeading text="Add your address" />
 
-    return (
-        <Layout component={"form"} footer={<FooterActions><ButtonBig label={"Next"} type="submit"/></FooterActions>} onSubmit={handleSubmit} noValidate>
-            <MainHeading text="Add your address"/>
+      <LeadingText>
+        <Typography component={"p"} color="black_a40" variant="leading_string">
+          Please enter your address. <br />
+          We don’t have enough information about your location to list
+          electricity providers in your area.
+        </Typography>
+      </LeadingText>
 
-            <LeadingText>
-                <Typography component={"p"} color="black_a40" variant="leading_string">
-                    Please enter your address. <br/>We don’t have enough information
-                    about your location to list electricity providers in your area.
-                </Typography>
-            </LeadingText>
-
-            <Box rg={12}>
-                <Select
-                    placeholder="Choose your country"
-                    label="Country"
-                    id="country_code"
-                    name="country_code"
-                    autoComplete="country_code"
-                    defaultValue={action.data.postal_address.country_code} 
-                    options={COUNTRIES}
-                    hostClassName={styles.selectGray}/>
-                <InputText
-                    secondaryText="Street address"
-                    id="address_line1"
-                    name="address_line1"
-                    autoComplete="address_line1"
-                    defaultValue={action.data.postal_address.address_line1}
-                    autoFocus
-                />
-                <InputText
-                    secondaryText="City"
-                    id="city"
-                    name="city"
-                    autoComplete="city"
-                    defaultValue={action.data.postal_address.city}
-                />
-                <InputText
-                    secondaryText="Postcode / Zip"
-                    id="post_code"
-                    name="post_code"
-                    autoComplete="post_code"
-                    defaultValue={action.data.postal_address.post_code}
-                />
-            </Box>
-        </Layout>
-    )
-}
+      <Box rg={12}>
+        <Combobox
+          options={COUNTRIES}
+          name="country_code"
+          label="Country"
+          defaultValue={action.data.postal_address.country_code}
+          hostClassName={styles.selectGray}
+          includeValueInSearch // enable search by country code
+        />
+        <InputText
+          secondaryText="Street address"
+          id="address_line1"
+          name="address_line1"
+          autoComplete="address_line1"
+          defaultValue={action.data.postal_address.address_line1}
+          autoFocus
+        />
+        <InputText
+          secondaryText="City"
+          id="city"
+          name="city"
+          autoComplete="city"
+          defaultValue={action.data.postal_address.city}
+        />
+        <InputText
+          secondaryText="Postcode / Zip"
+          id="post_code"
+          name="post_code"
+          autoComplete="post_code"
+          defaultValue={action.data.postal_address.post_code}
+        />
+      </Box>
+    </Layout>
+  );
+};
