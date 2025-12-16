@@ -76,10 +76,10 @@ export default function Combobox(props: ComboboxProps) {
     const filteredOptions = options.filter(({ label, value }) => {
       const labelText = label.toLowerCase();
       const valueText = value.toLowerCase();
-      // return even if it is a partial match
+      // return if it is a forward match
       return includeValueInSearch
-        ? labelText.includes(query) || valueText.includes(query)
-        : labelText.includes(query);
+        ? labelText.startsWith(query) || valueText.startsWith(query)
+        : labelText.startsWith(query);
     });
 
     return filteredOptions;

@@ -70,7 +70,6 @@ export const PostalAddressCapture = () => {
           label="Country"
           defaultValue={action.data.postal_address.country_code}
           hostClassName={styles.selectGray}
-          includeValueInSearch // enable search by country code
         />
         <InputText
           secondaryText="Street address"
