@@ -4,7 +4,7 @@
   border: 1px solid var(--color-border-azure_radiance);
   position: relative;
   height: 72px;
-  overflow: auto;
+  overflow: visible;
   padding: 0 8px;
   display: flex;
   align-items: center;
@@ -24,13 +24,18 @@
   flex: 1;
 }
 .value {
+  position: relative;
+  display: inline-block;
   line-height: 1;
 }
 .prefix {
   line-height: 1;
+  display: inline-block;
 }
 .suffix {
-  font-feature-settings: 'case' on, 'ss03' on, 'salt' on;
+  line-height: 1;
+  display: inline-block;
+  transform: translateY(0.18em);
 }
 .placeholder {
   position: relative;
@@ -65,18 +70,52 @@
 
 .overlay {
   position: absolute;
-  left: 8px;
-  top: 0;
-  width: calc(100% - 16px);
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  inset: 0;
   pointer-events: none;
-}
-.wrapper {
-  display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  padding: 4px;
+}
+
+.wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  line-height: 1;
+}
+
+.value {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+}
+
+.leftDock {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25em;
+}
+
+.leftDock .prefix {
+  transform: translateY(0);
+}
+
+.rightDock {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.375em;
+}
+
+.rightDock .prefix {
+  transform: translateY(0);
 }
