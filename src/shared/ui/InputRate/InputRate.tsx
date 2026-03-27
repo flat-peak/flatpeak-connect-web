@@ -46,7 +46,7 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                      className={styles.control}
                      type="text"
                      pattern={allowNegative ? "-?[0-9.,]*" : "[0-9.,]*"}
-                     inputMode={allowNegative ? "text" : "decimal"}
+                     inputMode={allowNegative ? "numeric" : "decimal"}
                      step={0.01}
                      value={value}
                      {...inputAttributes}
