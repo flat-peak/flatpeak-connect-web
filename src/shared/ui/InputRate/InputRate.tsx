@@ -10,6 +10,7 @@ type InputRateTimeProps = {
     suffix?: string;
     useDefault?: boolean;
     layoutRightOffset?: number;
+    allowNegative?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export type InputRateHandle = {
@@ -17,7 +18,7 @@ export type InputRateHandle = {
 };
 
 const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) => {
-    const { variant, prefix="", suffix = "", defaultValue, useDefault = true, layoutRightOffset = 0, ...inputAttributes } = props
+    const { variant, prefix="", suffix = "", defaultValue, useDefault = true, layoutRightOffset = 0, allowNegative = false, ...inputAttributes } = props
 
     const [value, setValue] = useState(defaultValue || useDefault ? '0.00' : "");
 
@@ -31,7 +32,8 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let { value } = e.target;
         value = value.replace(/,/g, '.');
-        if (/^\d*\.?\d{0,4}$/.test(value)) {
+        const valuePattern = allowNegative ? /^-?\d*\.?\d{0,4}$/ : /^\d*\.?\d{0,4}$/;
+        if (valuePattern.test(value)) {
             setValue(value);
         }
     };
@@ -43,8 +45,8 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                   ref={inputRef}
                      className={styles.control}
                      type="text"
-                     pattern="[0-9.,]*"
-                     inputMode="decimal"
+                     pattern={allowNegative ? "-?[0-9.,]*" : "[0-9.,]*"}
+                     inputMode={allowNegative ? "text" : "decimal"}
                      step={0.01}
                      value={value}
                      {...inputAttributes}

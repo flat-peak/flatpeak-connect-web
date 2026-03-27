@@ -69,8 +69,8 @@ export const MarketSurchargeCapture = () => {
         </LeadingText>
         <Box rg={16} ai={'center'}>
           <BlockHeading text="Fee per kWh incl. VAT" icon={<CoinsIcon width={24} height={32} />} />
-          <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} prefix={getCurrencySymbol(action.data.currency_code)} useDefault={false} />
-          <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false} layoutRightOffset={44} />
+          <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} prefix={getCurrencySymbol(action.data.currency_code)} useDefault={false} allowNegative={true} />
+          <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false} layoutRightOffset={44} allowNegative={true} />
           <ButtonBig label={'Reset all additional costs'} type="button" variant={'link'} size={'small'} onClick={handleReset} />
         </Box>
         {Boolean(action.data.regions?.length) && (
