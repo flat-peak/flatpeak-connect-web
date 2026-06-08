@@ -3,6 +3,8 @@
   border-radius: 7px;
   border: 1px solid var(--color-border-azure_radiance);
   position: relative;
+  touch-action: manipulation;
+  cursor: pointer;
   //flex-basis: 82px;
   //flex-shrink: 0;
   //flex-grow: 0;
@@ -36,6 +38,8 @@
   font-feature-settings: 'case' on, 'ss03' on, 'salt' on;
 }
 .control {
+  position: relative;
+  z-index: 1;
   background: none;
   border: none;
   text-align: left;
@@ -74,8 +78,13 @@
   padding: 12px;
   //align-items: center;
   //justify-content: center;
+  z-index: 0;
   pointer-events: none;
   //padding-right: 15px;
+
+  * {
+    pointer-events: none;
+  }
 }
 .label {
   line-height: 1;

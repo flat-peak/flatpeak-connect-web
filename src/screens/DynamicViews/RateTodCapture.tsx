@@ -1,5 +1,5 @@
 import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler, useEffect, useState, useMemo} from "react";
+import {FormEventHandler, useState, useMemo} from "react";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
 import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
@@ -116,33 +116,24 @@ export const RateTodCapture = () => {
         }));
     };
 
+    const currencyCode = action.data.currency_code;
+
     const {day, night} = useMemo(
         () => processHours(action.data.hours || []),
         [action.data.hours]
     );
 
-    const [dayStart, setDayStart] = useState("00:00");
-    const [dayEnd, setDayEnd] = useState("00:00");
-    const [nightStart, setNightStart] = useState("00:00");
-    const [nightEnd, setNightEnd] = useState("00:00");
-    const [dayCost, setDayCost] = useState(0);
-    const [nightCost, setNightCost] = useState(0);
+    const [dayStart, setDayStart] = useState(() => day?.start ?? "00:00");
+    const [dayEnd, setDayEnd] = useState(() => day?.end ?? "00:00");
+    const [nightStart, setNightStart] = useState(() => night?.start ?? "00:00");
+    const [nightEnd, setNightEnd] = useState(() => night?.end ?? "00:00");
+    const dayCost = day ? convertCurrencyToMinorUnits(currencyCode, day.cost) : 0;
+    const nightCost = night ? convertCurrencyToMinorUnits(currencyCode, night.cost) : 0;
 
-    useEffect(() => {
-        const currencyCode = action.data.currency_code;
-        
-        if (day) {
-            setDayStart(day.start);
-            setDayEnd(day.end);
-            setDayCost(convertCurrencyToMinorUnits(currencyCode, day.cost));
-        }
-        
-        if (night) {
-            setNightStart(night.start);
-            setNightEnd(night.end);
-            setNightCost(convertCurrencyToMinorUnits(currencyCode, night.cost));
-        }
-    }, [day, night, action.data.currency_code]);
+    const timeInputsKey = useMemo(
+        () => [action.connect_token, day?.start, day?.end, night?.start, night?.end].join(":"),
+        [action.connect_token, day?.start, day?.end, night?.start, night?.end]
+    );
 
     return (
       <Layout
@@ -165,6 +156,7 @@ export const RateTodCapture = () => {
           <BlockHeading text={`Day rate (${getCurrencySymbol(action.data.currency_code)}/kWh)`} icon={<DayIcon width={24} height={32} />} />
           <Box cg={8} d={'row'}>
             <InputTime
+              key={`day_start_${timeInputsKey}`}
               name="day_startTime"
               value={dayStart}
               label={'Start'}
@@ -175,6 +167,7 @@ export const RateTodCapture = () => {
               }}
             />
             <InputTime
+              key={`day_end_${timeInputsKey}`}
               name="day_endTime"
               value={dayEnd}
               label={'End'}
@@ -198,6 +191,7 @@ export const RateTodCapture = () => {
           <BlockHeading text={`Night rate (${getCurrencySymbol(action.data.currency_code)}/kWh)`} icon={<NightIcon width={24} height={32} />} />
           <Box cg={8} d={'row'}>
             <InputTime
+              key={`night_start_${timeInputsKey}`}
               name="night_startTime"
               value={nightStart}
               label={'Start'}
@@ -208,6 +202,7 @@ export const RateTodCapture = () => {
               }}
             />
             <InputTime
+              key={`night_end_${timeInputsKey}`}
               name="night_endTime"
               value={nightEnd}
               label={'End'}
