@@ -1,7 +1,8 @@
-import { FormEventHandler } from "react";
+import { FormEventHandler, useState } from "react";
 import { useConnect } from "../../features/connect/lib/ConnectProvider";
 import { submitAction } from "../../features/connect/lib/service";
 import { COUNTRIES } from "../../shared/lib/countries";
+import { COUNTRIES_WITH_STATES, STATES_BY_COUNTRY } from "../../shared/lib/states";
 import Box from "../../shared/ui/Box/Box";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions";
@@ -16,14 +17,28 @@ import Combobox from "../../shared/ui/Combobox/Combobox";
 export const PostalAddressCapture = () => {
   const { proceed, action } = useConnect<"postal_address_capture">();
 
+  const [selectedCountry, setSelectedCountry] = useState(
+    action.data.postal_address.country_code ?? ""
+  );
+  const needsStateDropdown = COUNTRIES_WITH_STATES.includes(selectedCountry);
+
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
+    const form = event.target as unknown as {
+      address_line1: { value: string };
+      city: { value: string };
+      country_code: { value: string };
+      post_code: { value: string };
+      state?: { value: string };
+    };
     const {
       address_line1: { value: address_line1 },
       city: { value: city },
       country_code: { value: country_code },
       post_code: { value: post_code },
-    } = event.target as unknown as { [key: string]: { value: string } };
+    } = form;
+
+    const stateTrimmed = (form.state?.value ?? "").trim();
 
     proceed(
       submitAction({
@@ -36,6 +51,7 @@ export const PostalAddressCapture = () => {
             city,
             country_code,
             post_code,
+            ...(stateTrimmed ? { state: stateTrimmed } : {}),
           },
         },
       })
@@ -70,6 +86,7 @@ export const PostalAddressCapture = () => {
           label="Country"
           defaultValue={action.data.postal_address.country_code}
           hostClassName={styles.selectGray}
+          onChange={(value) => setSelectedCountry(value ?? "")}
         />
         <InputText
           secondaryText="Street address"
@@ -86,6 +103,16 @@ export const PostalAddressCapture = () => {
           autoComplete="city"
           defaultValue={action.data.postal_address.city}
         />
+        {needsStateDropdown && (
+          <Combobox
+            key={selectedCountry}
+            options={STATES_BY_COUNTRY[selectedCountry] ?? []}
+            name="state"
+            label="State"
+            defaultValue={action.data.postal_address.state ?? ""}
+            hostClassName={styles.selectGray}
+          />
+        )}
         <InputText
           secondaryText="Postcode / Zip"
           id="post_code"
