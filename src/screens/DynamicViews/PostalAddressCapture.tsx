@@ -17,9 +17,16 @@ export const PostalAddressCapture = () => {
     const {proceed, action} = useConnect<"postal_address_capture">();
 
     const [selectedCountry, setSelectedCountry] = useState(
-        action.data.postal_address.country_code ?? ""
+        (action.data.postal_address.country_code ?? "").toUpperCase()
     );
     const needsStateDropdown = COUNTRIES_WITH_STATES.includes(selectedCountry);
+
+    console.log("DEBUG PostalAddressCapture:", {
+        selectedCountry,
+        needsStateDropdown,
+        COUNTRIES_WITH_STATES,
+        rawCountryCode: action.data.postal_address.country_code,
+    });
 
     const handleSubmit: FormEventHandler = (event) => {
         event.preventDefault();
@@ -72,9 +79,13 @@ export const PostalAddressCapture = () => {
                         id="country_code"
                         name="country_code"
                         autoComplete="country_code"
-                        defaultValue={action.data.postal_address.country_code}
+                        defaultValue={action.data.postal_address.country_code?.toUpperCase() ?? ""}
                         options={COUNTRIES}
-                        onChange={(event) => setSelectedCountry(event.target.value)}/>
+                        onChange={(event) => {
+                            const value = event.target.value.toUpperCase();
+                            console.log("Country changed to:", value);
+                            setSelectedCountry(value);
+                        }}/>
                 <InputText
                     secondaryText="Street address"
                     id="address_line1"
@@ -98,7 +109,7 @@ export const PostalAddressCapture = () => {
                         name="state"
                         autoComplete="address-level1"
                         defaultValue={action.data.postal_address.state ?? ""}
-                        options={STATES_BY_COUNTRY[selectedCountry] ?? []}
+                        options={STATES_BY_COUNTRY[selectedCountry.toUpperCase()] ?? []}
                     />
                 )}
                 <InputText
