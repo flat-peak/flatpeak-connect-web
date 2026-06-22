@@ -18,7 +18,7 @@ export const PostalAddressCapture = () => {
   const { proceed, action } = useConnect<"postal_address_capture">();
 
   const [selectedCountry, setSelectedCountry] = useState(
-    action.data.postal_address.country_code ?? ""
+    (action.data.postal_address.country_code ?? "").toUpperCase()
   );
   const needsStateDropdown = COUNTRIES_WITH_STATES.includes(selectedCountry);
 
@@ -74,7 +74,7 @@ export const PostalAddressCapture = () => {
       <LeadingText>
         <Typography component={"p"} color="black_a40" variant="leading_string">
           Please enter your address. <br />
-          We don’t have enough information about your location to list
+          We don't have enough information about your location to list
           electricity providers in your area.
         </Typography>
       </LeadingText>
@@ -84,9 +84,9 @@ export const PostalAddressCapture = () => {
           options={COUNTRIES}
           name="country_code"
           label="Country"
-          defaultValue={action.data.postal_address.country_code}
+          defaultValue={action.data.postal_address.country_code?.toUpperCase() ?? ""}
           hostClassName={styles.selectGray}
-          onChange={(value) => setSelectedCountry(value ?? "")}
+          onChange={(value) => setSelectedCountry((value ?? "").toUpperCase())}
         />
         <InputText
           secondaryText="Street address"
@@ -106,7 +106,7 @@ export const PostalAddressCapture = () => {
         {needsStateDropdown && (
           <Combobox
             key={selectedCountry}
-            options={STATES_BY_COUNTRY[selectedCountry] ?? []}
+            options={STATES_BY_COUNTRY[selectedCountry.toUpperCase()] ?? []}
             name="state"
             label="State"
             defaultValue={action.data.postal_address.state ?? ""}
