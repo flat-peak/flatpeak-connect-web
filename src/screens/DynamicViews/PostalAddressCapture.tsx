@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { useConnect } from "../../features/connect/lib/ConnectProvider";
 import { submitAction } from "../../features/connect/lib/service";
 import { COUNTRIES } from "../../shared/lib/countries";
@@ -10,16 +10,21 @@ import InputText from "../../shared/ui/InputText/InputText";
 import Layout from "../../shared/ui/Layout/Layout";
 import { LeadingText } from "../../shared/ui/LeadingText/LeadingText";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading";
+import Select from "../../shared/ui/Select/Select";
 import Typography from "../../shared/ui/Typography/Typography";
 import styles from "./PostalAddressCapture.module.scss";
 import Combobox from "../../shared/ui/Combobox/Combobox";
 
 export const PostalAddressCapture = () => {
   const { proceed, action } = useConnect<"postal_address_capture">();
+  const countryCode = (action.data.postal_address.country_code ?? "").toUpperCase();
 
-  const [selectedCountry, setSelectedCountry] = useState(
-    (action.data.postal_address.country_code ?? "").toUpperCase()
-  );
+  const [selectedCountry, setSelectedCountry] = useState(countryCode);
+
+  useEffect(() => {
+    setSelectedCountry(countryCode);
+  }, [countryCode]);
+
   const needsStateDropdown = COUNTRIES_WITH_STATES.includes(selectedCountry);
 
   const handleSubmit: FormEventHandler = (event) => {
@@ -84,7 +89,7 @@ export const PostalAddressCapture = () => {
           options={COUNTRIES}
           name="country_code"
           label="Country"
-          defaultValue={action.data.postal_address.country_code?.toUpperCase() ?? ""}
+          defaultValue={selectedCountry}
           hostClassName={styles.selectGray}
           onChange={(value) => setSelectedCountry((value ?? "").toUpperCase())}
         />
@@ -104,12 +109,13 @@ export const PostalAddressCapture = () => {
           defaultValue={action.data.postal_address.city}
         />
         {needsStateDropdown && (
-          <Combobox
+          <Select
             key={selectedCountry}
-            options={STATES_BY_COUNTRY[selectedCountry.toUpperCase()] ?? []}
             name="state"
             label="State"
+            autoComplete="address-level1"
             defaultValue={action.data.postal_address.state ?? ""}
+            options={STATES_BY_COUNTRY[selectedCountry] ?? []}
             hostClassName={styles.selectGray}
           />
         )}
