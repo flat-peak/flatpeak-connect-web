@@ -8,13 +8,25 @@ type InputTextProps = {
     options: Array<{label: string, value: string}>;
     secondaryText?: string
     primaryText?: string;
+    allowEmpty?: boolean;
+    emptyLabel?: string;
 } &  InputHTMLAttributes<HTMLSelectElement>
 export default function Select(props: InputTextProps) {
-  const {secondaryText: label, defaultValue, options, ...inputAttributes } = props
+  const {
+    secondaryText: label,
+    defaultValue,
+    options,
+    allowEmpty = false,
+    emptyLabel = "",
+    ...inputAttributes
+  } = props
   return (
       <Box rg={8}>
           <View className={styles.host}>
               <select defaultValue={defaultValue} className={styles.control} {...inputAttributes}>
+                  {allowEmpty ? (
+                      <option value="">{emptyLabel}</option>
+                  ) : null}
                   {options.map((opt) => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
