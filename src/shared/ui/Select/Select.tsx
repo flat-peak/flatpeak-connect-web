@@ -9,13 +9,26 @@ type SelectProps = {
     options: Array<{label: string, value: string}>;
     label?: string;
     placeholder?: string;
+    allowEmpty?: boolean;
+    emptyLabel?: string;
     onChange?: (value: string) => void;
     hostClassName?: string;
     className?: string;
 } & Omit<InputHTMLAttributes<HTMLSelectElement>, 'onChange'>
 
 export default function Select(props: SelectProps) {
-    const {label, defaultValue, options, placeholder, onChange, hostClassName, className, ...inputAttributes } = props
+    const {
+        label,
+        defaultValue,
+        options,
+        placeholder = "Select an option",
+        allowEmpty = false,
+        emptyLabel = "",
+        onChange,
+        hostClassName,
+        className,
+        ...inputAttributes
+    } = props
 
 	return (
 		<Box rg={8}>
@@ -34,9 +47,13 @@ export default function Select(props: SelectProps) {
 					onChange={(e) => onChange?.(e.target.value)}
 					{...inputAttributes}
 				>
-					<option value="" disabled>
-						{placeholder}
-					</option>
+					{allowEmpty ? (
+						<option value="">{emptyLabel}</option>
+					) : (
+						<option value="" disabled>
+							{placeholder}
+						</option>
+					)}
 					{options.map((opt) => (
 						<option key={opt.value} value={opt.value}>{opt.label}</option>
 					))}
