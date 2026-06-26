@@ -97,6 +97,7 @@ export const PostalAddressCapture = () => {
                         id="state"
                         name="state"
                         autoComplete="address-level1"
+                        allowEmpty
                         defaultValue={action.data.postal_address.state ?? ""}
                         options={STATES_BY_COUNTRY[selectedCountry] ?? []}
                     />
