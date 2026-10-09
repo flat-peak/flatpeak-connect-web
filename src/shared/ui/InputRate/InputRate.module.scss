@@ -64,9 +64,29 @@
   min-width: 0;
   color: transparent;
   caret-color: var(--color-border-black);
+  background-color: transparent;
   touch-action: manipulation;
   user-select: text;
   -webkit-user-select: text;
+
+  &:focus {
+    background-color: transparent;
+  }
+
+  &::selection {
+    background-color: transparent;
+    color: transparent;
+  }
+
+  // iOS paints an opaque fill over the field while the decimal keypad is open,
+  // which hides the formatted value drawn behind this input.
+  @media (hover: none) and (pointer: coarse) {
+    &,
+    &:focus {
+      background-color: transparent !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
 
   &[type=number]::-webkit-inner-spin-button,
   &[type=number]::-webkit-outer-spin-button {

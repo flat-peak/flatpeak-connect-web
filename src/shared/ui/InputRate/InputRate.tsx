@@ -4,6 +4,7 @@ import Typography from "../Typography/Typography.js";
 import {
     forwardRef,
     InputHTMLAttributes,
+    useEffect,
     useImperativeHandle,
     useLayoutEffect,
     useRef,
@@ -30,6 +31,16 @@ export type InputRateHandle = {
 };
 
 const DECIMAL_SEPARATORS = /[,，]/g;
+const KEYPAD_ACCESSORY_BAR_HEIGHT = 52;
+
+const isIosDevice = () => {
+    if (typeof navigator === "undefined") {
+        return false;
+    }
+
+    return /iPad|iPhone|iPod/.test(navigator.userAgent)
+        || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+};
 
 type NormalizeOptions = {
     showDecimals: boolean;
@@ -381,6 +392,49 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
         setLimitError(null);
         onBlur?.(e);
     };
+
+    useEffect(() => {
+        if (!isFocused || !isIosDevice()) {
+            return;
+        }
+
+        const root = document.documentElement;
+        root.dataset.numericKeypad = "open";
+
+        const cover = document.createElement("div");
+        cover.dataset.numericKeypadCover = "";
+        Object.assign(cover.style, {
+            position: "fixed",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            background: "#fff",
+            pointerEvents: "none",
+            zIndex: "3",
+        });
+        document.body.appendChild(cover);
+
+        const updateCover = () => {
+            const viewport = window.visualViewport;
+            const inset = viewport
+                ? Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)
+                : 0;
+            // The inset is the keyboard. The extra band is the accessory row
+            // (previous / next / done) that iOS paints transparently over the page.
+            cover.style.height = `${inset + KEYPAD_ACCESSORY_BAR_HEIGHT}px`;
+        };
+
+        updateCover();
+        window.visualViewport?.addEventListener("resize", updateCover);
+        window.visualViewport?.addEventListener("scroll", updateCover);
+
+        return () => {
+            delete root.dataset.numericKeypad;
+            cover.remove();
+            window.visualViewport?.removeEventListener("resize", updateCover);
+            window.visualViewport?.removeEventListener("scroll", updateCover);
+        };
+    }, [isFocused]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target;

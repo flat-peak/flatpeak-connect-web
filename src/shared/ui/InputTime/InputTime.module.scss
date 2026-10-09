@@ -64,14 +64,37 @@
   padding: 34px 8px 18px;
   outline: none;
   -webkit-appearance: none;
+  appearance: none;
   color: var(--color-border-black);
   caret-color: var(--color-border-black);
+  background-color: transparent;
+
+  &:focus {
+    background-color: transparent;
+  }
 
   &[type="time"]::-webkit-calendar-picker-indicator {
     display: none;
+    background: transparent;
   }
   &[type="time"]::-webkit-inner-spin-button {
     display: none;
+  }
+  &[type="time"]::-webkit-datetime-edit,
+  &[type="time"]::-webkit-datetime-edit-fields-wrapper,
+  &[type="time"]::-webkit-datetime-edit-hour-field,
+  &[type="time"]::-webkit-datetime-edit-minute-field,
+  &[type="time"]::-webkit-datetime-edit-ampm-field {
+    background: transparent;
+    padding: 0;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    &,
+    &:focus {
+      background-color: transparent;
+      -webkit-tap-highlight-color: transparent;
+    }
   }
 }
 

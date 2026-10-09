@@ -103,11 +103,22 @@
   padding: 0;
   margin: 0;
 }
+html {
+  color-scheme: light;
+}
+
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background: whitesmoke;
+  background: #fff;
+}
+
+@media screen and (min-width: 442px) {
+  html,
+  body {
+    background: whitesmoke;
+  }
 }
 body {
   min-width: 320px;
@@ -124,4 +135,12 @@ a {
   font-weight: 500;
   color: var(--color-typography-blue_2);
   text-decoration: inherit;
+}
+
+/* iOS 26 draws the numeric keypad's accessory keys (previous / next / done)
+   from the page underneath. A translucent footer lets those keys show the form. */
+html[data-numeric-keypad="open"] footer {
+  background-color: #fff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
