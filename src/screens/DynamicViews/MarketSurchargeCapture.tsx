@@ -69,7 +69,7 @@ export const MarketSurchargeCapture = () => {
       >
         <MainHeading text="Surcharges" />
         <LeadingText>
-          <Typography color="black_a40" variant="leading_string">Add any extra charges if they are included in your tariff. <br/><br/>
+          <Typography color="black_a40" variant="leading_string">Add any extra charges or discounts if they are included in your tariff. Use ± for negative values. <br/><br/>
           We apply surcharges in this order: Fixed fee first, then Percentage on top.
           </Typography>
         </LeadingText>
@@ -85,6 +85,7 @@ export const MarketSurchargeCapture = () => {
             autoFocus={true}
             suffix={false}
             prefixPosition="end"
+            allowNegative={true}
           />
           <BlockHeading text="Percentage (%/kWh)" icon={<PercentageIcon width={26} height={26} />} />
           <InputRate
@@ -94,7 +95,7 @@ export const MarketSurchargeCapture = () => {
             autoFocus={false}
             suffix={false}
             prefixPosition="end"
-            showDecimals={false}
+            allowNegative={true}
           />
         </Box>
       </Layout>

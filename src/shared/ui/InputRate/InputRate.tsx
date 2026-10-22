@@ -23,6 +23,7 @@ type InputRateTimeProps = {
     label?: string;
     maxIntegerLength?: number;
     maxDecimalLength?: number;
+    allowNegative?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export type InputRateHandle = {
@@ -55,6 +56,15 @@ function getInitialRateValue(
 
 function replaceDecimalSeparators(value: string): string {
     return value.replace(DECIMAL_SEPARATORS, ".");
+}
+
+type SignedValue = { sign: "-" | ""; unsigned: string };
+
+function splitSign(value: string, allowNegative: boolean): SignedValue {
+    if (allowNegative && value.startsWith("-")) {
+        return { sign: "-", unsigned: value.slice(1) };
+    }
+    return { sign: "", unsigned: value };
 }
 
 function normalizeRateInputValue(
@@ -286,6 +296,7 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
         label,
         maxIntegerLength = 6,
         maxDecimalLength = 4,
+        allowNegative = false,
         onFocus,
         onBlur,
         ...inputAttributes
@@ -382,58 +393,96 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
         onBlur?.(e);
     };
 
+    const toggleSign = () => {
+        const { sign, unsigned } = splitSign(value, true);
+        const next = sign === "-" ? unsigned : `-${unsigned}`;
+        setLimitError(null);
+        setValue(next);
+        scheduleSelection(next.length);
+        inputRef.current?.focus();
+    };
+
+    const handleSignToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleSign();
+    };
+
+    const stopTouchPropagation = (event: React.TouchEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target;
-        const cursor = input.selectionStart ?? input.value.length;
-        const insertedChar = input.value.charAt(Math.max(0, cursor - 1));
+        const rawCursor = input.selectionStart ?? input.value.length;
+        const rawSelectionEnd = input.selectionEnd ?? rawCursor;
 
-        if (isIntegerLimitExceeded(value, input.value, insertedChar, maxIntegerLength)) {
-            rejectInput(cursor, "integer");
+        // A minus sign is only accepted as a leading sign; everything after it is
+        // validated exactly like a non-negative value.
+        const { sign, unsigned: rawUnsigned } = splitSign(input.value, allowNegative);
+        if (rawUnsigned.includes("-")) {
+            scheduleSelection(getRejectedInvalidCursor(rawCursor, value));
+            return;
+        }
+
+        const { unsigned: previousUnsigned } = splitSign(value, allowNegative);
+        const cursor = Math.max(0, rawCursor - sign.length);
+        const selectionEnd = Math.max(0, rawSelectionEnd - sign.length);
+        const insertedChar = rawUnsigned.charAt(Math.max(0, cursor - 1));
+
+        if (isIntegerLimitExceeded(previousUnsigned, rawUnsigned, insertedChar, maxIntegerLength)) {
+            rejectInput(rawCursor, "integer");
             return;
         }
 
         const rawValue = showDecimals
-            ? redirectPrependedDigit(input.value, value, maxIntegerLength, maxDecimalLength)
-            : input.value;
+            ? redirectPrependedDigit(rawUnsigned, previousUnsigned, maxIntegerLength, maxDecimalLength)
+            : rawUnsigned;
 
-        if (rawValue === value && input.value !== value) {
-            rejectInput(cursor, "integer");
+        if (rawValue === previousUnsigned && rawUnsigned !== previousUnsigned) {
+            rejectInput(rawCursor, "integer");
             return;
         }
 
-        const normalized = normalizeRateInputValue(rawValue, value, normalizeOptions);
+        const normalized = normalizeRateInputValue(rawValue, previousUnsigned, normalizeOptions);
 
         if (normalized === null) {
             const violation = getDecimalInputLimitViolation(rawValue, maxIntegerLength, maxDecimalLength);
             if (violation === "decimal") {
-                rejectInput(cursor, "decimal");
+                rejectInput(rawCursor, "decimal");
                 return;
             }
             if (violation === "integer") {
-                rejectInput(cursor, "integer");
+                rejectInput(rawCursor, "integer");
                 return;
             }
-            scheduleSelection(getRejectedInvalidCursor(cursor, value));
+            scheduleSelection(getRejectedInvalidCursor(rawCursor, value));
             return;
         }
 
-        if (normalized === value && isDecimalSeparator(insertedChar)) {
+        const nextValue = sign + normalized;
+
+        if (nextValue === value && isDecimalSeparator(insertedChar)) {
             const dotIndex = value.indexOf(".");
             const afterDecimal = dotIndex === -1 ? value.length : dotIndex + 1;
             scheduleSelection(afterDecimal);
             return;
         }
 
-        selectionRef.current = resolveSelectionAfterChange(
+        const selection = resolveSelectionAfterChange(
             rawValue,
-            value,
+            previousUnsigned,
             normalized,
             cursor,
-            input.selectionEnd ?? cursor,
+            selectionEnd,
             showDecimals,
         );
+        selectionRef.current = {
+            start: selection.start + sign.length,
+            end: selection.end + sign.length,
+        };
         setLimitError(null);
-        setValue(normalized);
+        setValue(nextValue);
     };
 
     return (
@@ -452,7 +501,7 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                     ref={inputRef}
                     className={styles.control}
                     type="text"
-                    pattern="[0-9.,]*"
+                    pattern={allowNegative ? "-?[0-9.,]*" : "[0-9.,]*"}
                     inputMode="decimal"
                     autoComplete="off"
                     value={value}
@@ -499,6 +548,18 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                     </View>
                 </View>
             </Box>
+            {allowNegative && (
+                <button
+                    type="button"
+                    className={styles.signToggle}
+                    onClick={handleSignToggle}
+                    onTouchEnd={stopTouchPropagation}
+                    aria-label="Toggle sign"
+                    tabIndex={-1}
+                >
+                    ±
+                </button>
+            )}
             {Boolean(layoutRightOffset) && <Box pr={layoutRightOffset} />}
             </View>
             {limitError && (
