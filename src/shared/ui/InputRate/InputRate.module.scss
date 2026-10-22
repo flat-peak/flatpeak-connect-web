@@ -80,3 +80,28 @@
   justify-content: center;
   width: 100%;
 }
+
+.signToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-azure_radiance);
+  background-color: var(--color-fill-white);
+  color: var(--color-typography-black, #000);
+  font-family: var(--font-regolapro-book);
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
