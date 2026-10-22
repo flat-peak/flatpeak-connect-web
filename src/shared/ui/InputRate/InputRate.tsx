@@ -38,6 +38,13 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
         }
     };
 
+    // The iOS decimal keypad has no minus key, so negative values are entered with a sign toggle.
+    const handleSignToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setValue((current) => String(current).startsWith('-') ? String(current).slice(1) : `-${current}`);
+        inputRef.current?.focus();
+    };
+
     return (
       <View className={[styles.host, styles['variant-'+variant]].join(' ')}>
           <Box className={styles.placeholder}>
@@ -46,7 +53,7 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                      className={styles.control}
                      type="text"
                      pattern={allowNegative ? "-?[0-9.,]*" : "[0-9.,]*"}
-                     inputMode={allowNegative ? "numeric" : "decimal"}
+                     inputMode="decimal"
                      step={0.01}
                      value={value}
                      {...inputAttributes}
@@ -73,6 +80,17 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                   {/*</Typography>*/}
               </View>
           </Box>
+          {allowNegative && (
+              <button
+                  type="button"
+                  className={styles.signToggle}
+                  onClick={handleSignToggle}
+                  aria-label="Toggle sign"
+                  tabIndex={-1}
+              >
+                  ±
+              </button>
+          )}
           {Boolean(layoutRightOffset) && <Box pr={layoutRightOffset}/>}
       </View>
   );
