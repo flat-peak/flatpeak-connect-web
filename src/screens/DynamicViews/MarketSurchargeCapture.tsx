@@ -1,5 +1,5 @@
 import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler, MouseEventHandler, useRef} from "react";
+import {FormEventHandler, useRef} from "react";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
 import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
@@ -15,9 +15,6 @@ import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
 import RegionPicker from "../../shared/ui/RegionPicker/RegionPicker.tsx";
 
-// Kept identical to the Anode (main) surcharge screen. Zero-only differences: the fixed fee is entered
-// in the major currency unit (Anode uses the minor unit), and the region picker is shown when the
-// backend could not detect the tariff zone.
 export const MarketSurchargeCapture = () => {
     const {action, proceed} = useConnect<"market_surcharge_capture">();
     const fixedCostInputRef = useRef<InputRateHandle>(null);
@@ -45,31 +42,21 @@ export const MarketSurchargeCapture = () => {
         }));
     }
 
-    const handleSkip: MouseEventHandler<HTMLButtonElement> = (event) => {
-        const regionControl = event.currentTarget.form?.elements.namedItem("region") as HTMLSelectElement | null;
-
-        proceed(submitAction({
-            route: action.route,
-            type: "submit",
-            connect_token: action.connect_token,
-            data: {
-                surcharge: {
-                    fixed: 0,
-                    percentage: 0
-                },
-                region: regionControl?.value
-            }
-        }));
+    const handleReset = () => {
+        if (fixedCostInputRef.current) {
+            fixedCostInputRef.current.reset()
+        }
+        if (percentCostInputRef.current) {
+            percentCostInputRef.current.reset()
+        }
     }
-
 
     return (
       <Layout
         component={'form'}
         footer={
-          <FooterActions variant={'compact'}>
+          <FooterActions>
             <ButtonBig label={'Next'} type="submit" />
-            <ButtonBig label={'Or skip this step'} type="button" variant={'text'}  onClick={handleSkip} />
           </FooterActions>
         }
         onSubmit={handleSubmit}
@@ -84,34 +71,15 @@ export const MarketSurchargeCapture = () => {
             Fixed fee applied first, then percentage on top.
           </Typography>
         </LeadingText>
-        <Box rg={16}>
+        <Box rg={16} ai={'center'}>
           <BlockHeading
             text={`Fixed (${getCurrencySymbol(action.data.currency_code)}/kWh)`}
             icon={<FixedSurchargesIcon width={26} height={26} />}
-        />
-          <InputRate
-            ref={fixedCostInputRef}
-            name="fixed"
-            variant="plain"
-            defaultValue={action.data.surcharge.fixed}
-            autoFocus={true}
-            useDefault={false}
-            showUnit={false}
-            placeholderText="0.00"
-            allowNegative={true}
           />
+          <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} prefix={getCurrencySymbol(action.data.currency_code)} useDefault={false} allowNegative={true} />
           <BlockHeading text="Percentage (%/kWh)" icon={<PercentageIcon width={26} height={26} />} />
-          <InputRate
-            ref={percentCostInputRef}
-            name="percentage"
-            variant="plain"
-            defaultValue={action.data.surcharge.percentage}
-            autoFocus={false}
-            useDefault={false}
-            showUnit={false}
-            placeholderText="0.00"
-            allowNegative={true}
-          />
+          <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false} layoutRightOffset={44} allowNegative={true} />
+          <ButtonBig label={'Reset all additional costs'} type="button" variant={'link'} size={'small'} onClick={handleReset} />
         </Box>
         {Boolean(action.data.regions?.length) && (
           <Box mt={32}>

@@ -6,7 +6,7 @@ import {ButtonHTMLAttributes} from "react";
 
 type ButtonBigProps = {
     label?: string;
-    variant?: 'default' | 'outlined' | 'critical' | 'secondary' | 'link' | 'critical-invert' | 'text';
+    variant?: 'default' | 'outlined' | 'critical' | 'secondary' | 'link' | 'critical-invert';
     size?: 'default' | 'small';
 } & ButtonHTMLAttributes<HTMLButtonElement>
 

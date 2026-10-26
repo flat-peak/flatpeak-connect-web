@@ -3,8 +3,7 @@ import View from "../View/View.tsx";
 import {PropsWithChildren} from "react";
 
 type FooterActionsProps = {
-    // 'compact' matches the Anode footer spacing: no minimum height, 36px bottom padding.
-    variant?: 'primary' | 'secondary' | 'compact',
+    variant?: 'primary' | 'secondary',
     transparent?: boolean;
 }
 export default function FooterActions(props: PropsWithChildren<FooterActionsProps>) {
