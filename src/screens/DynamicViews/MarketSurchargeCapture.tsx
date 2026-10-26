@@ -1,23 +1,27 @@
 import {useConnect} from "../../features/connect/lib/ConnectProvider.tsx";
-import {FormEventHandler, useRef} from "react";
+import {FormEventHandler, MouseEventHandler, useRef} from "react";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig.tsx";
 import Layout from "../../shared/ui/Layout/Layout.tsx";
 import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
 import Typography from "../../shared/ui/Typography/Typography.tsx";
 import Box from "../../shared/ui/Box/Box.tsx";
 import BlockHeading from "../../shared/ui/BlockHeading/BlockHeading.tsx";
-import InputRate, {InputRateHandle} from "../../shared/ui/InputRate/InputRate.tsx";
+import InputRateV2, {InputRateV2Handle} from "../../shared/ui/InputRate/InputRateV2.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
-import CoinsIcon from "../../shared/ui/icons/CoinsIcon.tsx";
+import FixedSurchargesIcon from "../../shared/ui/icons/FixedSurchargesIcon.tsx";
+import PercentageIcon from "../../shared/ui/icons/PercentageIcon.tsx";
 import {submitAction} from "../../features/connect/lib/service.ts";
 import {getCurrencySymbol} from "../../shared/lib/util.ts";
 import RegionPicker from "../../shared/ui/RegionPicker/RegionPicker.tsx";
 
+// Kept identical to the Anode (main) surcharge screen. Zero-only differences: the fixed fee is entered
+// in the major currency unit (Anode uses the minor unit), and the region picker is shown when the
+// backend could not detect the tariff zone.
 export const MarketSurchargeCapture = () => {
     const {action, proceed} = useConnect<"market_surcharge_capture">();
-    const fixedCostInputRef = useRef<InputRateHandle>(null);
-    const percentCostInputRef = useRef<InputRateHandle>(null);
+    const fixedCostInputRef = useRef<InputRateV2Handle>(null);
+    const percentCostInputRef = useRef<InputRateV2Handle>(null);
 
     const handleSubmit: FormEventHandler = (event) => {
         event.preventDefault();
@@ -41,39 +45,69 @@ export const MarketSurchargeCapture = () => {
         }));
     }
 
-    const handleReset = () => {
-        if (fixedCostInputRef.current) {
-            fixedCostInputRef.current.reset()
-        }
-        if (percentCostInputRef.current) {
-            percentCostInputRef.current.reset()
-        }
+    const handleSkip: MouseEventHandler<HTMLButtonElement> = (event) => {
+        const regionControl = event.currentTarget.form?.elements.namedItem("region") as HTMLSelectElement | null;
+
+        proceed(submitAction({
+            route: action.route,
+            type: "submit",
+            connect_token: action.connect_token,
+            data: {
+                surcharge: {
+                    fixed: 0,
+                    percentage: 0
+                },
+                region: regionControl?.value
+            }
+        }));
     }
+
 
     return (
       <Layout
         component={'form'}
         footer={
-          <FooterActions>
+          <FooterActions variant={'compact'}>
             <ButtonBig label={'Next'} type="submit" />
+            <ButtonBig label={'Or skip this step'} type="button" variant={'text'}  onClick={handleSkip} />
           </FooterActions>
         }
         onSubmit={handleSubmit}
         noValidate
       >
-        <MainHeading text="Additional Costs & Fees" />
+        <MainHeading text="Surcharges" />
         <LeadingText>
           <Typography color="black_a40" variant="leading_string">
-            If your electricity cost includes additional charges or fees from your provider, such as a fee on top of the market rate your tariff is based on, please add them here. <br/><br/>
+            Add any extra charges if they are included in your tariff. <br/><br/>
             Import surcharges are added (+).<br/>
-            Export surcharges are deducted (−).
+            Export surcharges are deducted (−). <br/><br/>
+            Fixed fee applied first, then percentage on top.
           </Typography>
         </LeadingText>
-        <Box rg={16} ai={'center'}>
-          <BlockHeading text="Fee per kWh incl. VAT" icon={<CoinsIcon width={24} height={32} />} />
-          <InputRate ref={fixedCostInputRef} name="fixed" defaultValue={action.data.surcharge.fixed} autoFocus={true} prefix={getCurrencySymbol(action.data.currency_code)} useDefault={false} allowNegative={true} />
-          <InputRate ref={percentCostInputRef} name="percentage" defaultValue={action.data.surcharge.percentage} autoFocus={false} suffix={"%"} useDefault={false} layoutRightOffset={44} allowNegative={true} />
-          <ButtonBig label={'Reset all additional costs'} type="button" variant={'link'} size={'small'} onClick={handleReset} />
+        <Box rg={16}>
+          <BlockHeading
+            text={`Fixed (${getCurrencySymbol(action.data.currency_code)}/kWh)`}
+            icon={<FixedSurchargesIcon width={26} height={26} />}
+        />
+          <InputRateV2
+            ref={fixedCostInputRef}
+            name="fixed"
+            defaultValue={action.data.surcharge.fixed}
+            autoFocus={true}
+            suffix={false}
+            prefixPosition="end"
+            allowNegative={true}
+          />
+          <BlockHeading text="Percentage (%/kWh)" icon={<PercentageIcon width={26} height={26} />} />
+          <InputRateV2
+            ref={percentCostInputRef}
+            name="percentage"
+            defaultValue={action.data.surcharge.percentage}
+            autoFocus={false}
+            suffix={false}
+            prefixPosition="end"
+            allowNegative={true}
+          />
         </Box>
         {Boolean(action.data.regions?.length) && (
           <Box mt={32}>
