@@ -69,8 +69,11 @@ export const MarketSurchargeCapture = () => {
       >
         <MainHeading text="Surcharges" />
         <LeadingText>
-          <Typography color="black_a40" variant="leading_string">Add any extra charges or discounts if they are included in your tariff. Use ± for negative values. <br/><br/>
-          We apply surcharges in this order: Fixed fee first, then Percentage on top.
+          <Typography color="black_a40" variant="leading_string">
+            Add any extra charges if they are included in your tariff. <br/><br/>
+            Import surcharges are added (+).<br/>
+            Export surcharges are deducted (−). <br/><br/>
+            Fixed fee applied first, then percentage on top.
           </Typography>
         </LeadingText>
         <Box rg={16}>
