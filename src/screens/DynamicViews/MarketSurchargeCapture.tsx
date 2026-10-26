@@ -6,7 +6,7 @@ import MainHeading from "../../shared/ui/MainHeading/MainHeading.tsx";
 import Typography from "../../shared/ui/Typography/Typography.tsx";
 import Box from "../../shared/ui/Box/Box.tsx";
 import BlockHeading from "../../shared/ui/BlockHeading/BlockHeading.tsx";
-import InputRateV2, {InputRateV2Handle} from "../../shared/ui/InputRate/InputRateV2.tsx";
+import InputRate, {InputRateHandle} from "../../shared/ui/InputRate/InputRate.tsx";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions.tsx";
 import {LeadingText} from "../../shared/ui/LeadingText/LeadingText.tsx";
 import FixedSurchargesIcon from "../../shared/ui/icons/FixedSurchargesIcon.tsx";
@@ -20,8 +20,8 @@ import RegionPicker from "../../shared/ui/RegionPicker/RegionPicker.tsx";
 // backend could not detect the tariff zone.
 export const MarketSurchargeCapture = () => {
     const {action, proceed} = useConnect<"market_surcharge_capture">();
-    const fixedCostInputRef = useRef<InputRateV2Handle>(null);
-    const percentCostInputRef = useRef<InputRateV2Handle>(null);
+    const fixedCostInputRef = useRef<InputRateHandle>(null);
+    const percentCostInputRef = useRef<InputRateHandle>(null);
 
     const handleSubmit: FormEventHandler = (event) => {
         event.preventDefault();
@@ -89,23 +89,27 @@ export const MarketSurchargeCapture = () => {
             text={`Fixed (${getCurrencySymbol(action.data.currency_code)}/kWh)`}
             icon={<FixedSurchargesIcon width={26} height={26} />}
         />
-          <InputRateV2
+          <InputRate
             ref={fixedCostInputRef}
             name="fixed"
+            variant="plain"
             defaultValue={action.data.surcharge.fixed}
             autoFocus={true}
-            suffix={false}
-            prefixPosition="end"
+            useDefault={false}
+            showUnit={false}
+            placeholderText="0.00"
             allowNegative={true}
           />
           <BlockHeading text="Percentage (%/kWh)" icon={<PercentageIcon width={26} height={26} />} />
-          <InputRateV2
+          <InputRate
             ref={percentCostInputRef}
             name="percentage"
+            variant="plain"
             defaultValue={action.data.surcharge.percentage}
             autoFocus={false}
-            suffix={false}
-            prefixPosition="end"
+            useDefault={false}
+            showUnit={false}
+            placeholderText="0.00"
             allowNegative={true}
           />
         </Box>

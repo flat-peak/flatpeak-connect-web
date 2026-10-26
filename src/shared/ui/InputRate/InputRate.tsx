@@ -5,12 +5,15 @@ import {forwardRef, InputHTMLAttributes, useImperativeHandle, useRef, useState} 
 import Box from "../Box/Box.js";
 
 type InputRateTimeProps = {
-    variant?: "primary" | "secondary",
+    // "plain" places the value like the Anode field: closer to the bottom, used on the surcharge screen.
+    variant?: "primary" | "secondary" | "plain",
     prefix?: string;
     suffix?: string;
     useDefault?: boolean;
     layoutRightOffset?: number;
     allowNegative?: boolean;
+    showUnit?: boolean;
+    placeholderText?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export type InputRateHandle = {
@@ -18,9 +21,12 @@ export type InputRateHandle = {
 };
 
 const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) => {
-    const { variant, prefix="", suffix = "", defaultValue, useDefault = true, layoutRightOffset = 0, allowNegative = false, ...inputAttributes } = props
+    const { variant, prefix="", suffix = "", defaultValue, useDefault = true, layoutRightOffset = 0, allowNegative = false, showUnit = true, placeholderText = "", onFocus, onBlur, ...inputAttributes } = props
 
     const [value, setValue] = useState(defaultValue || useDefault ? '0.00' : "");
+
+    const [isFocused, setIsFocused] = useState(false);
+    const showPlaceholder = Boolean(placeholderText) && value === "" && !isFocused;
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -57,6 +63,8 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                      step={0.01}
                      value={value}
                      {...inputAttributes}
+                     onFocus={(e) => { setIsFocused(true); onFocus?.(e); }}
+                     onBlur={(e) => { setIsFocused(false); onBlur?.(e); }}
                      onChange={handleChange}
               />
               <View className={styles.overlay}>
@@ -64,15 +72,17 @@ const InputRate = forwardRef<InputRateHandle, InputRateTimeProps>((props, ref) =
                       <Typography color="black" variant="button__forms32_book" className={styles.prefix}>
                           {prefix}
                       </Typography>
-                      <Typography color="black" variant="button__forms32_book" className={styles.value}>
-                          {String(value)}
+                      <Typography color={showPlaceholder ? "black_a40" : "black"} variant="button__forms32_book" className={styles.value}>
+                          {showPlaceholder ? placeholderText : String(value)}
                       </Typography>
 
                       <Typography color="black" variant="button__forms32_book" className={styles.suffix}>
                           {suffix}
-                          <Typography color="black" variant="button__forms16_book_kwh">
-                              /kWh
-                          </Typography>
+                          {showUnit && (
+                              <Typography color="black" variant="button__forms16_book_kwh">
+                                  /kWh
+                              </Typography>
+                          )}
                       </Typography>
                   </View>
                   {/*<Typography color="black" variant="button__forms32_book" className={styles.fakeSuffix}>*/}

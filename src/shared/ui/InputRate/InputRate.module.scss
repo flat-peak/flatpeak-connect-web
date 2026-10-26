@@ -10,6 +10,19 @@
   align-items: center;
 }
 
+.variant-plain {
+  overflow: hidden;
+
+  .control {
+    padding: 34px 40px 18px;
+  }
+  .overlay {
+    align-items: flex-end;
+    padding-bottom: 18px;
+    box-sizing: border-box;
+  }
+}
+
 .variant-secondary {
   background-color: var(--color-fill-white);
   border-radius: 12px;
@@ -83,7 +96,7 @@
 
 .signToggle {
   position: absolute;
-  right: 10px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
