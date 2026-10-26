@@ -64,7 +64,9 @@ export const MarketSurchargeCapture = () => {
         <MainHeading text="Additional Costs & Fees" />
         <LeadingText>
           <Typography color="black_a40" variant="leading_string">
-            If your electricity cost includes additional charges or fees from your provider, such as a fee on top of the market rate your tariff is based on, please add them here.
+            If your electricity cost includes additional charges or fees from your provider, such as a fee on top of the market rate your tariff is based on, please add them here. <br/><br/>
+            Import surcharges are added (+).<br/>
+            Export surcharges are deducted (−).
           </Typography>
         </LeadingText>
         <Box rg={16} ai={'center'}>
