@@ -11,6 +11,7 @@ type SelectProps = {
     placeholder?: string;
     allowEmpty?: boolean;
     emptyLabel?: string;
+    error?: string;
     onChange?: (value: string) => void;
     hostClassName?: string;
     className?: string;
@@ -24,6 +25,7 @@ export default function Select(props: SelectProps) {
         placeholder = "Select an option",
         allowEmpty = false,
         emptyLabel = "",
+        error,
         onChange,
         hostClassName,
         className,
@@ -32,7 +34,7 @@ export default function Select(props: SelectProps) {
 
 	return (
 		<Box rg={8}>
-            <View className={`${styles.host} ${hostClassName || ''}`}>
+            <View className={`${styles.host} ${hostClassName || ''} ${error ? styles.hostError : ''}`}>
 				{label && (
 					<Typography
 						color={'black_a60'}
@@ -44,6 +46,7 @@ export default function Select(props: SelectProps) {
                 <select
 					defaultValue={defaultValue}
                     className={`${styles.control} ${label && styles.inputWithLabel} ${className || ''}`}
+					aria-invalid={error ? true : undefined}
 					onChange={(e) => onChange?.(e.target.value)}
 					{...inputAttributes}
 				>
@@ -63,6 +66,11 @@ export default function Select(props: SelectProps) {
 					<SmallArrowRightIcon direction='down'/>
 				</div>
 			</View>
+			{error && (
+				<Typography className={styles.error} color="red" variant="button__forms12_book">
+					{error}
+				</Typography>
+			)}
 		</Box>
 	);
 }
