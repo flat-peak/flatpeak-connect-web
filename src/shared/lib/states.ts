@@ -80,3 +80,17 @@ export const STATES_BY_COUNTRY: Record<string, Array<{ label: string; value: str
 };
 
 export const COUNTRIES_WITH_STATES = ["US", "CA", "AU"];
+
+// Countries where the provider list is only correct once the state is known (ENR-3058).
+export const COUNTRIES_REQUIRING_STATE = ["US"];
+
+// Backend accepts both codes ("CA") and full names ("California"), case-insensitively,
+// so an address coming back from the API may hold either. Resolve it to the option code.
+export const findStateCode = (countryCode: string, state?: string): string => {
+  const needle = (state ?? "").trim().toLowerCase();
+  if (!needle) return "";
+  const match = (STATES_BY_COUNTRY[countryCode] ?? []).find(
+    (option) => option.value.toLowerCase() === needle || option.label.toLowerCase() === needle
+  );
+  return match?.value ?? "";
+};

@@ -6,6 +6,15 @@
   height: 64px;
 }
 
+.host.hostError {
+  border: 1px solid var(--color-typography-red);
+}
+
+.error {
+  padding: 0 4px;
+  line-height: 1.2;
+}
+
 .label {
   position: absolute;
   pointer-events: none;

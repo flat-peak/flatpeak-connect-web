@@ -1,8 +1,14 @@
 import { FormEventHandler, useEffect, useState } from "react";
 import { useConnect } from "../../features/connect/lib/ConnectProvider";
 import { submitAction } from "../../features/connect/lib/service";
+import { ActionException, CommonRenderRoute, RenderError } from "../../features/connect/lib/types";
 import { COUNTRIES } from "../../shared/lib/countries";
-import { COUNTRIES_WITH_STATES, STATES_BY_COUNTRY } from "../../shared/lib/states";
+import {
+  COUNTRIES_REQUIRING_STATE,
+  COUNTRIES_WITH_STATES,
+  STATES_BY_COUNTRY,
+  findStateCode,
+} from "../../shared/lib/states";
 import Box from "../../shared/ui/Box/Box";
 import ButtonBig from "../../shared/ui/ButtonBig/ButtonBig";
 import FooterActions from "../../shared/ui/FooterActions/FooterActions";
@@ -15,17 +21,38 @@ import Typography from "../../shared/ui/Typography/Typography";
 import styles from "./PostalAddressCapture.module.scss";
 import Combobox from "../../shared/ui/Combobox/Combobox";
 
+const STATE_REQUIRED_MESSAGE = "Please select your state";
+
+// The API rejects a US address with a missing or invalid state with an error that
+// names the `state` field (ENR-3058). Surface that next to the field instead of
+// failing the whole session.
+const getStateErrorMessage = (response: unknown): string | undefined => {
+  const exception = response as Partial<ActionException>;
+  if (exception?.object === "error") {
+    const text = `${exception.code ?? ""} ${exception.message ?? ""}`;
+    return /\bstate\b/i.test(text) ? exception.message : undefined;
+  }
+  const errorRoute = response as Partial<RenderError>;
+  if (errorRoute?.route === "error") {
+    const text = `${errorRoute.error_code ?? ""} ${errorRoute.error_message ?? ""}`;
+    return /\bstate\b/i.test(text) ? errorRoute.error_message : undefined;
+  }
+  return undefined;
+};
+
 export const PostalAddressCapture = () => {
   const { proceed, action } = useConnect<"postal_address_capture">();
   const countryCode = (action.data.postal_address.country_code ?? "").toUpperCase();
 
   const [selectedCountry, setSelectedCountry] = useState(countryCode);
+  const [stateError, setStateError] = useState<string | undefined>();
 
   useEffect(() => {
     setSelectedCountry(countryCode);
   }, [countryCode]);
 
   const needsStateDropdown = COUNTRIES_WITH_STATES.includes(selectedCountry);
+  const isStateRequired = COUNTRIES_REQUIRING_STATE.includes(selectedCountry);
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
@@ -45,21 +72,39 @@ export const PostalAddressCapture = () => {
 
     const stateTrimmed = (form.state?.value ?? "").trim();
 
-    proceed(
-      submitAction({
-        route: action.route,
-        type: "submit",
-        connect_token: action.connect_token,
-        data: {
-          postal_address: {
-            address_line1,
-            city,
-            country_code,
-            post_code,
-            ...(stateTrimmed ? { state: stateTrimmed } : {}),
-          },
+    if (isStateRequired && !stateTrimmed) {
+      setStateError(STATE_REQUIRED_MESSAGE);
+      (form.state as unknown as HTMLSelectElement | undefined)?.focus();
+      return;
+    }
+    setStateError(undefined);
+
+    const request: Promise<CommonRenderRoute> = submitAction({
+      route: action.route,
+      type: "submit",
+      connect_token: action.connect_token,
+      data: {
+        postal_address: {
+          address_line1,
+          city,
+          country_code,
+          post_code,
+          ...(stateTrimmed ? { state: stateTrimmed } : {}),
         },
-      })
+      },
+    });
+
+    request.then(
+      (response) => {
+        const message = getStateErrorMessage(response);
+        if (message) {
+          setStateError(message);
+        } else {
+          proceed(request);
+        }
+      },
+      // Network failures keep the existing full-screen error handling in `proceed`.
+      () => proceed(request)
     );
   };
 
@@ -91,7 +136,10 @@ export const PostalAddressCapture = () => {
           label="Country"
           defaultValue={selectedCountry}
           hostClassName={styles.selectGray}
-          onChange={(value) => setSelectedCountry((value ?? "").toUpperCase())}
+          onChange={(value) => {
+            setSelectedCountry((value ?? "").toUpperCase());
+            setStateError(undefined);
+          }}
         />
         <InputText
           secondaryText="Street address"
@@ -114,10 +162,14 @@ export const PostalAddressCapture = () => {
             name="state"
             label="State"
             autoComplete="address-level1"
-            allowEmpty
-            defaultValue={action.data.postal_address.state ?? ""}
+            allowEmpty={!isStateRequired}
+            placeholder="Select your state"
+            required={isStateRequired}
+            defaultValue={findStateCode(selectedCountry, action.data.postal_address.state)}
             options={STATES_BY_COUNTRY[selectedCountry] ?? []}
             hostClassName={styles.selectGray}
+            error={stateError}
+            onChange={() => setStateError(undefined)}
           />
         )}
         <InputText
