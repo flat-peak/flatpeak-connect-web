@@ -1,0 +1,36 @@
+{
+  "name": "connect-router-web-client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 7070",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "preview": "vite preview --port 7070"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "big.js": "^7.0.1",
+    "classnames": "^2.5.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0"
+  },
+  "devDependencies": {
+    "@types/big.js": "^6.2.2",
+    "@types/node": "^24.10.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.12.1",
+    "@typescript-eslint/parser": "^8.12.1",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "sass": "^1.97.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0"
+  }
+}

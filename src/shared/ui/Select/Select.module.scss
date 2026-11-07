@@ -1,0 +1,87 @@
+.host {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  position: relative;
+  height: 64px;
+}
+
+.host.hostError {
+  border: 1px solid var(--color-typography-red);
+}
+
+.error {
+  padding: 0 4px;
+  line-height: 1.2;
+}
+
+.label {
+  position: absolute;
+  pointer-events: none;
+  transition: 300ms ease all;
+  font-feature-settings: 'salt' on;
+  line-height: 1;
+  top: 14px;
+  left: 20px;
+  color: var(--color-border-black_a40);
+  font-size: 12px;
+}
+
+.control.inputWithLabel {
+  padding: 21px 20px 0 !important;
+}
+
+.control {
+  font-family: var(--font-regolapro-book);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+  background: none;
+  border: none;
+  height: 64px;
+  padding: 0 40px 0 16px;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  color: #333333;
+
+  &:focus {
+    outline: none;
+  }
+  &:focus ~ .label,
+  &:not(:placeholder-shown) ~ .label,
+  &:valid ~ .label {
+    top: 14px;
+    font-size: 12px;
+  }
+  &::placeholder {
+    color: transparent;
+  }
+  
+  option {
+    color: #333333;
+    background-color: #ffffff;
+    
+    &:disabled,
+    &:first-child {
+      color: #999999;
+      font-style: italic;
+    }
+  }
+  
+  &:invalid {
+    color: #999999;
+  }
+}
+
+
+.chevron {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}

@@ -1,0 +1,41 @@
+.host {
+  min-height: calc(64px + var(--extra-top-offset, 0));
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  gap: 8px;
+  padding: var(--extra-top-offset, 0) 24px 0;
+  flex: 0 1 auto;
+  position: relative;
+  --extra-top-offset: 24px;
+  background-color: var(--color-blurred-fade);
+  backdrop-filter: saturate(180%) blur(10px);
+}
+
+.leftButton {
+  grid-column: 1;
+}
+
+.centerContent {
+  grid-column: 2;
+  justify-self: center;
+}
+
+.rightButton {
+  grid-column: 3;
+  justify-self: end;
+}
+
+.customProvider {
+  border-radius: 4px;
+  padding: 4px 5px 2px;
+  border: 1px solid var(--color-border-black_a23);
+  display: flex;
+  align-items: center;
+}
+
+
+.title {
+  letter-spacing: 0.5px;
+  font-feature-settings: 'cpsp' on, 'ss03' on, 'salt' on;
+}

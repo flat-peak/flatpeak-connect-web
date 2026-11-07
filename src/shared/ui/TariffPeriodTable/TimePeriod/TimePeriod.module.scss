@@ -1,0 +1,32 @@
+.host {
+  display: flex;
+  flex-direction: row;
+  height: 24px;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.arrow {
+  letter-spacing: -15%;
+}
+
+.label {
+  line-height: 24px;
+}
+
+.dot {
+  padding-bottom: 2px;
+  padding-right: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.numeric {
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'case' on, 'salt' on;
+}
+
+.colon {
+  text-align: center;
+  font-feature-settings: 'case' on, 'salt' on;
+}
