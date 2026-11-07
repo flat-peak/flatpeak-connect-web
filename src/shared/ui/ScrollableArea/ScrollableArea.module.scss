@@ -1,0 +1,6 @@
+.host {
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  flex: 1;
+  padding-bottom: calc(24px + 72px + 64px);
+}
